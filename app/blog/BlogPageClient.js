@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import BlogList from '../components/BlogList';
-import { Search, Filter, Clock, TrendingUp, Calendar, ChevronDown, ArrowLeft, Tag, Bookmark, Share2, Eye } from 'lucide-react';
+import { Search, Filter, Clock, TrendingUp, Calendar, ChevronDown, ArrowLeft, Tag, Bookmark, Share2, Eye, BookOpen } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Head from 'next/head';
@@ -101,14 +101,14 @@ export default function BlogPageClient({ initialBlogs }) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 via-white to-gray-50 py-20">
+    <div className="min-h-screen bg-white py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Back to Home Link */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.4 }}
-          className="mb-8"
+          className="mb-4"
         >
           <Link
             href="/"
@@ -120,246 +120,233 @@ export default function BlogPageClient({ initialBlogs }) {
         </motion.div>
 
         {/* Header Section */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold mb-4 gradient-text">lf32's Blog_</h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold mb-2 gradient-text">lf32's Blog_</h1>
+          <p className="text-base text-gray-600 max-w-2xl mx-auto mb-6">
             Insights, tutorials, and experiences from my journey in software development and cybersecurity
           </p>
+        </div>
 
-          {/* Search and Filter Bar */}
-          <div className="max-w-3xl mx-auto mb-8">
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Search className="h-5 w-5 text-gray-400" />
+        {/* Two Column Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          {/* Left Sidebar - Filters */}
+          <div className="lg:col-span-1">
+            <div className="sticky top-8">
+              {/* Search Bar */}
+              <div className="mb-6">
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Search className="h-4 w-4 text-gray-400" />
+                  </div>
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search articles..."
+                    className="block w-full pl-9 pr-3 py-2 border border-gray-200 rounded-lg bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  />
+                  {searchQuery && (
+                    <button
+                      onClick={() => setSearchQuery('')}
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+                    >
+                      ×
+                    </button>
+                  )}
+                </div>
               </div>
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search articles by title, content, or tags..."
-                className="block w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl bg-white/50 backdrop-blur-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery('')}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
-                >
-                  ×
-                </button>
-              )}
-            </div>
-          </div>
 
-          {/* Filter Toggle Button */}
-          <button
-            onClick={() => setShowFilters(!showFilters)}
-            className="inline-flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-blue-600 transition-colors duration-200"
-          >
-            <Filter className="h-4 w-4" />
-            <span>{showFilters ? 'Hide Filters' : 'Show Filters'}</span>
-          </button>
-
-          {/* Filters Section */}
-          <AnimatePresence>
-            {showFilters && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                className="mt-8"
-              >
-                {/* Categories */}
-                <div className="mb-6">
-                  <h3 className="text-sm font-medium text-gray-700 mb-3">Categories</h3>
-                  <div className="flex flex-wrap justify-center gap-2">
-                    {categories.map((category) => (
+              {/* Categories */}
+              <div className="mb-6">
+                <h3 className="text-sm font-medium text-gray-700 mb-3 flex items-center gap-2">
+                  <Tag className="w-4 h-4" />
+                  Categories
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {categories.map((category) => {
+                    const isSelected = selectedCategories.includes(category.name);
+                    return (
                       <button
                         key={category.name}
                         onClick={() => toggleCategory(category.name)}
-                        className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-                          selectedCategories.includes(category.name)
-                            ? `bg-${category.color}-100 text-${category.color}-700 border-2 border-${category.color}-200`
-                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                        }`}
+                        className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium border transition-all duration-200
+                          ${isSelected
+                            ? `bg-${category.color}-50 text-${category.color}-700 border-${category.color}-200 shadow-sm`
+                            : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50 hover:text-gray-800 hover:border-gray-300'}
+                        `}
+                        style={{ lineHeight: 1.2 }}
                       >
-                        <span>{category.icon}</span>
-                        {category.name}
+                        <span className="text-lg">{category.icon}</span>
+                        <span>{category.name}</span>
+                        {isSelected && (
+                          <span
+                            className="ml-1 flex items-center justify-center w-4 h-4 rounded-full hover:bg-opacity-80 transition-colors duration-200"
+                            style={{ background: 'transparent' }}
+                            onClick={e => { e.stopPropagation(); toggleCategory(category.name); }}
+                            aria-label={`Remove ${category.name}`}
+                          >
+                            <svg className="w-3 h-3 text-${category.color}-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </span>
+                        )}
                       </button>
-                    ))}
-                  </div>
+                    );
+                  })}
                 </div>
+              </div>
 
-                {/* Sort and View Controls */}
-                <div className="flex items-center justify-center gap-4">
-                  <div className="relative">
+              {/* Sort Controls */}
+              <div className="mb-6">
+                <h3 className="text-sm font-medium text-gray-700 mb-3 flex items-center gap-2">
+                  <Filter className="w-4 h-4" />
+                  Sort by
+                </h3>
+                <div className="space-y-2">
+                  {sortOptions.map((option) => (
                     <button
-                      onClick={() => setIsFilterOpen(!isFilterOpen)}
-                      className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors duration-200"
+                      key={option.value}
+                      onClick={() => setSortBy(option.value)}
+                      className={`w-full text-left flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all duration-200 border ${
+                        sortBy === option.value 
+                          ? 'bg-blue-50 text-blue-600 border-blue-200 shadow-sm' 
+                          : 'bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-800 border-gray-200 hover:border-gray-300 hover:shadow-sm'
+                      }`}
                     >
-                      <Filter className="h-4 w-4" />
-                      <span>Sort by</span>
-                      <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${isFilterOpen ? 'rotate-180' : ''}`} />
-                    </button>
-
-                    <AnimatePresence>
-                      {isFilterOpen && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: 10 }}
-                          className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-100 py-1 z-10"
-                        >
-                          {sortOptions.map((option) => (
-                            <button
-                              key={option.value}
-                              onClick={() => {
-                                setSortBy(option.value);
-                                setIsFilterOpen(false);
-                              }}
-                              className={`w-full px-4 py-2 text-left text-sm hover:bg-gray-50 ${
-                                sortBy === option.value ? 'text-blue-600 bg-blue-50' : 'text-gray-700'
-                              }`}
-                            >
-                              <div className="flex items-center gap-2">
-                                <option.icon className="h-4 w-4" />
-                                <div>
-                                  <div className="font-medium">{option.label}</div>
-                                </div>
-                              </div>
-                            </button>
-                          ))}
-                        </motion.div>
+                      <option.icon className="h-4 w-4" />
+                      <span className="flex-1">{option.label}</span>
+                      {sortBy === option.value && (
+                        <div className="w-2 h-2 rounded-full bg-current"></div>
                       )}
-                    </AnimatePresence>
-                  </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
 
-                  {/* View Mode Toggle */}
-                  <div className="flex items-center gap-2 bg-white rounded-lg border border-gray-200 p-1">
-                    <button
-                      onClick={() => setViewMode('grid')}
-                      className={`p-2 rounded-md transition-colors duration-200 ${
-                        viewMode === 'grid' ? 'bg-blue-50 text-blue-600' : 'text-gray-600 hover:bg-gray-50'
-                      }`}
-                      aria-label="Grid view"
-                    >
-                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                      </svg>
-                    </button>
-                    <button
-                      onClick={() => setViewMode('list')}
-                      className={`p-2 rounded-md transition-colors duration-200 ${
-                        viewMode === 'list' ? 'bg-blue-50 text-blue-600' : 'text-gray-600 hover:bg-gray-50'
-                      }`}
-                      aria-label="List view"
-                    >
-                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                      </svg>
-                    </button>
+              {/* Active Filters */}
+              {(selectedCategories.length > 0 || searchQuery) && (
+                <div className="mb-6">
+                  <h3 className="text-sm font-medium text-gray-700 mb-3 flex items-center gap-2">
+                    <Filter className="w-4 h-4" />
+                    Active Filters
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedCategories.map(category => (
+                      <span
+                        key={category}
+                        className="inline-flex items-center gap-1 px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs border border-blue-200 font-medium"
+                      >
+                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div>
+                        {category}
+                        <button
+                          onClick={() => toggleCategory(category)}
+                          className="ml-1 p-0.5 hover:bg-blue-100 rounded-full transition-colors duration-200"
+                          aria-label={`Remove ${category}`}
+                        >
+                          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </button>
+                      </span>
+                    ))}
+                    {searchQuery && (
+                      <span className="inline-flex items-center gap-1 px-3 py-1 bg-gray-50 text-gray-700 rounded-full text-xs border border-gray-200 font-medium">
+                        <Search className="w-3 h-3" />
+                        "{searchQuery}"
+                        <button
+                          onClick={() => setSearchQuery('')}
+                          className="ml-1 p-0.5 hover:bg-gray-100 rounded-full transition-colors duration-200"
+                          aria-label="Remove search filter"
+                        >
+                          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </button>
+                      </span>
+                    )}
+                    {(selectedCategories.length > 0 || searchQuery) && (
+                      <button
+                        onClick={clearFilters}
+                        className="inline-flex items-center gap-1 px-3 py-1 text-xs text-gray-600 hover:text-gray-800 font-medium bg-gray-50 hover:bg-gray-100 rounded-full border border-gray-200 transition-all duration-200"
+                      >
+                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                        Clear all
+                      </button>
+                    )}
                   </div>
                 </div>
+              )}
+
+              {/* Results Count */}
+              <div className="text-sm text-gray-500 bg-gray-50 px-3 py-2 rounded-lg border border-gray-200">
+                <div className="flex items-center gap-2">
+                  <BookOpen className="w-4 h-4" />
+                  <span>{filteredBlogs.length} article{filteredBlogs.length !== 1 ? 's' : ''} found</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Side - Blog List */}
+          <div className="lg:col-span-3">
+            {/* Recently Viewed Section */}
+            {recentlyViewed.length > 0 && (
+              <div className="mb-8">
+                <h2 className="text-lg font-semibold text-gray-800 mb-3">Recently Viewed</h2>
+                <div className="space-y-2">
+                  {recentlyViewed.slice(0, 3).map(blog => (
+                    <Link
+                      key={blog.date}
+                      href={`/blog/${blog.date}`}
+                      className="group block bg-gray-50 rounded-lg border border-gray-100 p-3 hover:border-blue-200 transition-colors duration-200"
+                    >
+                      <div className="flex items-start gap-3">
+                        <div className="flex-shrink-0 w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center text-blue-600">
+                          <Bookmark className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <h3 className="font-medium text-gray-800 group-hover:text-blue-600 transition-colors duration-200 line-clamp-1 text-sm">
+                            {blog.title}
+                          </h3>
+                          <p className="text-xs text-gray-500 mt-0.5">
+                            {new Date(blog.date).toLocaleDateString()}
+                          </p>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Blog List */}
+            <div className="space-y-2">
+              <BlogList blogs={filteredBlogs} viewMode="list" />
+            </div>
+
+            {/* No Results State */}
+            {filteredBlogs.length === 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-center py-8"
+              >
+                <div className="mb-3">
+                  <Search className="w-8 h-8 text-gray-400 mx-auto" />
+                </div>
+                <p className="text-gray-600 mb-3 text-sm">No articles found matching your criteria</p>
+                <button
+                  onClick={clearFilters}
+                  className="text-blue-600 hover:text-blue-700 font-medium text-sm"
+                >
+                  Clear all filters
+                </button>
               </motion.div>
             )}
-          </AnimatePresence>
-
-          {/* Active Filters */}
-          {(selectedCategories.length > 0 || searchQuery) && (
-            <div className="mt-6 flex flex-wrap justify-center gap-2">
-              {selectedCategories.map(category => (
-                <span
-                  key={category}
-                  className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm"
-                >
-                  {category}
-                  <button
-                    onClick={() => toggleCategory(category)}
-                    className="hover:text-blue-900"
-                  >
-                    ×
-                  </button>
-                </span>
-              ))}
-              {searchQuery && (
-                <span className="inline-flex items-center gap-1 px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">
-                  Search: {searchQuery}
-                  <button
-                    onClick={() => setSearchQuery('')}
-                    className="hover:text-gray-900"
-                  >
-                    ×
-                  </button>
-                </span>
-              )}
-              <button
-                onClick={clearFilters}
-                className="text-sm text-blue-600 hover:text-blue-700 font-medium"
-              >
-                Clear all
-              </button>
-            </div>
-          )}
-
-          {/* Results Count */}
-          <div className="text-sm text-gray-500 mt-6">
-            {filteredBlogs.length} article{filteredBlogs.length !== 1 ? 's' : ''} found
           </div>
         </div>
-
-        {/* Recently Viewed Section */}
-        {recentlyViewed.length > 0 && (
-          <div className="mb-12">
-            <h2 className="text-xl font-semibold text-gray-800 mb-4">Recently Viewed</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {recentlyViewed.slice(0, 3).map(blog => (
-                <Link
-                  key={blog.date}
-                  href={`/blog/${blog.date}`}
-                  className="group block bg-white rounded-lg border border-gray-100 p-4 hover:border-blue-200 transition-colors duration-200"
-                >
-                  <div className="flex items-start gap-3">
-                    <div className="flex-shrink-0 w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center text-blue-600">
-                      <Bookmark className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-gray-800 group-hover:text-blue-600 transition-colors duration-200 line-clamp-2">
-                        {blog.title}
-                      </h3>
-                      <p className="text-sm text-gray-500 mt-1">
-                        {new Date(blog.date).toLocaleDateString()}
-                      </p>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Blog List */}
-        <div className={viewMode === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8' : 'space-y-8'}>
-          <BlogList blogs={filteredBlogs} viewMode={viewMode} />
-        </div>
-
-        {/* No Results State */}
-        {filteredBlogs.length === 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center py-12"
-          >
-            <div className="mb-4">
-              <Search className="w-12 h-12 text-gray-400 mx-auto" />
-            </div>
-            <p className="text-gray-600 mb-4">No articles found matching your criteria</p>
-            <button
-              onClick={clearFilters}
-              className="text-blue-600 hover:text-blue-700 font-medium"
-            >
-              Clear all filters
-            </button>
-          </motion.div>
-        )}
       </div>
     </div>
   );

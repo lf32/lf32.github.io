@@ -48,12 +48,11 @@ const AuthorProfile = () => {
 
         {/* Author Info */}
         <h2 className="text-xl font-bold text-gray-900 mb-1">Lali Akhil Raj</h2>
-        <p className="text-blue-600 font-medium mb-2">Software Engineer & Security Researcher</p>
+        <p className="text-blue-600 font-medium mb-2">Software Researcher</p>
         
         {/* Bio */}
         <p className="text-gray-600 text-sm mb-4 max-w-xs">
-          Passionate about building secure and scalable software solutions. 
-          Specializing in web development, security research, and open source.
+          Passionate about building secure and scalable software solutions.
         </p>
 
         {/* Social Links */}
