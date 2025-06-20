@@ -188,7 +188,7 @@ const RelatedPosts = ({ currentPost, posts }) => {
                   {post.readTime && (
                     <div className="flex items-center">
                       <Clock className="w-4 h-4 mr-1.5" />
-                      <span>{post.readTime} min read</span>
+                      <span>{post.readTime}</span>
                     </div>
                   )}
                 </div>
@@ -253,8 +253,6 @@ export default function BlogPost({ blog, relatedPosts = [] }) {
   const [currentUrl, setCurrentUrl] = useState('');
   const [isVisible, setIsVisible] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [likes, setLikes] = useState(blog.likes || 0);
-  const [hasLiked, setHasLiked] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
   const headerRef = useRef(null);
   const pathname = usePathname();
@@ -295,38 +293,37 @@ export default function BlogPost({ blog, relatedPosts = [] }) {
     }
   };
 
-  // Fetch initial likes state
   useEffect(() => {
-    const fetchInitialState = async () => {
-      try {
-        // Fetch likes
-        const likesRes = await fetch(`/api/blogs/${blog.date}/likes`);
-        const { likes: currentLikes, hasLiked: userHasLiked } = await likesRes.json();
-        setLikes(currentLikes);
-        setHasLiked(userHasLiked);
-      } catch (error) {
-        console.error('Error fetching blog stats:', error);
-      }
+    // Set current URL only once on mount
+    if (typeof window !== 'undefined') {
+      setCurrentUrl(window.location.href);
+    }
+    
+    // Intersection Observer for header visibility
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.1 }
+    );
+    
+    // Scroll handler for header state
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setIsScrolled(scrollPosition > 20);
     };
 
-    fetchInitialState();
-  }, [blog.date]); // Only depend on blog.date
-
-  // Handle like/unlike
-  const handleLike = async () => {
-    if (hasLiked) return; // Prevent multiple likes
-    
-    try {
-      const res = await fetch(`/api/blogs/${blog.date}/likes`, {
-        method: 'POST',
-      });
-      const { likes: updatedLikes, hasLiked: newHasLiked } = await res.json();
-      setLikes(updatedLikes);
-      setHasLiked(newHasLiked);
-    } catch (error) {
-      console.error('Error toggling like:', error);
+    if (headerRef.current) {
+      observer.observe(headerRef.current);
     }
-  };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []); // Empty dependency array since we only want this to run once on mount
+
+  // Calculate reading time
+  const readingTime = blog.readTime || Math.ceil(blog.content.split(/\s+/).length / 200);
 
   // Handle bookmark
   const handleBookmark = async () => {
@@ -358,49 +355,6 @@ export default function BlogPost({ blog, relatedPosts = [] }) {
       console.error('Error bookmarking:', error);
     }
   };
-
-  useEffect(() => {
-    // Set current URL only once on mount
-    if (typeof window !== 'undefined') {
-      setCurrentUrl(window.location.href);
-    }
-    
-    // Intersection Observer for header visibility
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsVisible(entry.isIntersecting),
-      { threshold: 0.1 }
-    );
-    
-    // Scroll handler for header state
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      setIsScrolled(scrollPosition > 20);
-    };
-
-    if (headerRef.current) {
-      observer.observe(headerRef.current);
-    }
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      observer.disconnect();
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []); // Empty dependency array since we only want this to run once on mount
-
-  // Like button animation variants
-  const likeButtonVariants = {
-    initial: { scale: 1 },
-    hover: { scale: 1.05 },
-    tap: { scale: 0.95 },
-    liked: { 
-      scale: [1, 1.2, 1],
-      transition: { duration: 0.4, ease: "easeOut" }
-    }
-  };
-
-  // Calculate reading time
-  const readingTime = blog.readTime || Math.ceil(blog.content.split(/\s+/).length / 200);
 
   return (
     <>
@@ -446,180 +400,96 @@ export default function BlogPost({ blog, relatedPosts = [] }) {
       <ScrollToTop />
 
       <div className="min-h-screen bg-gradient-to-b from-gray-50 via-white to-gray-50">
-        {/* Hero Section */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6 }}
-          className={`relative w-full h-[40vh] sm:h-[50vh] min-h-[300px] sm:min-h-[400px] bg-gradient-to-br ${gradient.from} ${gradient.to} overflow-hidden`}
-        >
-          {/* Background Pattern */}
-          <div className="absolute inset-0 opacity-10">
-            <div className={`absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] ${gradient.pattern}`} />
-            <div className="absolute inset-0 bg-[linear-gradient(45deg,_transparent_25%,_rgba(255,255,255,0.1)_50%,_transparent_75%)] bg-[length:20px_20px]" />
-          </div>
+        <div className="min-h-screen bg-black">
+          {/* Hero Section */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6 }}
+            className="relative w-full h-[40vh] sm:h-[50vh] min-h-[300px] sm:min-h-[400px] bg-black overflow-hidden border-b border-gray-800"
+          >
+            {/* No background pattern for minimalism */}
 
-          {/* Content Container */}
-          <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center">
-            <div className="max-w-3xl">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="mb-4 sm:mb-6"
-              >
-                <Link
-                  href="/blog"
-                  className="inline-flex items-center text-white/90 hover:text-white transition-colors duration-200 group"
+            {/* Content Container */}
+            <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center">
+              <div className="max-w-3xl">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="mb-4 sm:mb-6"
                 >
-                  <ArrowLeft className="w-4 h-4 mr-2 transform group-hover:-translate-x-1 transition-transform" />
-                  <span>Back to Blog</span>
-                </Link>
-              </motion.div>
+                  <Link
+                    href="/blog"
+                    className="inline-flex items-center text-gray-300 hover:text-white transition-colors duration-200 group"
+                  >
+                    <ArrowLeft className="w-4 h-4 mr-2 transform group-hover:-translate-x-1 transition-transform" />
+                    <span>Back to Blog</span>
+                  </Link>
+                </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="space-y-3 sm:space-y-4"
-              >
-                {blog.category && (
-                  <span className="inline-flex items-center px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full text-xs sm:text-sm font-medium bg-white/10 backdrop-blur-sm text-white border border-white/20">
-                    {blog.category}
-                  </span>
-                )}
-                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight">
-                  {blog.title}
-                </h1>
-                {blog.excerpt && (
-                  <p className="text-lg sm:text-xl text-white/90 max-w-2xl">
-                    {blog.excerpt}
-                  </p>
-                )}
-              </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  className="space-y-3 sm:space-y-4"
+                >
+                  {blog.category && (
+                    <span className="inline-flex items-center px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full text-xs sm:text-sm font-medium bg-gray-900 text-gray-200 border border-gray-700">
+                      {blog.category}
+                    </span>
+                  )}
+                  <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight">
+                    {blog.title}
+                  </h1>
+                  {blog.excerpt && (
+                    <p className="text-lg sm:text-xl text-gray-300 max-w-2xl">
+                      {blog.excerpt}
+                    </p>
+                  )}
+                </motion.div>
+              </div>
             </div>
-          </div>
 
-          {/* Decorative Bottom Wave */}
-          <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-gray-50 to-transparent" />
-        </motion.div>
+            {/* No decorative wave for minimalism */}
+          </motion.div>
 
-        {/* Main Content */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
-            {/* Article Content */}
-            <article 
-              className="lg:col-span-9 order-1"
-              itemScope 
-              itemType="https://schema.org/BlogPosting"
-            >
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className="bg-white rounded-xl sm:rounded-2xl shadow-lg sm:shadow-xl overflow-hidden border border-gray-100"
-              >
-                {/* Reading Stats */}
-                <div className="px-4 sm:px-6 md:px-8 lg:px-10 py-3 sm:py-4 bg-gray-50 border-b border-gray-100">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 text-sm text-gray-600">
-                    <div className="flex flex-wrap items-center gap-3 sm:gap-4">
-                      <div className="flex items-center">
-                        <Clock className="w-4 h-4 mr-1.5" />
-                        <span>{readingTime}</span>
+          {/* Main Content */}
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+              {/* Main Content */}
+              <div className="lg:col-span-8">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                  className="bg-black rounded-xl sm:rounded-2xl overflow-hidden border border-gray-800"
+                >
+                  {/* Reading Stats */}
+                  <div className="px-4 sm:px-6 md:px-8 lg:px-10 py-3 sm:py-4 bg-black border-b border-gray-800">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 text-sm text-gray-400">
+                      <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+                        <div className="flex items-center">
+                          <Clock className="w-4 h-4 mr-1.5" />
+                          <span>{readingTime}</span>
+                        </div>
+                        <div className="flex items-center">
+                          <Calendar className="w-4 h-4 mr-1.5" />
+                          <time dateTime={blog.date}>
+                            {new Date(blog.date).toLocaleDateString('en-US', {
+                              year: 'numeric',
+                              month: 'long',
+                              day: 'numeric'
+                            })}
+                          </time>
+                        </div>
                       </div>
-                      <div className="flex items-center">
-                        <Calendar className="w-4 h-4 mr-1.5" />
-                        <time dateTime={blog.date}>
-                          {new Date(blog.date).toLocaleDateString('en-US', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
-                          })}
-                        </time>
-                      </div>
-                      <div className="flex items-center">
-                        <Eye className="w-4 h-4 mr-1.5" />
-                        <span>{blog.views || 0} views</span>
-                      </div>
-                    </div>
-                    <motion.button
-                      onClick={handleBookmark}
-                      className={`flex items-center gap-1.5 transition-colors duration-200 ${
-                        isBookmarked 
-                          ? 'text-blue-600' 
-                          : 'text-gray-600 hover:text-blue-600'
-                      }`}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <motion.div
-                        animate={{
-                          rotate: isBookmarked ? [0, -10, 10, -10, 0] : 0,
-                          scale: isBookmarked ? [1, 1.2, 1] : 1
-                        }}
-                        transition={{ duration: 0.4 }}
-                      >
-                        <Bookmark className={`w-4 h-4 ${isBookmarked ? 'fill-current' : ''}`} />
-                      </motion.div>
-                      <span>{isBookmarked ? 'Saved!' : 'Save'}</span>
-                    </motion.button>
-                  </div>
-                </div>
-
-                {/* Content Section */}
-                <div className="p-4 sm:p-6 md:p-8 lg:p-10 prose prose-sm sm:prose-base lg:prose-lg max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-p:text-gray-600 prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl prose-pre:bg-gray-50 prose-pre:border prose-pre:border-gray-100">
-                  <MarkdownContent content={blog.content} />
-                </div>
-
-                {/* Tags Section */}
-                {blog.tags && blog.tags.length > 0 && (
-                  <div className="px-4 sm:px-6 md:px-8 lg:px-10 py-4 sm:py-6 border-t border-gray-100 bg-gray-50/50">
-                    <div className="flex flex-wrap gap-2">
-                      {blog.tags.map((tag, index) => (
-                        <span
-                          key={`${tag}-${index}`}
-                          className="px-2.5 py-1 sm:px-3 sm:py-1.5 bg-white text-xs sm:text-sm font-medium text-gray-600 rounded-full border border-gray-200 hover:border-blue-200 hover:text-blue-600 transition-colors duration-200"
-                        >
-                          #{tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Enhanced Engagement Section */}
-                <footer className="px-4 sm:px-6 md:px-8 lg:px-10 py-4 sm:py-6 border-t border-gray-100">
-                  <div className="flex flex-col sm:flex-row flex-wrap items-center justify-between gap-4">
-                    <div className="flex flex-wrap items-center gap-3 sm:gap-4">
-                      <motion.button 
-                        onClick={handleLike}
-                        variants={likeButtonVariants}
-                        initial="initial"
-                        whileHover="hover"
-                        whileTap="tap"
-                        animate={hasLiked ? "liked" : "initial"}
-                        className={`flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full transition-all duration-300 ${
-                          hasLiked 
-                            ? 'bg-blue-50 text-blue-600 hover:bg-blue-100' 
-                            : 'bg-gray-50 text-gray-600 hover:bg-gray-100 hover:text-blue-600'
-                        }`}
-                      >
-                        <motion.div
-                          animate={{
-                            rotate: hasLiked ? [0, -10, 10, -10, 0] : 0,
-                            transition: { duration: 0.5, ease: "easeOut" }
-                          }}
-                        >
-                          <ThumbsUp className={`w-4 h-4 sm:w-5 sm:h-5 ${hasLiked ? 'fill-current' : ''}`} />
-                        </motion.div>
-                        <span className="text-sm sm:text-base font-medium">{likes}</span>
-                      </motion.button>
-
                       <motion.button
                         onClick={handleBookmark}
-                        className={`flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full transition-all duration-300 ${
-                          isBookmarked
-                            ? 'bg-blue-50 text-blue-600'
-                            : 'bg-gray-50 text-gray-600 hover:bg-gray-100 hover:text-blue-600'
+                        className={`flex items-center gap-1.5 transition-colors duration-200 ${
+                          isBookmarked 
+                            ? 'text-white' 
+                            : 'text-gray-400 hover:text-white'
                         }`}
                         whileTap={{ scale: 0.95 }}
                       >
@@ -630,39 +500,100 @@ export default function BlogPost({ blog, relatedPosts = [] }) {
                           }}
                           transition={{ duration: 0.4 }}
                         >
-                          <Bookmark className={`w-4 h-4 sm:w-5 sm:h-5 ${isBookmarked ? 'fill-current' : ''}`} />
+                          <Bookmark className={`w-4 h-4 ${isBookmarked ? 'fill-current' : ''}`} />
                         </motion.div>
-                        <span className="text-sm sm:text-base font-medium">{isBookmarked ? 'Saved!' : 'Save'}</span>
+                        <span>{isBookmarked ? 'Saved!' : 'Save'}</span>
                       </motion.button>
                     </div>
-
-                    <div className="flex items-center gap-2">
-                      <ShareButton url={currentUrl} />
-                      <button
-                        onClick={() => window.print()}
-                        className="flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-gray-50 text-gray-600 hover:bg-gray-100 hover:text-blue-600 transition-all duration-300"
-                      >
-                        <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5" />
-                        <span className="text-sm sm:text-base font-medium">Print</span>
-                      </button>
-                    </div>
                   </div>
-                </footer>
-              </motion.div>
 
-              {/* Related Posts */}
-              <RelatedPosts 
-                currentPost={blog} 
-                posts={relatedPosts} 
-              />
-            </article>
+                  {/* Content Section */}
+                  <div className="p-4 sm:p-6 md:p-8 lg:p-10 prose prose-sm sm:prose-base lg:prose-lg max-w-none prose-headings:font-bold prose-headings:text-white prose-p:text-gray-300 prose-a:text-gray-200 prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl prose-pre:bg-gray-900 prose-pre:border prose-pre:border-gray-800">
+                    <MarkdownContent content={blog.content} />
+                  </div>
 
-            {/* Sidebar */}
-            <aside className="lg:col-span-3 order-2">
-              <div className="sticky top-24">
-                <AuthorProfile />
+                  {/* Tags Section */}
+                  {blog.tags && blog.tags.length > 0 && (
+                    <div className="px-4 sm:px-6 md:px-8 lg:px-10 py-4 sm:py-6 border-t border-gray-800 bg-black">
+                      <div className="flex flex-wrap gap-2">
+                        {blog.tags.map((tag, index) => (
+                          <span
+                            key={`${tag}-${index}`}
+                            className="px-2.5 py-1 sm:px-3 sm:py-1.5 bg-gray-900 text-xs sm:text-sm font-medium text-gray-400 rounded-full border border-gray-700 hover:border-gray-500 hover:text-white transition-colors duration-200"
+                          >
+                            #{tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Enhanced Engagement Section */}
+                  <footer className="px-4 sm:px-6 md:px-8 lg:px-10 py-4 sm:py-6 border-t border-gray-800">
+                    <div className="flex flex-col sm:flex-row flex-wrap items-center justify-between gap-4">
+                      <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+                        <motion.button
+                          onClick={handleBookmark}
+                          className={`flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full transition-all duration-300 ${
+                            isBookmarked
+                              ? 'bg-gray-900 text-white'
+                              : 'bg-black text-gray-400 hover:bg-gray-800 hover:text-white'
+                          }`}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          <motion.div
+                            animate={{
+                              rotate: isBookmarked ? [0, -10, 10, -10, 0] : 0,
+                              scale: isBookmarked ? [1, 1.2, 1] : 1
+                            }}
+                            transition={{ duration: 0.4 }}
+                          >
+                            <Bookmark className={`w-4 h-4 sm:w-5 sm:h-5 ${isBookmarked ? 'fill-current' : ''}`} />
+                          </motion.div>
+                          <span className="text-sm sm:text-base font-medium">{isBookmarked ? 'Saved!' : 'Save'}</span>
+                        </motion.button>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <ShareButton url={currentUrl} />
+                        <button
+                          onClick={() => window.print()}
+                          className="flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-black text-gray-400 hover:bg-gray-800 hover:text-white transition-all duration-300"
+                        >
+                          <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5" />
+                          <span className="text-sm sm:text-base font-medium">Print</span>
+                        </button>
+                      </div>
+                    </div>
+                  </footer>
+                </motion.div>
               </div>
-            </aside>
+              {/* Related Posts as vertical list */}
+              <div className="lg:col-span-4 mt-10 lg:mt-0">
+                <div className="bg-black border border-gray-800 rounded-xl p-6">
+                  <h2 className="text-xl font-bold text-white mb-4">Related Posts</h2>
+                  <ul className="divide-y divide-gray-800">
+                    {relatedPosts && relatedPosts.length > 0 ? (
+                      relatedPosts.map((post, idx) => (
+                        <li key={post.date} className="py-4 first:pt-0 last:pb-0">
+                          <a href={`/blog/${post.date}`} className="block text-lg font-medium text-gray-200 hover:text-white transition-colors">
+                            {post.title}
+                          </a>
+                          <div className="text-sm text-gray-500">
+                            {post.excerpt}
+                          </div>
+                          <div className="text-xs text-gray-600 mt-1">
+                            {new Date(post.date).toLocaleDateString()} &middot; {post.readTime || ''}
+                          </div>
+                        </li>
+                      ))
+                    ) : (
+                      <li className="text-gray-500 py-4">No related posts found.</li>
+                    )}
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

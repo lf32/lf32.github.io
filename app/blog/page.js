@@ -30,7 +30,7 @@ export default async function BlogPage() {
   const sortedBlogs = blogs.sort((a, b) => new Date(b.date) - new Date(a.date));
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 via-white to-gray-50">
+    <div className="min-h-screen bg-black">
       <BlogPageClient initialBlogs={sortedBlogs} />
     </div>
   );

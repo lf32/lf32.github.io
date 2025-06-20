@@ -100,8 +100,8 @@ export default function BlogList({ blogs, viewMode = 'grid' }) {
             whileHover="hover"
             className={`group ${
               viewMode === 'grid'
-                ? 'bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300'
-                : 'border-b border-gray-100 last:border-b-0'
+                ? 'bg-black rounded-xl overflow-hidden border border-gray-800 transition-all duration-300'
+                : 'border-b border-gray-800 last:border-b-0 bg-black'
             }`}
           >
             <div className="relative">
@@ -113,7 +113,7 @@ export default function BlogList({ blogs, viewMode = 'grid' }) {
                   // Grid View Card
                   <div className="flex flex-col h-full">
                       {/* Header Area with Image or Gradient */}
-                      <div className={`relative h-40 ${blog.image ? '' : `bg-gradient-to-br ${gradient.from} ${gradient.to}`}`}>
+                      <div className={`relative h-40 ${blog.image ? '' : 'bg-gray-900'}`}>
                       {blog.image ? (
                         <>
                           <Image
@@ -124,18 +124,12 @@ export default function BlogList({ blogs, viewMode = 'grid' }) {
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                             priority={index < 2}
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                          <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                         </>
                       ) : (
                         <>
-                            {/* Gradient background with pattern */}
-                            <div className="absolute inset-0 opacity-10">
-                              <div className={`absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] ${gradient.pattern}`} />
-                              <div className="absolute inset-0 bg-[linear-gradient(45deg,_transparent_25%,_rgba(255,255,255,0.1)_50%,_transparent_75%)] bg-[length:20px_20px]" />
-                            </div>
-                          <div className="absolute inset-0 bg-black/10" />
                           <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="text-white text-6xl font-bold opacity-5 transform group-hover:scale-110 transition-transform duration-300">
+                            <div className="text-gray-800 text-6xl font-bold opacity-10">
                               {blog.category?.charAt(0) || 'B'}
                             </div>
                           </div>
@@ -145,7 +139,7 @@ export default function BlogList({ blogs, viewMode = 'grid' }) {
                       {/* Category Badge */}
                       {blog.category && (
                         <div className="absolute top-4 left-4 z-10">
-                          <span className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-white/90 backdrop-blur-sm text-blue-700 shadow-sm">
+                          <span className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-gray-900 text-gray-200 border border-gray-700">
                             {blog.category}
                           </span>
                         </div>
@@ -154,7 +148,7 @@ export default function BlogList({ blogs, viewMode = 'grid' }) {
                       {/* Reading Time Badge */}
                       {blog.readTime && (
                         <div className="absolute top-4 right-4 z-10">
-                          <span className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-white/90 backdrop-blur-sm text-gray-700 shadow-sm">
+                          <span className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-gray-900 text-gray-400 border border-gray-700">
                             <Clock className="w-4 h-4 mr-1.5" />
                             {blog.readTime}
                           </span>
@@ -165,12 +159,12 @@ export default function BlogList({ blogs, viewMode = 'grid' }) {
                     {/* Content Area */}
                     <div className="flex flex-col flex-grow p-5">
                       {/* Title */}
-                      <h2 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-200 line-clamp-2">
+                      <h2 className="text-lg font-bold text-white mb-2 group-hover:text-gray-300 transition-colors duration-200 line-clamp-2">
                         {blog.title}
                       </h2>
 
                       {/* Excerpt */}
-                      <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+                      <p className="text-sm text-gray-400 mb-3 line-clamp-2">
                         {blog.excerpt}
                       </p>
 
@@ -180,13 +174,13 @@ export default function BlogList({ blogs, viewMode = 'grid' }) {
                           {blog.tags.slice(0, 2).map((tag) => (
                             <span
                               key={tag}
-                              className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-50 text-gray-600"
+                              className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-800 text-gray-400"
                             >
                               {tag}
                             </span>
                           ))}
                           {blog.tags.length > 2 && (
-                            <span className="text-xs text-gray-400">
+                            <span className="text-xs text-gray-600">
                               +{blog.tags.length - 2}
                             </span>
                           )}
@@ -194,14 +188,14 @@ export default function BlogList({ blogs, viewMode = 'grid' }) {
                       )}
 
                       {/* Meta Information */}
-                      <div className="flex items-center justify-between mt-auto pt-3 border-t border-gray-100">
+                      <div className="flex items-center justify-between mt-auto pt-3 border-t border-gray-800">
                         <div className="flex items-center gap-3 text-sm text-gray-500">
                           <time dateTime={blog.date} className="flex items-center">
                             <Calendar className="w-3.5 h-3.5 mr-1" />
                             {blog.formattedDate}
                           </time>
                         </div>
-                        <div className="flex items-center text-blue-600 text-sm font-medium">
+                        <div className="flex items-center text-gray-400 text-sm font-medium">
                           Read
                           <ArrowRight className="w-3.5 h-3.5 ml-1 transform group-hover:translate-x-0.5 transition-transform duration-200" />
                         </div>
@@ -228,14 +222,14 @@ export default function BlogList({ blogs, viewMode = 'grid' }) {
                       {/* Main Content */}
                       <div className="flex-grow min-w-0">
                         {/* Title */}
-                        <h2 className="text-lg font-semibold text-gray-900 mb-1 group-hover:text-blue-600 transition-colors">
+                        <h2 className="text-lg font-semibold text-white mb-1 group-hover:text-gray-300 transition-colors">
                           {blog.title}
                         </h2>
 
                         {/* Meta Information */}
                         <div className="flex items-center gap-3 text-sm text-gray-500 mb-2">
                           {blog.category && (
-                            <span className="text-blue-600 font-medium">
+                            <span className="text-gray-400 font-medium">
                               {blog.category}
                             </span>
                           )}
@@ -251,7 +245,7 @@ export default function BlogList({ blogs, viewMode = 'grid' }) {
                         </div>
 
                         {/* Excerpt */}
-                        <p className="text-sm text-gray-600 mb-2 line-clamp-1">
+                        <p className="text-sm text-gray-400 mb-2 line-clamp-1">
                           {blog.excerpt}
                         </p>
 
@@ -261,13 +255,13 @@ export default function BlogList({ blogs, viewMode = 'grid' }) {
                             {blog.tags.slice(0, 2).map((tag) => (
                               <span
                                 key={tag}
-                                className="inline-flex items-center px-2 py-0.5 rounded text-xs text-gray-600 bg-gray-50"
+                                className="inline-flex items-center px-2 py-0.5 rounded text-xs text-gray-400 bg-gray-800"
                               >
                                 {tag}
                               </span>
                             ))}
                             {blog.tags.length > 2 && (
-                              <span className="text-xs text-gray-400">
+                              <span className="text-xs text-gray-600">
                                 +{blog.tags.length - 2}
                               </span>
                             )}
@@ -277,7 +271,7 @@ export default function BlogList({ blogs, viewMode = 'grid' }) {
 
                       {/* Read More */}
                       <div className="flex-shrink-0 flex items-center">
-                        <div className="text-blue-600 text-sm font-medium">
+                        <div className="text-gray-400 text-sm font-medium">
                           Read
                           <ArrowRight className="w-3.5 h-3.5 ml-1 inline-block transform group-hover:translate-x-0.5 transition-transform" />
                         </div>

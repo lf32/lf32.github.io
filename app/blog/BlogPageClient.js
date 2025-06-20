@@ -101,7 +101,7 @@ export default function BlogPageClient({ initialBlogs }) {
   };
 
   return (
-    <div className="min-h-screen bg-white py-8">
+    <div className="min-h-screen bg-black py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Back to Home Link */}
         <motion.div
@@ -112,7 +112,7 @@ export default function BlogPageClient({ initialBlogs }) {
         >
           <Link
             href="/"
-            className="inline-flex items-center text-gray-600 hover:text-blue-600 transition-colors duration-200"
+            className="inline-flex items-center text-gray-300 hover:text-white transition-colors duration-200"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             <span>Back to Home</span>
@@ -121,8 +121,8 @@ export default function BlogPageClient({ initialBlogs }) {
 
         {/* Header Section */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold mb-2 gradient-text">lf32's Blog_</h1>
-          <p className="text-base text-gray-600 max-w-2xl mx-auto mb-6">
+          <h1 className="text-3xl font-bold mb-2 text-white">lf32's Blog_</h1>
+          <p className="text-base text-gray-400 max-w-2xl mx-auto mb-6">
             Insights, tutorials, and experiences from my journey in software development and cybersecurity
           </p>
         </div>
@@ -136,19 +136,19 @@ export default function BlogPageClient({ initialBlogs }) {
               <div className="mb-6">
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Search className="h-4 w-4 text-gray-400" />
+                    <Search className="h-4 w-4 text-gray-500" />
                   </div>
                   <input
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search articles..."
-                    className="block w-full pl-9 pr-3 py-2 border border-gray-200 rounded-lg bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                    className="block w-full pl-9 pr-3 py-2 border border-gray-800 rounded-lg bg-black text-gray-100 placeholder-gray-500 focus:ring-2 focus:ring-gray-700 focus:border-transparent transition-all duration-200"
                   />
                   {searchQuery && (
                     <button
                       onClick={() => setSearchQuery('')}
-                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-300"
                     >
                       ×
                     </button>
@@ -158,7 +158,7 @@ export default function BlogPageClient({ initialBlogs }) {
 
               {/* Categories */}
               <div className="mb-6">
-                <h3 className="text-sm font-medium text-gray-700 mb-3 flex items-center gap-2">
+                <h3 className="text-sm font-medium text-gray-400 mb-3 flex items-center gap-2">
                   <Tag className="w-4 h-4" />
                   Categories
                 </h3>
@@ -171,8 +171,8 @@ export default function BlogPageClient({ initialBlogs }) {
                         onClick={() => toggleCategory(category.name)}
                         className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium border transition-all duration-200
                           ${isSelected
-                            ? `bg-${category.color}-50 text-${category.color}-700 border-${category.color}-200 shadow-sm`
-                            : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50 hover:text-gray-800 hover:border-gray-300'}
+                            ? 'bg-gray-800 text-white border-gray-600'
+                            : 'bg-black text-gray-400 border-gray-800 hover:bg-gray-900 hover:text-white hover:border-gray-700'}
                         `}
                         style={{ lineHeight: 1.2 }}
                       >
@@ -185,7 +185,7 @@ export default function BlogPageClient({ initialBlogs }) {
                             onClick={e => { e.stopPropagation(); toggleCategory(category.name); }}
                             aria-label={`Remove ${category.name}`}
                           >
-                            <svg className="w-3 h-3 text-${category.color}-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                             </svg>
                           </span>
@@ -198,7 +198,7 @@ export default function BlogPageClient({ initialBlogs }) {
 
               {/* Sort Controls */}
               <div className="mb-6">
-                <h3 className="text-sm font-medium text-gray-700 mb-3 flex items-center gap-2">
+                <h3 className="text-sm font-medium text-gray-400 mb-3 flex items-center gap-2">
                   <Filter className="w-4 h-4" />
                   Sort by
                 </h3>
@@ -209,14 +209,14 @@ export default function BlogPageClient({ initialBlogs }) {
                       onClick={() => setSortBy(option.value)}
                       className={`w-full text-left flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all duration-200 border ${
                         sortBy === option.value 
-                          ? 'bg-blue-50 text-blue-600 border-blue-200 shadow-sm' 
-                          : 'bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-800 border-gray-200 hover:border-gray-300 hover:shadow-sm'
+                          ? 'bg-gray-800 text-white border-gray-600' 
+                          : 'bg-black text-gray-400 hover:bg-gray-900 hover:text-white border-gray-800 hover:border-gray-700'
                       }`}
                     >
                       <option.icon className="h-4 w-4" />
                       <span className="flex-1">{option.label}</span>
                       {sortBy === option.value && (
-                        <div className="w-2 h-2 rounded-full bg-current"></div>
+                        <div className="w-2 h-2 rounded-full bg-white"></div>
                       )}
                     </button>
                   ))}
@@ -226,7 +226,7 @@ export default function BlogPageClient({ initialBlogs }) {
               {/* Active Filters */}
               {(selectedCategories.length > 0 || searchQuery) && (
                 <div className="mb-6">
-                  <h3 className="text-sm font-medium text-gray-700 mb-3 flex items-center gap-2">
+                  <h3 className="text-sm font-medium text-gray-400 mb-3 flex items-center gap-2">
                     <Filter className="w-4 h-4" />
                     Active Filters
                   </h3>
@@ -234,13 +234,13 @@ export default function BlogPageClient({ initialBlogs }) {
                     {selectedCategories.map(category => (
                       <span
                         key={category}
-                        className="inline-flex items-center gap-1 px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs border border-blue-200 font-medium"
+                        className="inline-flex items-center gap-1 px-3 py-1 bg-gray-800 text-white rounded-full text-xs border border-gray-600 font-medium"
                       >
-                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div>
+                        <div className="w-1.5 h-1.5 rounded-full bg-white"></div>
                         {category}
                         <button
                           onClick={() => toggleCategory(category)}
-                          className="ml-1 p-0.5 hover:bg-blue-100 rounded-full transition-colors duration-200"
+                          className="ml-1 p-0.5 hover:bg-gray-700 rounded-full transition-colors duration-200"
                           aria-label={`Remove ${category}`}
                         >
                           <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -250,12 +250,12 @@ export default function BlogPageClient({ initialBlogs }) {
                       </span>
                     ))}
                     {searchQuery && (
-                      <span className="inline-flex items-center gap-1 px-3 py-1 bg-gray-50 text-gray-700 rounded-full text-xs border border-gray-200 font-medium">
+                      <span className="inline-flex items-center gap-1 px-3 py-1 bg-gray-900 text-white rounded-full text-xs border border-gray-700 font-medium">
                         <Search className="w-3 h-3" />
                         "{searchQuery}"
                         <button
                           onClick={() => setSearchQuery('')}
-                          className="ml-1 p-0.5 hover:bg-gray-100 rounded-full transition-colors duration-200"
+                          className="ml-1 p-0.5 hover:bg-gray-700 rounded-full transition-colors duration-200"
                           aria-label="Remove search filter"
                         >
                           <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -267,7 +267,7 @@ export default function BlogPageClient({ initialBlogs }) {
                     {(selectedCategories.length > 0 || searchQuery) && (
                       <button
                         onClick={clearFilters}
-                        className="inline-flex items-center gap-1 px-3 py-1 text-xs text-gray-600 hover:text-gray-800 font-medium bg-gray-50 hover:bg-gray-100 rounded-full border border-gray-200 transition-all duration-200"
+                        className="inline-flex items-center gap-1 px-3 py-1 text-xs text-gray-400 hover:text-white font-medium bg-gray-900 hover:bg-gray-800 rounded-full border border-gray-700 transition-all duration-200"
                       >
                         <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -280,7 +280,7 @@ export default function BlogPageClient({ initialBlogs }) {
               )}
 
               {/* Results Count */}
-              <div className="text-sm text-gray-500 bg-gray-50 px-3 py-2 rounded-lg border border-gray-200">
+              <div className="text-sm text-gray-500 bg-gray-900 px-3 py-2 rounded-lg border border-gray-700">
                 <div className="flex items-center gap-2">
                   <BookOpen className="w-4 h-4" />
                   <span>{filteredBlogs.length} article{filteredBlogs.length !== 1 ? 's' : ''} found</span>
@@ -294,20 +294,20 @@ export default function BlogPageClient({ initialBlogs }) {
             {/* Recently Viewed Section */}
             {recentlyViewed.length > 0 && (
               <div className="mb-8">
-                <h2 className="text-lg font-semibold text-gray-800 mb-3">Recently Viewed</h2>
+                <h2 className="text-lg font-semibold text-white mb-3">Recently Viewed</h2>
                 <div className="space-y-2">
                   {recentlyViewed.slice(0, 3).map(blog => (
                     <Link
                       key={blog.date}
                       href={`/blog/${blog.date}`}
-                      className="group block bg-gray-50 rounded-lg border border-gray-100 p-3 hover:border-blue-200 transition-colors duration-200"
+                      className="group block bg-gray-900 rounded-lg border border-gray-700 p-3 hover:border-gray-500 transition-colors duration-200"
                     >
                       <div className="flex items-start gap-3">
-                        <div className="flex-shrink-0 w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center text-blue-600">
+                        <div className="flex-shrink-0 w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400">
                           <Bookmark className="w-4 h-4" />
                         </div>
                         <div>
-                          <h3 className="font-medium text-gray-800 group-hover:text-blue-600 transition-colors duration-200 line-clamp-1 text-sm">
+                          <h3 className="font-medium text-white group-hover:text-gray-300 transition-colors duration-200 line-clamp-1 text-sm">
                             {blog.title}
                           </h3>
                           <p className="text-xs text-gray-500 mt-0.5">
@@ -334,12 +334,12 @@ export default function BlogPageClient({ initialBlogs }) {
                 className="text-center py-8"
               >
                 <div className="mb-3">
-                  <Search className="w-8 h-8 text-gray-400 mx-auto" />
+                  <Search className="w-8 h-8 text-gray-600 mx-auto" />
                 </div>
-                <p className="text-gray-600 mb-3 text-sm">No articles found matching your criteria</p>
+                <p className="text-gray-400 mb-3 text-sm">No articles found matching your criteria</p>
                 <button
                   onClick={clearFilters}
-                  className="text-blue-600 hover:text-blue-700 font-medium text-sm"
+                  className="text-gray-400 hover:text-white font-medium text-sm"
                 >
                   Clear all filters
                 </button>
