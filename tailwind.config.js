@@ -56,6 +56,27 @@ module.exports = {
             },
           },
         },
+        invert: {
+          css: {
+            color: theme('colors.white'),
+            a: {
+              color: theme('colors.blue.400'),
+              '&:hover': {
+                color: theme('colors.blue.600'),
+              },
+            },
+            'h1, h2, h3, h4': {
+              color: theme('colors.white'),
+            },
+            strong: {
+              color: theme('colors.white'),
+            },
+            blockquote: {
+              borderLeftColor: theme('colors.gray.700'),
+              color: theme('colors.gray.200'),
+            },
+          }
+        }
       }),
     },
   },

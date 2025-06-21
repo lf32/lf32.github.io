@@ -3,7 +3,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import MarkdownContent from './MarkdownContent';
 import ShareButton from './ShareButton';
-import AuthorProfile from './AuthorProfile';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
@@ -26,6 +25,12 @@ import {
 import { useEffect, useState, useRef, useMemo } from 'react';
 import Head from 'next/head';
 import { usePathname } from 'next/navigation';
+import TableOfContents from './TableOfContents';
+
+const generateId = (text) => {
+  if (!text) return '';
+  return text.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
+};
 
 // Reading Progress Bar Component
 const ReadingProgress = () => {
@@ -148,7 +153,7 @@ const RelatedPosts = ({ currentPost, posts }) => {
               className="group block h-full bg-white rounded-xl border border-gray-100 hover:border-blue-200 transition-all duration-300 hover:shadow-lg overflow-hidden"
             >
               {/* Post Image or Gradient */}
-              <div className="relative h-40 bg-gradient-to-br from-gray-100 to-gray-200">
+              <div className="relative h-40 bg-gray-900">
                 {post.image ? (
                   <Image
                     src={post.image}
@@ -157,21 +162,21 @@ const RelatedPosts = ({ currentPost, posts }) => {
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                 ) : (
-                  <div className={`absolute inset-0 bg-gradient-to-br ${getGradientFromString(post.date).from} ${getGradientFromString(post.date).to} opacity-20`} />
+                  <div className={`absolute inset-0 bg-gray-800 opacity-20`} />
                 )}
                 {post.category && (
-                  <span className="absolute top-3 left-3 px-2 py-1 text-xs font-medium bg-white/90 backdrop-blur-sm text-gray-700 rounded-full">
+                  <span className="absolute top-3 left-3 px-2 py-1 text-xs font-medium bg-black/50 backdrop-blur-sm text-gray-200 rounded-full border border-gray-700">
                     {post.category}
                   </span>
                 )}
               </div>
 
               {/* Post Content */}
-              <div className="p-4">
-                <h3 className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-200 line-clamp-2 mb-2">
+              <div className="p-4 bg-black">
+                <h3 className="font-semibold text-gray-100 group-hover:text-blue-400 group-hover:underline transition-colors duration-200 line-clamp-2 mb-2">
                   {post.title}
                 </h3>
-                <p className="text-sm text-gray-600 line-clamp-2 mb-3">
+                <p className="text-sm text-gray-400 line-clamp-2 mb-3">
                   {post.excerpt}
                 </p>
                 <div className="flex items-center justify-between text-sm text-gray-500">
@@ -201,67 +206,31 @@ const RelatedPosts = ({ currentPost, posts }) => {
   );
 };
 
-// Gradient combinations for the hero section
-const gradientCombinations = [
-  {
-    from: 'from-blue-600',
-    to: 'to-purple-700',
-    pattern: 'from-white via-transparent to-transparent'
-  },
-  {
-    from: 'from-indigo-600',
-    to: 'to-pink-600',
-    pattern: 'from-white via-transparent to-transparent'
-  },
-  {
-    from: 'from-emerald-600',
-    to: 'to-teal-700',
-    pattern: 'from-white via-transparent to-transparent'
-  },
-  {
-    from: 'from-violet-600',
-    to: 'to-fuchsia-600',
-    pattern: 'from-white via-transparent to-transparent'
-  },
-  {
-    from: 'from-rose-600',
-    to: 'to-orange-500',
-    pattern: 'from-white via-transparent to-transparent'
-  },
-  {
-    from: 'from-cyan-600',
-    to: 'to-blue-700',
-    pattern: 'from-white via-transparent to-transparent'
-  }
-];
-
-// Function to get a deterministic gradient based on a string
-const getGradientFromString = (str) => {
-  // Simple hash function to convert string to number
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    const char = str.charCodeAt(i);
-    hash = ((hash << 5) - hash) + char;
-    hash = hash & hash; // Convert to 32bit integer
-  }
-  // Use absolute value and modulo to get index
-  const index = Math.abs(hash) % gradientCombinations.length;
-  return gradientCombinations[index];
-};
-
 export default function BlogPost({ blog, relatedPosts = [] }) {
   const [currentUrl, setCurrentUrl] = useState('');
   const [isVisible, setIsVisible] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const [headings, setHeadings] = useState([]);
   const headerRef = useRef(null);
   const pathname = usePathname();
 
-  // Get deterministic gradient based on blog post date
-  const gradient = useMemo(() => 
-    getGradientFromString(blog.date),
-    [blog.date] // Only change if the blog post date changes
-  );
+  useEffect(() => {
+    if (blog.content) {
+      const headingLines = blog.content.split('\n').filter(line => line.match(/^#{1,6}\s/));
+      const extractedHeadings = headingLines.map((line) => {
+          const match = line.match(/^(#{1,6})\s(.*)/);
+          if (match && match[2]) {
+            const level = match[1].length;
+            const text = match[2].trim();
+            const id = generateId(text);
+            return { level, text, id };
+          }
+          return null;
+      }).filter(Boolean);
+      setHeadings(extractedHeadings);
+    }
+  }, [blog.content]);
 
   // Generate canonical URL
   const canonicalUrl = `https://yourdomain.com${pathname}`;
@@ -457,6 +426,32 @@ export default function BlogPost({ blog, relatedPosts = [] }) {
           {/* Main Content */}
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+              {/* Related Posts as vertical list */}
+              <div className="lg:col-span-4 mt-10 lg:mt-0">
+                <TableOfContents headings={headings} />
+                <div className="bg-black border border-gray-800 rounded-xl p-6">
+                  <h2 className="text-xl font-bold text-white mb-4">Related Posts</h2>
+                  <ul className="divide-y divide-gray-800">
+                    {relatedPosts && relatedPosts.length > 0 ? (
+                      relatedPosts.map((post, idx) => (
+                        <li key={post.date} className="py-4 first:pt-0 last:pb-0">
+                          <a href={`/blog/${post.date}`} className="block text-lg font-medium text-gray-200 hover:text-white transition-colors">
+                            {post.title}
+                          </a>
+                          <div className="text-sm text-gray-500">
+                            {post.excerpt}
+                          </div>
+                          <div className="text-xs text-gray-600 mt-1">
+                            {new Date(post.date).toLocaleDateString()} &middot; {post.readTime || ''}
+                          </div>
+                        </li>
+                      ))
+                    ) : (
+                      <li className="text-gray-500 py-4">No related posts found.</li>
+                    )}
+                  </ul>
+                </div>
+              </div>
               {/* Main Content */}
               <div className="lg:col-span-8">
                 <motion.div
@@ -508,7 +503,7 @@ export default function BlogPost({ blog, relatedPosts = [] }) {
                   </div>
 
                   {/* Content Section */}
-                  <div className="p-4 sm:p-6 md:p-8 lg:p-10 prose prose-sm sm:prose-base lg:prose-lg max-w-none prose-headings:font-bold prose-headings:text-white prose-p:text-gray-300 prose-a:text-gray-200 prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl prose-pre:bg-gray-900 prose-pre:border prose-pre:border-gray-800">
+                  <div className="p-4 sm:p-6 md:p-8 lg:p-10 prose prose-lg max-w-none prose-invert prose-headings:font-bold prose-headings:text-white prose-p:text-gray-100 prose-a:text-gray-100 prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl prose-pre:bg-gray-900 prose-pre:border prose-pre:border-gray-800 text-white">
                     <MarkdownContent content={blog.content} />
                   </div>
 
@@ -567,31 +562,6 @@ export default function BlogPost({ blog, relatedPosts = [] }) {
                     </div>
                   </footer>
                 </motion.div>
-              </div>
-              {/* Related Posts as vertical list */}
-              <div className="lg:col-span-4 mt-10 lg:mt-0">
-                <div className="bg-black border border-gray-800 rounded-xl p-6">
-                  <h2 className="text-xl font-bold text-white mb-4">Related Posts</h2>
-                  <ul className="divide-y divide-gray-800">
-                    {relatedPosts && relatedPosts.length > 0 ? (
-                      relatedPosts.map((post, idx) => (
-                        <li key={post.date} className="py-4 first:pt-0 last:pb-0">
-                          <a href={`/blog/${post.date}`} className="block text-lg font-medium text-gray-200 hover:text-white transition-colors">
-                            {post.title}
-                          </a>
-                          <div className="text-sm text-gray-500">
-                            {post.excerpt}
-                          </div>
-                          <div className="text-xs text-gray-600 mt-1">
-                            {new Date(post.date).toLocaleDateString()} &middot; {post.readTime || ''}
-                          </div>
-                        </li>
-                      ))
-                    ) : (
-                      <li className="text-gray-500 py-4">No related posts found.</li>
-                    )}
-                  </ul>
-                </div>
               </div>
             </div>
           </div>
