@@ -6,52 +6,6 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Calendar, Clock, ArrowRight } from 'lucide-react';
 
-// Gradient combinations for the blog cards
-const gradientCombinations = [
-  {
-    from: 'from-blue-600',
-    to: 'to-purple-700',
-    pattern: 'from-white via-transparent to-transparent'
-  },
-  {
-    from: 'from-indigo-600',
-    to: 'to-pink-600',
-    pattern: 'from-white via-transparent to-transparent'
-  },
-  {
-    from: 'from-emerald-600',
-    to: 'to-teal-700',
-    pattern: 'from-white via-transparent to-transparent'
-  },
-  {
-    from: 'from-violet-600',
-    to: 'to-fuchsia-600',
-    pattern: 'from-white via-transparent to-transparent'
-  },
-  {
-    from: 'from-rose-600',
-    to: 'to-orange-500',
-    pattern: 'from-white via-transparent to-transparent'
-  },
-  {
-    from: 'from-cyan-600',
-    to: 'to-blue-700',
-    pattern: 'from-white via-transparent to-transparent'
-  }
-];
-
-// Function to get a deterministic gradient based on a string
-const getGradientFromString = (str) => {
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    const char = str.charCodeAt(i);
-    hash = ((hash << 5) - hash) + char;
-    hash = hash & hash;
-  }
-  const index = Math.abs(hash) % gradientCombinations.length;
-  return gradientCombinations[index];
-};
-
 const cardVariants = {
   initial: { opacity: 0, y: 20 },
   animate: { 
@@ -88,9 +42,6 @@ export default function BlogList({ blogs, viewMode = 'grid' }) {
   return (
     <>
       {blogs.map((blog, index) => {
-        // Get deterministic gradient for this blog post
-        const gradient = getGradientFromString(blog.date);
-
         return (
           <motion.article
             key={blog.date}
@@ -100,7 +51,7 @@ export default function BlogList({ blogs, viewMode = 'grid' }) {
             whileHover="hover"
             className={`group ${
               viewMode === 'grid'
-                ? 'bg-black rounded-xl overflow-hidden border border-gray-800 transition-all duration-300'
+                ? 'bg-black overflow-hidden border border-gray-800 transition-all duration-300'
                 : 'border-b border-gray-800 last:border-b-0 bg-black'
             }`}
           >
@@ -208,7 +159,7 @@ export default function BlogList({ blogs, viewMode = 'grid' }) {
                     <div className="flex items-start gap-4">
                       {/* Thumbnail Image */}
                       {blog.image && (
-                        <div className="flex-shrink-0 w-24 h-24 relative rounded-lg overflow-hidden">
+                        <div className="flex-shrink-0 w-24 h-24 relative overflow-hidden">
                           <Image
                             src={blog.image}
                             alt={blog.title}
