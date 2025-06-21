@@ -377,10 +377,12 @@ export default function BlogPost({ blog, relatedPosts = [] }) {
             transition={{ duration: 0.6 }}
             className="relative w-full h-[40vh] sm:h-[50vh] min-h-[300px] sm:min-h-[400px] bg-black overflow-hidden border-b border-gray-800"
           >
-            {/* No background pattern for minimalism */}
+            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500 rounded-full filter blur-3xl opacity-20"></div>
+            <div className="absolute top-10 right-20 w-80 h-80 bg-green-400 rounded-full filter blur-3xl opacity-20"></div>
+            <div className="absolute bottom-5 left-10 w-72 h-72 bg-purple-400 rounded-full filter blur-3xl opacity-20"></div>
 
             {/* Content Container */}
-            <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center">
+            <div className="relative z-10 h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center">
               <div className="max-w-3xl">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -419,8 +421,6 @@ export default function BlogPost({ blog, relatedPosts = [] }) {
                 </motion.div>
               </div>
             </div>
-
-            {/* No decorative wave for minimalism */}
           </motion.div>
 
           {/* Main Content */}
