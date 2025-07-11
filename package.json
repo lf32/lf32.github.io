@@ -18,7 +18,7 @@
     "@tailwindcss/typography": "^0.5.16",
     "date-fns": "^4.1.0",
     "dompurify": "^3.2.6",
-    "framer-motion": "^12.15.0",
+    "framer-motion": "^12.18.1",
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.511.0",
     "next": "15.3.3",
