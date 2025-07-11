@@ -13,7 +13,7 @@
     "@emotion/styled": "^11.14.0",
     "@mdx-js/loader": "^3.1.0",
     "@mdx-js/react": "^3.1.0",
-    "@mui/icons-material": "^7.1.0",
+    "@mui/icons-material": "^7.1.2",
     "@mui/material": "^7.1.0",
     "@tailwindcss/typography": "^0.5.16",
     "date-fns": "^4.1.0",
