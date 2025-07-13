@@ -8,8 +8,8 @@ export default function TableOfContents({ headings }) {
   }
 
   return (
-    <div className="bg-black border border-gray-800 rounded-xl p-6 mb-8">
-      <h2 className="text-xl font-bold text-white mb-4">Table of Contents</h2>
+    <div className="bg-white border border-gray-200 rounded-xl p-6 mb-8">
+      <h2 className="text-xl font-bold text-gray-900 mb-4">Table of Contents</h2>
       <ul className="space-y-2">
         {headings.map((heading) => (
           <motion.li
@@ -21,7 +21,7 @@ export default function TableOfContents({ headings }) {
           >
             <a
               href={`#${heading.id}`}
-              className="text-gray-400 hover:text-white hover:underline transition-colors duration-200"
+              className="text-gray-600 hover:text-gray-900 hover:underline transition-colors duration-200"
             >
               {heading.text}
             </a>

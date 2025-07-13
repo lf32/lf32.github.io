@@ -90,7 +90,7 @@ export default async function BlogPage({ params }) {
     .slice(0, 3);
 
   return (
-    <div className="min-h-screen bg-black pb-20">
+    <div className="min-h-screen bg-white pb-20">
       <BlogPost blog={blog} relatedPosts={relatedPosts} />
     </div>
   );

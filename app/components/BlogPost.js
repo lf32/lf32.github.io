@@ -49,7 +49,7 @@ const ReadingProgress = () => {
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 w-full h-1 bg-gray-100 z-50">
+    <div className="fixed top-0 left-0 w-full h-1 bg-gray-200 z-50">
       <motion.div
         className="h-full bg-blue-600"
         style={{ width: `${progress}%` }}
@@ -134,7 +134,7 @@ const RelatedPosts = ({ currentPost, posts }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="mt-12 pt-8 border-t border-gray-100"
+      className="mt-12 pt-8 border-t border-gray-200"
     >
       <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
         <BookOpen className="w-6 h-6 mr-2 text-blue-600" />
@@ -150,10 +150,10 @@ const RelatedPosts = ({ currentPost, posts }) => {
           >
             <Link
               href={`/blog/${post.date}`}
-              className="group block h-full bg-white rounded-xl border border-gray-100 hover:border-blue-200 transition-all duration-300 hover:shadow-lg overflow-hidden"
+              className="group block h-full bg-white rounded-xl border border-gray-200 hover:border-blue-200 transition-all duration-300 hover:shadow-lg overflow-hidden"
             >
               {/* Post Image or Gradient */}
-              <div className="relative h-40 bg-gray-900">
+              <div className="relative h-40 bg-gray-100">
                 {post.image ? (
                   <Image
                     src={post.image}
@@ -162,21 +162,21 @@ const RelatedPosts = ({ currentPost, posts }) => {
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                 ) : (
-                  <div className={`absolute inset-0 bg-gray-800 opacity-20`} />
+                  <div className={`absolute inset-0 bg-gray-200 opacity-20`} />
                 )}
                 {post.category && (
-                  <span className="absolute top-3 left-3 px-2 py-1 text-xs font-medium bg-black/50 backdrop-blur-sm text-gray-200 rounded-full border border-gray-700">
+                  <span className="absolute top-3 left-3 px-2 py-1 text-xs font-medium bg-white/90 backdrop-blur-sm text-gray-700 rounded-full border border-gray-300">
                     {post.category}
                   </span>
                 )}
               </div>
 
               {/* Post Content */}
-              <div className="p-4 bg-black">
-                <h3 className="font-semibold text-gray-100 group-hover:text-blue-400 group-hover:underline transition-colors duration-200 line-clamp-2 mb-2">
+              <div className="p-4 bg-white">
+                <h3 className="font-semibold text-gray-900 group-hover:text-blue-600 group-hover:underline transition-colors duration-200 line-clamp-2 mb-2">
                   {post.title}
                 </h3>
-                <p className="text-sm text-gray-400 line-clamp-2 mb-3">
+                <p className="text-sm text-gray-600 line-clamp-2 mb-3">
                   {post.excerpt}
                 </p>
                 <div className="flex items-center justify-between text-sm text-gray-500">
@@ -369,13 +369,13 @@ export default function BlogPost({ blog, relatedPosts = [] }) {
       <ScrollToTop />
 
       <div className="min-h-screen bg-gradient-to-b from-gray-50 via-white to-gray-50">
-        <div className="min-h-screen bg-black">
+        <div className="min-h-screen bg-white">
           {/* Hero Section */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6 }}
-            className="relative w-full h-[40vh] sm:h-[50vh] min-h-[300px] sm:min-h-[400px] bg-black overflow-hidden border-b border-gray-800"
+            className="relative w-full h-[40vh] sm:h-[50vh] min-h-[300px] sm:min-h-[400px] bg-gradient-to-br from-blue-50 to-indigo-100 overflow-hidden border-b border-gray-200"
           >
             <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500 rounded-full filter blur-3xl opacity-20"></div>
             <div className="absolute top-10 right-20 w-80 h-80 bg-green-400 rounded-full filter blur-3xl opacity-20"></div>
@@ -392,7 +392,7 @@ export default function BlogPost({ blog, relatedPosts = [] }) {
                 >
                   <Link
                     href="/blog"
-                    className="inline-flex items-center text-gray-300 hover:text-white transition-colors duration-200 group"
+                    className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors duration-200 group"
                   >
                     <ArrowLeft className="w-4 h-4 mr-2 transform group-hover:-translate-x-1 transition-transform" />
                     <span>Back to Blog</span>
@@ -406,15 +406,15 @@ export default function BlogPost({ blog, relatedPosts = [] }) {
                   className="space-y-3 sm:space-y-4"
                 >
                   {blog.category && (
-                    <span className="inline-flex items-center px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full text-xs sm:text-sm font-medium bg-gray-900 text-gray-200 border border-gray-700">
+                    <span className="inline-flex items-center px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full text-xs sm:text-sm font-medium bg-white text-gray-700 border border-gray-300">
                       {blog.category}
                     </span>
                   )}
-                  <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight">
+                  <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
                     {blog.title}
                   </h1>
                   {blog.excerpt && (
-                    <p className="text-lg sm:text-xl text-gray-300 max-w-2xl">
+                    <p className="text-lg sm:text-xl text-gray-600 max-w-2xl">
                       {blog.excerpt}
                     </p>
                   )}
@@ -429,19 +429,19 @@ export default function BlogPost({ blog, relatedPosts = [] }) {
               {/* Related Posts as vertical list */}
               <div className="lg:col-span-4 mt-10 lg:mt-0">
                 <TableOfContents headings={headings} />
-                <div className="bg-black border border-gray-800 rounded-xl p-6">
-                  <h2 className="text-xl font-bold text-white mb-4">Related Posts</h2>
-                  <ul className="divide-y divide-gray-800">
+                <div className="bg-white border border-gray-200 rounded-xl p-6">
+                  <h2 className="text-xl font-bold text-gray-900 mb-4">Related Posts</h2>
+                  <ul className="divide-y divide-gray-200">
                     {relatedPosts && relatedPosts.length > 0 ? (
                       relatedPosts.map((post, idx) => (
                         <li key={post.date} className="py-4 first:pt-0 last:pb-0">
-                          <a href={`/blog/${post.date}`} className="block text-lg font-medium text-gray-200 hover:text-white transition-colors">
+                          <a href={`/blog/${post.date}`} className="block text-lg font-medium text-gray-700 hover:text-gray-900 transition-colors">
                             {post.title}
                           </a>
-                          <div className="text-sm text-gray-500">
+                          <div className="text-sm text-gray-600">
                             {post.excerpt}
                           </div>
-                          <div className="text-xs text-gray-600 mt-1">
+                          <div className="text-xs text-gray-500 mt-1">
                             {new Date(post.date).toLocaleDateString()} &middot; {post.readTime || ''}
                           </div>
                         </li>
@@ -458,11 +458,11 @@ export default function BlogPost({ blog, relatedPosts = [] }) {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.4 }}
-                  className="bg-black rounded-xl sm:rounded-2xl overflow-hidden border border-gray-800"
+                  className="bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-gray-200"
                 >
                   {/* Reading Stats */}
-                  <div className="px-4 sm:px-6 md:px-8 lg:px-10 py-3 sm:py-4 bg-black border-b border-gray-800">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 text-sm text-gray-400">
+                  <div className="px-4 sm:px-6 md:px-8 lg:px-10 py-3 sm:py-4 bg-white border-b border-gray-200">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 text-sm text-gray-600">
                       <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                         <div className="flex items-center">
                           <Clock className="w-4 h-4 mr-1.5" />
@@ -483,8 +483,8 @@ export default function BlogPost({ blog, relatedPosts = [] }) {
                         onClick={handleBookmark}
                         className={`flex items-center gap-1.5 transition-colors duration-200 ${
                           isBookmarked 
-                            ? 'text-white' 
-                            : 'text-gray-400 hover:text-white'
+                            ? 'text-blue-600' 
+                            : 'text-gray-600 hover:text-gray-900'
                         }`}
                         whileTap={{ scale: 0.95 }}
                       >
@@ -503,18 +503,18 @@ export default function BlogPost({ blog, relatedPosts = [] }) {
                   </div>
 
                   {/* Content Section */}
-                  <div className="p-4 sm:p-6 md:p-8 lg:p-10 prose prose-lg max-w-none prose-invert prose-headings:font-bold prose-headings:text-white prose-p:text-gray-100 prose-a:text-gray-100 prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl prose-pre:bg-gray-900 prose-pre:border prose-pre:border-gray-800 text-white">
+                  <div className="p-4 sm:p-6 md:p-8 lg:p-10 prose prose-lg max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl prose-pre:bg-gray-100 prose-pre:border prose-pre:border-gray-200 text-gray-700">
                     <MarkdownContent content={blog.content} />
                   </div>
 
                   {/* Tags Section */}
                   {blog.tags && blog.tags.length > 0 && (
-                    <div className="px-4 sm:px-6 md:px-8 lg:px-10 py-4 sm:py-6 border-t border-gray-800 bg-black">
+                    <div className="px-4 sm:px-6 md:px-8 lg:px-10 py-4 sm:py-6 border-t border-gray-200 bg-white">
                       <div className="flex flex-wrap gap-2">
                         {blog.tags.map((tag, index) => (
                           <span
                             key={`${tag}-${index}`}
-                            className="px-2.5 py-1 sm:px-3 sm:py-1.5 bg-gray-900 text-xs sm:text-sm font-medium text-gray-400 rounded-full border border-gray-700 hover:border-gray-500 hover:text-white transition-colors duration-200"
+                            className="px-2.5 py-1 sm:px-3 sm:py-1.5 bg-gray-100 text-xs sm:text-sm font-medium text-gray-600 rounded-full border border-gray-300 hover:border-gray-400 hover:text-gray-900 transition-colors duration-200"
                           >
                             #{tag}
                           </span>
@@ -524,15 +524,15 @@ export default function BlogPost({ blog, relatedPosts = [] }) {
                   )}
 
                   {/* Enhanced Engagement Section */}
-                  <footer className="px-4 sm:px-6 md:px-8 lg:px-10 py-4 sm:py-6 border-t border-gray-800">
+                  <footer className="px-4 sm:px-6 md:px-8 lg:px-10 py-4 sm:py-6 border-t border-gray-200">
                     <div className="flex flex-col sm:flex-row flex-wrap items-center justify-between gap-4">
                       <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                         <motion.button
                           onClick={handleBookmark}
                           className={`flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full transition-all duration-300 ${
                             isBookmarked
-                              ? 'bg-gray-900 text-white'
-                              : 'bg-black text-gray-400 hover:bg-gray-800 hover:text-white'
+                              ? 'bg-blue-100 text-blue-600'
+                              : 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900'
                           }`}
                           whileTap={{ scale: 0.95 }}
                         >
@@ -553,7 +553,7 @@ export default function BlogPost({ blog, relatedPosts = [] }) {
                         <ShareButton url={currentUrl} />
                         <button
                           onClick={() => window.print()}
-                          className="flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-black text-gray-400 hover:bg-gray-800 hover:text-white transition-all duration-300"
+                          className="flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900 transition-all duration-300"
                         >
                           <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5" />
                           <span className="text-sm sm:text-base font-medium">Print</span>
