@@ -20,7 +20,7 @@
     "dompurify": "^3.2.6",
     "framer-motion": "^12.18.1",
     "gray-matter": "^4.0.3",
-    "next": "15.3.4",
+    "next": "15.3.5",
     "lucide-react": "^0.523.0",
     "next-mdx-remote": "^5.0.0",
     "react": "^19.0.0",
