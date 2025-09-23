@@ -1,5 +1,4 @@
 import './globals.css';
-import ReadingProgress from "./components/ReadingProgress";
 
 const siteUrl = 'https://lf32.vercel.app';
 
@@ -61,7 +60,6 @@ export default function RootLayout({ children }) {
         <meta name="theme-color" content="#ffffff" />
       </head>
       <body className="antialiased">
-        <ReadingProgress />
         <div className="min-h-screen">
           {children}
         </div>
