@@ -1,4 +1,11 @@
 import './globals.css';
+import { Playfair_Display } from 'next/font/google';
+
+const playfair = Playfair_Display({ 
+  subsets: ['latin'], 
+  weight: ['400', '500', '600', '700', '800', '900'],
+  variable: '--font-playfair'
+});
 
 const siteUrl = 'https://lf32.vercel.app';
 
@@ -58,8 +65,11 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="canonical" href={siteUrl} />
         <meta name="theme-color" content="#ffffff" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
       </head>
-      <body className="antialiased">
+      <body className={`antialiased ${playfair.variable}`}>
         <div className="min-h-screen">
           {children}
         </div>

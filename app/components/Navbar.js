@@ -16,7 +16,7 @@ export default function Navbar() {
       setIsScrolled(window.scrollY > 50);
 
       // Update active section
-      const sections = ['top', 'about', 'experience', 'projects', 'blog', 'contact'];
+      const sections = ['top', 'about', 'experience', 'projects', 'contact'];
       const currentSection = sections.find(section => {
         const element = document.getElementById(section);
         if (element) {
@@ -40,7 +40,6 @@ export default function Navbar() {
     { href: '#about', label: 'About' },
     { href: '#experience', label: 'Experience' },
     { href: '#projects', label: 'Projects' },
-    { href: '#blog', label: 'Blog' },
     { href: '#contact', label: 'Contact' },
   ];
 
@@ -84,8 +83,8 @@ export default function Navbar() {
   return (
     <nav className={`fixed w-full z-50 transition-all duration-300 ${
       isScrolled 
-        ? 'glass backdrop-blur-md bg-white/70 shadow-lg' 
-        : 'glass backdrop-blur-sm bg-white/50'
+        ? 'bg-white border-b border-gray-200 shadow-sm' 
+        : 'bg-white/95'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
@@ -93,10 +92,17 @@ export default function Navbar() {
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <Link href="#top" className="text-xl font-bold text-gray-800">
-              lf32<span className="text-blue-600">_</span>
+            <Link 
+              href="#top" 
+              className="text-2xl font-light text-gray-900 tracking-tight"
+              onClick={(e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            >
+              LF32
             </Link>
           </motion.div>
 
@@ -105,17 +111,23 @@ export default function Navbar() {
             {navLinks.map((link, index) => (
               <motion.div
                 key={link.href}
-                initial={{ opacity: 0, y: -20 }}
+                initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
               >
                 <Link
                   href={link.href}
-                  className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
+                  className={`relative text-sm font-medium transition-colors duration-200 hover:text-gray-900 ${
                     activeSection === link.href.slice(1)
-                      ? 'bg-blue-50 text-blue-600'
-                      : 'text-gray-600 hover:bg-gray-50 hover:text-blue-600'
+                      ? 'text-gray-900 border-b-2 border-gray-900 pb-1'
+                      : 'text-gray-600'
                   }`}
+                  onClick={(e) => {
+                    if (link.href === '#top') {
+                      e.preventDefault();
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                  }}
                 >
                   {link.label}
                 </Link>
@@ -123,9 +135,25 @@ export default function Navbar() {
             ))}
           </div>
 
+          {/* Desktop CTA */}
+          <div className="hidden md:flex items-center space-x-6">
+            <Link
+              href="/blog"
+              className="text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors duration-200"
+            >
+              Subscribe
+            </Link>
+            <Link
+              href="#contact"
+              className="px-4 py-2 bg-gray-900 text-white text-sm font-medium hover:bg-gray-800 transition-colors duration-200"
+            >
+              Contact
+            </Link>
+          </div>
+
           {/* Mobile Menu Button */}
           <motion.button
-            className="md:hidden p-2 rounded-lg text-gray-600 hover:text-blue-600 hover:bg-gray-100 transition-colors"
+            className="md:hidden p-2 text-gray-600 hover:text-gray-900 transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -151,7 +179,7 @@ export default function Navbar() {
           >
             {/* Backdrop */}
             <motion.div
-              className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+              className="absolute inset-0 bg-black/20"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -160,27 +188,33 @@ export default function Navbar() {
 
             {/* Menu Content */}
             <motion.div
-              className="absolute right-0 top-0 w-full sm:w-80 h-[calc(100vh-4rem)] mt-16 bg-white shadow-2xl"
+              className="absolute right-0 top-0 w-full sm:w-80 h-[calc(100vh-4rem)] mt-16 bg-white border-l border-gray-200"
               variants={menuVariants}
             >
               <div className="flex flex-col h-full">
                 {/* Menu Items */}
-                <div className="flex-1 overflow-y-auto">
-                  <div className="p-4 space-y-1">
+                <div className="flex-1 overflow-y-auto py-8">
+                  <div className="px-6 space-y-6">
                     {navLinks.map((link, index) => (
                       <motion.div
                         key={link.href}
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.3, delay: index * 0.1 }}
+                        transition={{ duration: 0.4, delay: index * 0.1, ease: "easeOut" }}
                       >
                         <Link
                           href={link.href}
-                          onClick={() => setIsMobileMenuOpen(false)}
-                          className={`block px-4 py-3 text-base font-medium rounded-lg transition-all ${
+                          onClick={(e) => {
+                            if (link.href === '#top') {
+                              e.preventDefault();
+                              window.scrollTo({ top: 0, behavior: 'smooth' });
+                            }
+                            setIsMobileMenuOpen(false);
+                          }}
+                          className={`block text-lg font-light transition-colors duration-200 ${
                             activeSection === link.href.slice(1)
-                              ? 'bg-blue-50 text-blue-600'
-                              : 'text-gray-700 hover:bg-gray-50 hover:text-blue-600'
+                              ? 'text-gray-900 border-b border-gray-900 pb-1'
+                              : 'text-gray-600 hover:text-gray-900'
                           }`}
                         >
                           {link.label}
@@ -191,13 +225,30 @@ export default function Navbar() {
                 </div>
 
                 {/* Menu Footer */}
-                <div className="p-4 border-t border-gray-100 bg-gray-50">
-                  <div className="flex items-center justify-center space-x-4">
+                <div className="px-6 py-8 border-t border-gray-200">
+                  <div className="space-y-4">
+                    <Link
+                      href="/blog"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="block text-blue-600 font-medium hover:text-blue-700 transition-colors"
+                    >
+                      Subscribe to Updates
+                    </Link>
+                    <Link
+                      href="#contact"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="block w-full text-center py-3 bg-gray-900 text-white font-medium hover:bg-gray-800 transition-colors"
+                    >
+                      Get In Touch
+                    </Link>
+                  </div>
+                  
+                  <div className="flex items-center justify-center space-x-6 mt-6 pt-6 border-t border-gray-100">
                     <a
                       href="https://github.com/lf32"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-2 text-gray-600 hover:text-gray-900 hover:bg-white rounded-lg transition-colors"
+                      className="text-gray-400 hover:text-gray-600 transition-colors"
                     >
                       <Github className="w-5 h-5" />
                     </a>
@@ -205,7 +256,7 @@ export default function Navbar() {
                       href="https://linkedin.com/in/lf32-dev/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-2 text-gray-600 hover:text-blue-600 hover:bg-white rounded-lg transition-colors"
+                      className="text-gray-400 hover:text-gray-600 transition-colors"
                     >
                       <Linkedin className="w-5 h-5" />
                     </a>
@@ -213,7 +264,7 @@ export default function Navbar() {
                       href="https://hackerone.com/lf32?type=user"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-2 text-gray-600 hover:text-green-600 hover:bg-white rounded-lg transition-colors"
+                      className="text-gray-400 hover:text-gray-600 transition-colors"
                     >
                       <Shield className="w-5 h-5" />
                     </a>
