@@ -40,7 +40,6 @@ export default function Navbar() {
     { href: '#about', label: 'About' },
     { href: '#experience', label: 'Experience' },
     { href: '#projects', label: 'Projects' },
-    { href: '#contact', label: 'Contact' },
   ];
 
   const menuVariants = {
@@ -141,7 +140,7 @@ export default function Navbar() {
               href="/blog"
               className="text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors duration-200"
             >
-              Subscribe
+              Blog
             </Link>
             <Link
               href="#contact"
@@ -232,7 +231,7 @@ export default function Navbar() {
                       onClick={() => setIsMobileMenuOpen(false)}
                       className="block text-blue-600 font-medium hover:text-blue-700 transition-colors"
                     >
-                      Subscribe to Updates
+                      Blog
                     </Link>
                     <Link
                       href="#contact"

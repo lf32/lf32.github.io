@@ -174,6 +174,16 @@ export default function BlogPost({ blog, relatedPosts = [] }) {
               transition={{ duration: 0.6 }}
               className="space-y-6"
             >
+              {/* Back to Blog Link */}
+              <div className="mb-6">
+                <Link 
+                  href="/blog" 
+                  className="text-sm text-gray-500 hover:text-gray-700 transition-colors font-mono"
+                >
+                  ../bl0g
+                </Link>
+              </div>
+
               {/* Date */}
               <div className="text-sm text-gray-500 font-medium tracking-wider uppercase">
                 {new Date(blog.date).toLocaleDateString('en-US', { 
@@ -297,22 +307,25 @@ export default function BlogPost({ blog, relatedPosts = [] }) {
             <div className="flex justify-between items-center">
               <Link
                 href="/blog"
-                className="inline-flex items-center space-x-2 text-blue-600 hover:text-blue-700 font-medium transition-colors duration-200"
+                className="text-blue-600 hover:text-blue-700 font-mono transition-colors duration-200"
               >
-                <ArrowLeft className="w-4 h-4" />
-                <span>All Articles</span>
+                ../bl0g
               </Link>
               
               <Link
-                href="/#contact"
-                className="inline-flex items-center space-x-2 text-blue-600 hover:text-blue-700 font-medium transition-colors duration-200"
+                href="/"
+                className="text-blue-600 hover:text-blue-700 font-mono transition-colors duration-200"
               >
-                <span>Get in Touch</span>
-                <ArrowRight className="w-4 h-4" />
+                ../../h0me
               </Link>
             </div>
           </div>
         </article>
+
+        {/* Watermark */}
+        <div className="fixed bottom-4 right-4 z-50 opacity-20 pointer-events-none">
+          <span className="text-gray-400 text-sm font-mono tracking-wider">lf32</span>
+        </div>
       </div>
     </>
   );

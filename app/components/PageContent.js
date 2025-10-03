@@ -2,7 +2,6 @@
 
 import { useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-import Hero from './Hero';
 import About from './About';
 import Experience from './Experience';
 import Projects from './Projects';

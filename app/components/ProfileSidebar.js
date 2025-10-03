@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Shield, Mail, MapPin, ArrowRight, Star, Calendar, Clock, Eye } from 'lucide-react';
+import { Github, Linkedin, Shield, Mail, MapPin, ArrowRight, Star, Calendar, Clock, Eye, Youtube, Briefcase } from 'lucide-react';
 
 const socialLinks = [
   {
@@ -26,6 +26,13 @@ const socialLinks = [
     icon: Shield,
     color: 'hover:text-green-600',
     stats: '20+ Valid Reports'
+  },
+  {
+    name: 'YouTube',
+    href: 'https://www.youtube.com/@0xlf32',
+    icon: Youtube,
+    color: 'hover:text-red-600',
+    stats: 'Security Content'
   }
 ];
 
@@ -76,7 +83,7 @@ export default function ProfileSidebar() {
           <div className="flex items-start space-x-4">
             <div className="relative w-16 h-16 flex-shrink-0">
               <Image
-                src="/mebase.png"
+                src="/images/0xlf32.jpg"
                 alt="LF32 - Lali Akhil Raj"
                 fill
                 className="object-cover rounded-full"
@@ -86,7 +93,7 @@ export default function ProfileSidebar() {
             <div className="space-y-1">
               <h4 className="text-xl font-light text-gray-900">LF32</h4>
               <p className="text-sm text-gray-600 font-light">Lali Akhil Raj</p>
-              <p className="text-sm text-gray-700 font-medium">Software Engineer & Security Researcher</p>
+              <p className="text-sm text-gray-700 font-medium">Software Supply Chain Security</p>
             </div>
           </div>
 
@@ -98,6 +105,10 @@ export default function ProfileSidebar() {
 
           {/* Location & Contact */}
           <div className="space-y-2 text-sm text-gray-600">
+            <div className="flex items-center space-x-2">
+              <Briefcase className="w-4 h-4 text-gray-400" />
+              <span>Endor Labs</span>
+            </div>
             <div className="flex items-center space-x-2">
               <MapPin className="w-4 h-4 text-gray-400" />
               <span>India</span>
@@ -125,6 +136,11 @@ export default function ProfileSidebar() {
               </motion.a>
             ))}
           </div>
+        </div>
+
+        {/* Info Note */}
+        <div className="bg-gray-50 p-3 rounded text-xs text-gray-500 italic border-l-2 border-gray-200">
+          <span className="font-medium text-gray-600">Current Focus:</span> Deep diving into supply chain security, malware detection in open source packages, and CI/CD pipeline vulnerabilities. Building zero-trust solutions while hunting for novel attack vectors across the entire software development lifecycle.
         </div>
       </motion.div>
 

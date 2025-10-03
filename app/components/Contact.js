@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Github, Linkedin, Shield, ArrowRight } from 'lucide-react';
+import { Mail, MapPin, Github, Linkedin, Shield, ArrowRight, Youtube } from 'lucide-react';
 
 export default function Contact() {
   return (
@@ -57,7 +57,7 @@ export default function Contact() {
                 </div>
                 <div className="flex items-center justify-center space-x-4">
                   <MapPin className="w-5 h-5 text-gray-600" />
-                  <span className="text-gray-700">India</span>
+                  <span className="text-gray-700 font-mono">0x496E6469612C20417369612C20456172746820</span>
                 </div>
               </div>
 
@@ -98,7 +98,7 @@ export default function Contact() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="pt-8 border-t border-gray-200"
             >
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
                 <a
                   href="https://github.com/lf32"
                   target="_blank"
@@ -121,6 +121,18 @@ export default function Contact() {
                   <div>
                     <div className="font-medium text-gray-900">LinkedIn</div>
                     <div className="text-sm text-gray-600">Professional Network</div>
+                  </div>
+                </a>
+                <a
+                  href="https://www.youtube.com/@0xlf32"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex flex-col items-center space-y-3 p-6 hover:bg-gray-50 transition-colors duration-200"
+                >
+                  <Youtube className="w-8 h-8 text-gray-600" />
+                  <div>
+                    <div className="font-medium text-gray-900">YouTube</div>
+                    <div className="text-sm text-gray-600">Security Content</div>
                   </div>
                 </a>
                 <a
@@ -149,7 +161,7 @@ export default function Contact() {
                 Open to collaboration, consulting opportunities, and security research discussions.
               </p>
               <a
-                href="mailto:lf32.dev@gmail.com?subject=Collaboration Inquiry"
+                href="mailto:lf32.dev@gmail.com?subject=Supply Chain Security Discussion"
                 className="inline-flex items-center px-8 py-3 bg-gray-900 text-white font-medium hover:bg-gray-800 transition-colors duration-200"
               >
                 Start a Conversation

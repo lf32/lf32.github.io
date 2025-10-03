@@ -15,14 +15,15 @@ export default function BlogPageClient({ blogs }) {
       {/* Header */}
       <header className="border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="space-y-8">
-            <Link 
-              href="/" 
-              className="inline-flex items-center text-sm text-gray-600 hover:text-gray-900 transition-colors duration-200 font-medium"
-            >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Home
-            </Link>
+          <div className="space-y-6">
+            <div className="mb-6">
+              <Link 
+                href="/" 
+                className="text-sm text-gray-600 hover:text-gray-900 transition-colors duration-200 font-mono"
+              >
+                ../h0me
+              </Link>
+            </div>
             
             <div className="space-y-6">
               <div className="text-sm text-gray-500 font-medium tracking-wider uppercase">
