@@ -2,7 +2,7 @@ import { getBlogByDate, getAllBlogDates } from '../../lib/markdown';
 import BlogPost from '../../components/BlogPost';
 import { notFound } from 'next/navigation';
 
-const siteUrl = 'https://lf32-dev.vercel.app';
+const siteUrl = 'https://lf32.vercel.app';
 
 // Generate static params for all blog posts
 export async function generateStaticParams() {
