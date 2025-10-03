@@ -52,11 +52,20 @@ export async function generateMetadata({ params }) {
       authors: ['LF32'],
       tags: [blog.category, 'software development', 'security', 'technology'],
       url: `${siteUrl}/blog/${params.date}`,
+      images: [
+        {
+          url: blog.image,
+          width: 1200,
+          height: 630,
+          alt: blog.title,
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
       title: blog.title,
       description: blog.excerpt,
+      images: [blog.image],
     },
     alternates: {
       canonical: `${siteUrl}/blog/${params.date}`,
