@@ -13,7 +13,7 @@ export const metadata = {
   metadataBase: new URL(siteUrl),
   title: {
     default: 'LF32 | Lali Akhil Raj',
-    template: '%s | LF32'
+    template: '%s'
   },
   description: 'Software developer and security researcher specializing in web development, cybersecurity, and open source contributions. Read my blog for insights on software development, security research, and tech tutorials.',
   keywords: ['software developer', 'security researcher', 'web development', 'cybersecurity', 'open source', 'tech blog', 'software engineering', 'bug bounty', 'penetration testing'],

@@ -43,6 +43,7 @@ export async function generateMetadata({ params }) {
   return {
     title: blog.title,
     description: blog.excerpt,
+    metadataBase: new URL(siteUrl),
     openGraph: {
       title: blog.title,
       description: blog.excerpt,
@@ -52,6 +53,7 @@ export async function generateMetadata({ params }) {
       authors: ['LF32'],
       tags: [blog.category, 'software development', 'security', 'technology'],
       url: `${siteUrl}/blog/${params.date}`,
+      siteName: 'LF32',
       images: [
         {
           url: blog.image,
