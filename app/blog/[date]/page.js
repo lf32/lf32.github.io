@@ -37,29 +37,31 @@ export async function generateMetadata({ params }) {
     };
   }
 
+  console.log('Blog metadata:', { title: blog.title, image: blog.image, excerpt: blog.excerpt });
+
   const publishedDate = new Date(params.date).toISOString();
   const modifiedDate = new Date().toISOString(); // You might want to add a lastModified field to your blog posts
 
   return {
-    title: blog.title,
-    description: blog.excerpt,
+    title: blog.title || 'Zero Trust Supply Chain: Why I Don\'t Trust Any Dependency Anymore',
+    description: blog.excerpt || 'After analyzing s1ngularity, Shai-Hulud, and Qix attacks, I\'ve adopted a paranoid approach to dependencies.',
     metadataBase: new URL(siteUrl),
     openGraph: {
-      title: blog.title,
-      description: blog.excerpt,
+      title: blog.title || 'Zero Trust Supply Chain: Why I Don\'t Trust Any Dependency Anymore',
+      description: blog.excerpt || 'After analyzing s1ngularity, Shai-Hulud, and Qix attacks, I\'ve adopted a paranoid approach to dependencies.',
       type: 'article',
       publishedTime: publishedDate,
       modifiedTime: modifiedDate,
       authors: ['LF32'],
-      tags: [blog.category, 'software development', 'security', 'technology'],
+      tags: [blog.category || 'Supply Chain Security', 'software development', 'security', 'technology'],
       url: `${siteUrl}/blog/${params.date}`,
       siteName: 'LF32',
       images: [
         {
-          url: blog.image,
+          url: blog.image || 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31',
           width: 1200,
           height: 630,
-          alt: blog.title,
+          alt: blog.title || 'Zero Trust Supply Chain Security',
         },
       ],
     },
