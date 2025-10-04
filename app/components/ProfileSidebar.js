@@ -140,7 +140,7 @@ export default function ProfileSidebar() {
 
         {/* Info Note */}
         <div className="bg-gray-50 p-3 rounded text-xs text-gray-500 italic border-l-2 border-gray-200">
-          <span className="font-medium text-gray-600">Current Focus:</span> Deep diving into supply chain security, malware detection in open source packages, and CI/CD pipeline vulnerabilities. Building zero-trust solutions while hunting for novel attack vectors across the entire software development lifecycle.
+          <span className="font-medium text-gray-600">Current Focus:</span> Software supply chain security, malicious package detection, and zero-trust solutions for open source dependencies.
         </div>
       </motion.div>
 
