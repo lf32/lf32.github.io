@@ -184,14 +184,17 @@ export default function BlogPost({ blog, relatedPosts = [] }) {
                 </Link>
               </div>
 
-              {/* Date */}
-              <div className="text-sm text-gray-500 font-medium tracking-wider uppercase">
-                {new Date(blog.date).toLocaleDateString('en-US', { 
-                  weekday: 'long', 
-                  year: 'numeric', 
-                  month: 'long', 
-                  day: 'numeric' 
-                })}
+              {/* Date & Share */}
+              <div className="flex justify-between items-center">
+                <div className="text-sm text-gray-500 font-medium tracking-wider uppercase">
+                  {new Date(blog.date).toLocaleDateString('en-US', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                  })}
+                </div>
+                <SocialShare title={blog.title} url={currentUrl} />
               </div>
 
               {/* Title */}
@@ -209,7 +212,7 @@ export default function BlogPost({ blog, relatedPosts = [] }) {
                 </p>
               )}
 
-              {/* Meta & Social */}
+              {/* Meta & Author */}
               <div className="flex items-center justify-between pt-4">
                 <div className="flex items-center space-x-4 text-sm text-gray-500">
                   {blog.category && (
@@ -223,7 +226,16 @@ export default function BlogPost({ blog, relatedPosts = [] }) {
                   </div>
                 </div>
                 
-                <SocialShare title={blog.title} url={currentUrl} />
+                <div className="flex items-center space-x-2 bg-gray-100 px-3 py-2 rounded-full">
+                  <Image
+                    src="/images/0xlf32.jpg"
+                    alt="Lali Akhil Raj"
+                    width={24}
+                    height={24}
+                    className="rounded-full"
+                  />
+                  <span className="text-sm text-gray-900 font-medium">Lali Akhil Raj</span>
+                </div>
               </div>
 
             </motion.div>
@@ -262,9 +274,9 @@ export default function BlogPost({ blog, relatedPosts = [] }) {
               prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-a:transition-colors prose-a:duration-200
               prose-strong:text-gray-900 prose-strong:font-medium
               prose-blockquote:border-l-4 prose-blockquote:border-gray-300 prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:text-gray-600 prose-blockquote:leading-[1.6]
-              prose-code:text-gray-800 prose-code:bg-gray-100 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm prose-code:font-mono
+              [&_code]:inline [&_code]:bg-gray-100 [&_code]:text-blue-600 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-sm [&_code]:font-mono
               prose-pre:bg-gray-900 prose-pre:text-white prose-pre:rounded-lg prose-pre:p-4
-              prose-img:rounded-none prose-img:shadow-sm
+              prose-img:rounded-none prose-img:shadow-sm prose-img:mx-auto prose-img:block
               prose-hr:border-gray-200 prose-hr:my-8
               prose-ul:text-gray-700 prose-ol:text-gray-700 prose-ul:leading-[1.6] prose-ol:leading-[1.6]
               prose-li:text-gray-700 prose-li:leading-[1.6]">

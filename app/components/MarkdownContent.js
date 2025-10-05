@@ -10,7 +10,13 @@ const components = {
   h2: ({ node, ...props }) => <h2 className="text-2xl font-bold mb-3 text-gray-900" {...props} />,
   h3: ({ node, ...props }) => <h3 className="text-xl font-bold mb-2 text-gray-900" {...props} />,
   h4: ({ node, ...props }) => <h4 className="text-lg font-bold mb-2 text-gray-900" {...props} />,
-  p: ({ node, ...props }) => <p className="mb-3 text-gray-700" {...props} />,
+  p: ({ node, ...props }) => {
+    // Check if paragraph contains only an image
+    const hasOnlyImage = node?.children?.length === 1 && node.children[0]?.tagName === 'img';
+    return (
+      <p className={`mb-3 text-gray-700 ${hasOnlyImage ? 'text-center' : ''}`} {...props} />
+    );
+  },
   a: ({ node, ...props }) => <a className="text-blue-600 hover:underline" {...props} />,
   ul: ({ node, ...props }) => <ul className="list-disc pl-5 mb-3 text-gray-700" {...props} />,
   ol: ({ node, ...props }) => <ol className="list-decimal pl-5 mb-3 text-gray-700" {...props} />,
@@ -20,7 +26,7 @@ const components = {
   ),
   code: ({ node, inline, className, children, ...props }) => (
     <code
-      className={`${inline ? 'bg-gray-100 text-blue-600 px-1 py-0.5 rounded' : 'block bg-gray-100 p-3 rounded-lg overflow-x-auto text-gray-800'} ${className || ''}`}
+      className={`${inline ? 'bg-gray-100 text-blue-600 px-1 py-0.5 rounded inline' : 'bg-gray-100 p-3 rounded-lg overflow-x-auto text-gray-800 block'} ${className || ''}`}
       {...props}
     >
       {children}
@@ -28,6 +34,9 @@ const components = {
   ),
   pre: ({ node, ...props }) => (
     <pre className="bg-gray-100 p-3 rounded-lg overflow-x-auto my-3 text-gray-800" {...props} />
+  ),
+  img: ({ node, ...props }) => (
+    <img className="inline-block my-6 rounded shadow-sm max-w-full" {...props} />
   ),
 };
 

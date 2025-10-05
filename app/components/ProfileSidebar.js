@@ -110,14 +110,14 @@ export default function ProfileSidebar() {
               <span>Endor Labs</span>
             </div>
             <div className="flex items-center space-x-2">
-              <MapPin className="w-4 h-4 text-gray-400" />
-              <span>India</span>
-            </div>
-            <div className="flex items-center space-x-2">
               <Mail className="w-4 h-4 text-gray-400" />
               <a href="mailto:lf32.dev@gmail.com" className="hover:text-gray-900 transition-colors">
                 lf32.dev@gmail.com
               </a>
+            </div>
+            <div className="flex items-center space-x-2">
+              <MapPin className="w-4 h-4 text-gray-400" />
+              <span>India</span>
             </div>
           </div>
 
