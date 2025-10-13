@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Shield, Mail, MapPin, ArrowRight, Star, Calendar, Clock, Eye, Youtube, Briefcase } from 'lucide-react';
+import { Github, Linkedin, Shield, Mail, MapPin, ArrowRight, Star, Calendar, Clock, Eye, Briefcase } from 'lucide-react';
 
 const socialLinks = [
   {
@@ -26,13 +26,6 @@ const socialLinks = [
     icon: Shield,
     color: 'hover:text-green-600',
     stats: '20+ Valid Reports'
-  },
-  {
-    name: 'YouTube',
-    href: 'https://www.youtube.com/@0xlf32',
-    icon: Youtube,
-    color: 'hover:text-red-600',
-    stats: 'Security Content'
   }
 ];
 

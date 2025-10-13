@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Github, Linkedin, Shield, ArrowRight, Youtube } from 'lucide-react';
+import { Mail, MapPin, Github, Linkedin, Shield, ArrowRight } from 'lucide-react';
 
 export default function Contact() {
   return (
@@ -68,18 +68,18 @@ export default function Contact() {
                   <div className="bg-gray-50 p-4 rounded font-mono text-sm text-gray-700">
                     <div className="text-center space-y-2">
                       <div className="text-xs text-gray-500 uppercase tracking-wide">PGP Key Fingerprint</div>
-                      <div className="break-all">4A2B 8C9D 1E3F 5A6B 7C8D 9E0F 1A2B 3C4D 5E6F 7A8B</div>
+                      <div className="break-all">1F55 7E5D F7BC BA93 FD0C 71F8 5054 D404 6EF3 7944</div>
                     </div>
                   </div>
                   <div className="flex justify-center space-x-6 text-sm">
                     <a
-                      href="/pgp-key.asc"
+                      href="https://keys.openpgp.org/vks/v1/by-fingerprint/1F557E5DF7BCBA93FD0C71F85054D4046EF37944"
                       className="text-blue-600 hover:text-blue-700 transition-colors duration-200"
                     >
                       Download Public Key
                     </a>
                     <a
-                      href="https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x4A2B8C9D1E3F5A6B7C8D9E0F1A2B3C4D5E6F7A8B"
+                      href="https://keys.openpgp.org/search?q=1F557E5DF7BCBA93FD0C71F85054D4046EF37944"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:text-blue-700 transition-colors duration-200"
@@ -98,7 +98,7 @@ export default function Contact() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="pt-8 border-t border-gray-200"
             >
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
                 <a
                   href="https://github.com/lf32"
                   target="_blank"
@@ -121,18 +121,6 @@ export default function Contact() {
                   <div>
                     <div className="font-medium text-gray-900">LinkedIn</div>
                     <div className="text-sm text-gray-600">Professional Network</div>
-                  </div>
-                </a>
-                <a
-                  href="https://www.youtube.com/@0xlf32"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex flex-col items-center space-y-3 p-6 hover:bg-gray-50 transition-colors duration-200"
-                >
-                  <Youtube className="w-8 h-8 text-gray-600" />
-                  <div>
-                    <div className="font-medium text-gray-900">YouTube</div>
-                    <div className="text-sm text-gray-600">Security Content</div>
                   </div>
                 </a>
                 <a

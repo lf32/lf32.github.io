@@ -15,8 +15,14 @@ export default function Navbar() {
       // Update scroll state
       setIsScrolled(window.scrollY > 50);
 
+      // If we're at the top of the page, set active section to 'top'
+      if (window.scrollY < 100) {
+        setActiveSection('top');
+        return;
+      }
+
       // Update active section
-      const sections = ['top', 'about', 'experience', 'projects', 'contact'];
+      const sections = ['about', 'experience', 'projects', 'contact'];
       const currentSection = sections.find(section => {
         const element = document.getElementById(section);
         if (element) {
