@@ -285,3 +285,8 @@ html {
   margin: 2em 0;
 }
 
+/* Masonry helpers */
+.break-inside-avoid {
+  break-inside: avoid;
+}
+

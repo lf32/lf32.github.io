@@ -56,7 +56,13 @@ const nextConfig = {
       'www.bleepstatic.com',          // Bleeping Computer
       'bleepstatic.com',              // Bleeping Computer (without www)
       'm.media-amazon.com',            // Amazon Media
-      'pbs.twimg.com'
+      'pbs.twimg.com',
+      'i.redd.it',
+      'preview.redd.it',
+      'external-preview.redd.it',
+      'redditstatic.com',
+      'i.reddituploads.com',
+      'www.reddit.com'
     ],
     // Optional: Configure image sizes for better performance
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
