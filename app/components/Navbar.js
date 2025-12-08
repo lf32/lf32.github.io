@@ -258,7 +258,7 @@ export default function Navbar() {
                       <Github className="w-5 h-5" />
                     </a>
                     <a
-                      href="https://linkedin.com/in/lf32-dev/"
+                      href="https://linkedin.com/in/laraj-ln/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-gray-400 hover:text-gray-600 transition-colors"
