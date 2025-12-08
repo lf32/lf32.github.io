@@ -15,7 +15,7 @@ const socialLinks = [
   },
   {
     name: 'LinkedIn',
-    href: 'https://linkedin.com/in/lf32/',
+    href: 'https://linkedin.com/in/laraj-ln/',
     icon: Linkedin,
     color: 'hover:text-blue-600',
     stats: '500+ Connections'
