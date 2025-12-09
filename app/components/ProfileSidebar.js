@@ -100,7 +100,7 @@ export default function ProfileSidebar() {
           <div className="space-y-2 text-sm text-gray-600">
             <div className="flex items-center space-x-2">
               <Briefcase className="w-4 h-4 text-gray-400" />
-              <span>Endor Labs</span>
+              <span>Stealth Mode</span>
             </div>
             <div className="flex items-center space-x-2">
               <Mail className="w-4 h-4 text-gray-400" />
