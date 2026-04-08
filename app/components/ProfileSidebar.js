@@ -15,7 +15,7 @@ const socialLinks = [
   },
   {
     name: 'LinkedIn',
-    href: 'https://linkedin.com/in/laraj-ln/',
+    href: 'https://linkedin.com/in/lali-akhil-raj/',
     icon: Linkedin,
     color: 'hover:text-blue-600',
     stats: '500+ Connections'
