@@ -112,7 +112,7 @@ export default function Contact() {
                   </div>
                 </a>
                 <a
-                  href="https://linkedin.com/in/laraj-ln/"
+                  href="https://linkedin.com/in/lali-akhil-raj/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex flex-col items-center space-y-3 p-6 hover:bg-gray-50 transition-colors duration-200"
