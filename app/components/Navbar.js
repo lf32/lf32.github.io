@@ -107,7 +107,7 @@ export default function Navbar() {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
             >
-              <img src="https://upload.wikimedia.org/wikipedia/commons/e/ee/UN_emblem_blue.svg" />LF32
+                LF32
             </Link>
           </motion.div>
 
