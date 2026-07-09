@@ -94,7 +94,6 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <img src="https://upload.wikimedia.org/wikipedia/commons/e/ee/UN_emblem_blue.svg" />
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -108,7 +107,7 @@ export default function Navbar() {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
             >
-              LF32
+              <img src="https://upload.wikimedia.org/wikipedia/commons/e/ee/UN_emblem_blue.svg" />LF32
             </Link>
           </motion.div>
 
