@@ -99,6 +99,7 @@ export default function Navbar() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/ee/UN_emblem_blue.svg">
             <Link 
               href="#top" 
               className="text-2xl font-light text-gray-900 tracking-tight"
