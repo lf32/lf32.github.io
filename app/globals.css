@@ -136,6 +136,11 @@ html {
   color: transparent;
 }
 
+/* Playfair Display font */
+.font-playfair {
+  font-family: 'Playfair Display', var(--font-playfair), serif !important;
+}
+
 /* Font declarations */
 @font-face {
   font-family: 'Comfortaa';
@@ -278,5 +283,10 @@ html {
   border: none;
   border-top: 1px solid #e5e7eb;
   margin: 2em 0;
+}
+
+/* Masonry helpers */
+.break-inside-avoid {
+  break-inside: avoid;
 }
 

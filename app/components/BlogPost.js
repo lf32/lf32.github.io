@@ -2,37 +2,19 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import MarkdownContent from './MarkdownContent';
-import ShareButton from './ShareButton';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
   ArrowLeft, 
   Clock, 
   Calendar, 
-  Tag, 
-  Eye, 
-  ThumbsUp, 
-  Bookmark,
   Share2,
-  ChevronUp,
-  BookOpen,
-  ExternalLink,
-  Github,
-  Twitter,
-  Linkedin,
-  Mail
+  ArrowRight
 } from 'lucide-react';
-import { useEffect, useState, useRef, useMemo } from 'react';
-import Head from 'next/head';
+import { useEffect, useState, useRef } from 'react';
 import { usePathname } from 'next/navigation';
-import TableOfContents from './TableOfContents';
 
-const generateId = (text) => {
-  if (!text) return '';
-  return text.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
-};
-
-// Reading Progress Bar Component
+// Reading Progress Component
 const ReadingProgress = () => {
   const [progress, setProgress] = useState(0);
 
@@ -49,9 +31,9 @@ const ReadingProgress = () => {
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 w-full h-1 bg-gray-200 z-50">
+    <div className="fixed top-0 left-0 w-full h-0.5 bg-gray-100 z-50">
       <motion.div
-        className="h-full bg-blue-600"
+        className="h-full bg-gray-900"
         style={{ width: `${progress}%` }}
         transition={{ type: "spring", stiffness: 100, damping: 30 }}
       />
@@ -59,514 +41,313 @@ const ReadingProgress = () => {
   );
 };
 
-// Scroll to Top Button Component
-const ScrollToTop = () => {
-  const [isVisible, setIsVisible] = useState(false);
+// Social Share Component
+const SocialShare = ({ title, url, className = "" }) => {
+  const [copied, setCopied] = useState(false);
 
-  useEffect(() => {
-    const toggleVisibility = () => {
-      setIsVisible(window.pageYOffset > 300);
-    };
-
-    window.addEventListener('scroll', toggleVisibility);
-    return () => window.removeEventListener('scroll', toggleVisibility);
-  }, []);
+  const copyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy: ', err);
+    }
+  };
 
   return (
-    <AnimatePresence>
-      {isVisible && (
-        <motion.button
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.8 }}
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-8 right-8 p-3 bg-white/80 backdrop-blur-md rounded-full shadow-lg border border-gray-100 hover:bg-white transition-all duration-200 z-50"
-        >
-          <ChevronUp className="w-5 h-5 text-gray-600" />
-        </motion.button>
-      )}
-    </AnimatePresence>
+    <div className={className}>
+      <button
+        onClick={copyLink}
+        className="text-sm text-gray-600 hover:text-gray-900 transition-colors duration-200 font-medium"
+      >
+        {copied ? 'Link Copied!' : 'Share Link'}
+      </button>
+    </div>
   );
 };
 
 // Related Posts Component
-const RelatedPosts = ({ currentPost, posts }) => {
-  // Filter out the current post and get posts with similar tags or category
-  const relatedPosts = useMemo(() => {
-    if (!posts || posts.length === 0) return [];
-    
-    // First, try to find posts with matching tags
-    const postsWithMatchingTags = posts.filter(post => 
-      post.date !== currentPost.date && 
-      post.tags?.some(tag => currentPost.tags?.includes(tag))
-    );
-
-    // If we have enough posts with matching tags, return them
-    if (postsWithMatchingTags.length >= 3) {
-      return postsWithMatchingTags.slice(0, 3);
-    }
-
-    // Otherwise, try to find posts with matching category
-    const postsWithMatchingCategory = posts.filter(post => 
-      post.date !== currentPost.date && 
-      post.category === currentPost.category
-    );
-
-    // Combine both sets and remove duplicates
-    const combinedPosts = [...new Set([...postsWithMatchingTags, ...postsWithMatchingCategory])];
-    
-    // If we still don't have enough posts, add other posts
-    if (combinedPosts.length < 3) {
-      const otherPosts = posts.filter(post => 
-        post.date !== currentPost.date && 
-        !combinedPosts.some(p => p.date === post.date)
-      );
-      combinedPosts.push(...otherPosts);
-    }
-
-    return combinedPosts.slice(0, 3);
-  }, [currentPost, posts]);
-
-  if (relatedPosts.length === 0) return null;
+const RelatedPosts = ({ posts }) => {
+  if (!posts || posts.length === 0) return null;
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      className="mt-12 pt-8 border-t border-gray-200"
-    >
-      <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-        <BookOpen className="w-6 h-6 mr-2 text-blue-600" />
-        Related Posts
-      </h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {relatedPosts.map((post, index) => (
-          <motion.div
-            key={`${post.date}-${index}`}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: index * 0.1 }}
-          >
-            <Link
+    <div className="mt-20">
+      <div className="pt-12">
+        <h3 className="text-2xl font-medium text-gray-900 mb-8">Related Articles</h3>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {posts.slice(0, 2).map((post) => (
+            <Link 
+              key={post.date} 
               href={`/blog/${post.date}`}
-              className="group block h-full bg-white rounded-xl border border-gray-200 hover:border-blue-200 transition-all duration-300 hover:shadow-lg overflow-hidden"
+              className="group block"
             >
-              {/* Post Image or Gradient */}
-              <div className="relative h-40 bg-gray-100">
-                {post.image ? (
-                  <Image
-                    src={post.image}
-                    alt={post.title}
-                    fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                ) : (
-                  <div className={`absolute inset-0 bg-gray-200 opacity-20`} />
-                )}
-                {post.category && (
-                  <span className="absolute top-3 left-3 px-2 py-1 text-xs font-medium bg-white/90 backdrop-blur-sm text-gray-700 rounded-full border border-gray-300">
-                    {post.category}
-                  </span>
-                )}
-              </div>
-
-              {/* Post Content */}
-              <div className="p-4 bg-white">
-                <h3 className="font-semibold text-gray-900 group-hover:text-blue-600 group-hover:underline transition-colors duration-200 line-clamp-2 mb-2">
-                  {post.title}
-                </h3>
-                <p className="text-sm text-gray-600 line-clamp-2 mb-3">
-                  {post.excerpt}
-                </p>
-                <div className="flex items-center justify-between text-sm text-gray-500">
-                  <div className="flex items-center">
-                    <Calendar className="w-4 h-4 mr-1.5" />
-                    <time dateTime={post.date}>
-                      {new Date(post.date).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'short',
-                        day: 'numeric'
-                      })}
-                    </time>
-                  </div>
-                  {post.readTime && (
-                    <div className="flex items-center">
-                      <Clock className="w-4 h-4 mr-1.5" />
-                      <span>{post.readTime}</span>
+              <article className="space-y-6">
+                {/* Image */}
+                <div className="relative h-48 overflow-hidden bg-gray-100">
+                  {post.image ? (
+                    <Image 
+                      src={post.image} 
+                      alt={post.title} 
+                      fill 
+                      className="object-cover transition-transform duration-500 group-hover:scale-105" 
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                      <div className="text-3xl text-gray-300 font-light">
+                        {post.category?.charAt(0) || 'B'}
+                      </div>
                     </div>
                   )}
+                  <div className="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors duration-500"></div>
                 </div>
-              </div>
+
+                {/* Content */}
+                <div className="space-y-4">
+                  {/* Category */}
+                  {post.category && (
+                    <div className="text-xs text-blue-600 font-semibold uppercase tracking-wider">
+                      {post.category}
+                    </div>
+                  )}
+                  
+                  {/* Title */}
+                  <h4 className="font-playfair text-xl font-medium text-gray-900 leading-[1.3] tracking-[-0.01em] group-hover:text-gray-700 transition-colors duration-300">
+                    {post.title}
+                  </h4>
+                  
+                  {/* Excerpt */}
+                  {post.excerpt && (
+                    <p className="text-sm text-gray-600 leading-[1.6] tracking-[-0.005em] line-clamp-2">
+                      {post.excerpt}
+                    </p>
+                  )}
+                  
+                  {/* Meta */}
+                  <div className="flex items-center space-x-4 text-xs text-gray-500 pt-2">
+                    <time dateTime={post.date} className="flex items-center space-x-1">
+                      <Calendar className="w-3 h-3" />
+                      <span>{new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                    </time>
+                    {post.readTime && (
+                      <div className="flex items-center space-x-1">
+                        <Clock className="w-3 h-3" />
+                        <span>{post.readTime}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </article>
             </Link>
-          </motion.div>
-        ))}
+          ))}
+        </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
 export default function BlogPost({ blog, relatedPosts = [] }) {
   const [currentUrl, setCurrentUrl] = useState('');
-  const [isVisible, setIsVisible] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isBookmarked, setIsBookmarked] = useState(false);
-  const [headings, setHeadings] = useState([]);
-  const headerRef = useRef(null);
   const pathname = usePathname();
 
   useEffect(() => {
-    if (blog.content) {
-      const headingLines = blog.content.split('\n').filter(line => line.match(/^#{1,6}\s/));
-      const extractedHeadings = headingLines.map((line) => {
-          const match = line.match(/^(#{1,6})\s(.*)/);
-          if (match && match[2]) {
-            const level = match[1].length;
-            const text = match[2].trim();
-            const id = generateId(text);
-            return { level, text, id };
-          }
-          return null;
-      }).filter(Boolean);
-      setHeadings(extractedHeadings);
-    }
-  }, [blog.content]);
-
-  // Generate canonical URL
-  const canonicalUrl = `https://yourdomain.com${pathname}`;
-
-  // Generate structured data for the blog post
-  const structuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
-    headline: blog.title,
-    description: blog.excerpt,
-    image: blog.coverImage || 'https://yourdomain.com/default-og-image.jpg',
-    datePublished: blog.date,
-    dateModified: blog.date,
-    author: {
-      '@type': 'Person',
-      name: blog.author || 'Lali Akhil Raj'
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: 'lf32 page',
-      logo: {
-        '@type': 'ImageObject',
-        url: 'https://yourdomain.com/logo.png'
-      }
-    },
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': canonicalUrl
-    }
-  };
-
-  useEffect(() => {
-    // Set current URL only once on mount
     if (typeof window !== 'undefined') {
       setCurrentUrl(window.location.href);
     }
-    
-    // Intersection Observer for header visibility
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsVisible(entry.isIntersecting),
-      { threshold: 0.1 }
-    );
-    
-    // Scroll handler for header state
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      setIsScrolled(scrollPosition > 20);
-    };
+  }, []);
 
-    if (headerRef.current) {
-      observer.observe(headerRef.current);
-    }
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      observer.disconnect();
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []); // Empty dependency array since we only want this to run once on mount
-
-  // Calculate reading time
-  const readingTime = blog.readTime || Math.ceil(blog.content.split(/\s+/).length / 200);
-
-  // Handle bookmark
-  const handleBookmark = async () => {
-    if (isBookmarked) return; // Prevent multiple bookmarks
-    
-    try {
-      if ('share' in navigator) {
-        try {
-          await navigator.share({
-            title: blog.title,
-            text: blog.excerpt,
-            url: currentUrl
-          });
-        } catch (error) {
-          // Ignore share cancellation
-          if (error.name !== 'AbortError') {
-            console.error('Error sharing:', error);
-          }
-          return;
-        }
-      }
-      
-      // For desktop browsers, just toggle the bookmark state
-      setIsBookmarked(true);
-      const timer = setTimeout(() => setIsBookmarked(false), 2000);
-      return () => clearTimeout(timer); // Cleanup timeout
-      
-    } catch (error) {
-      console.error('Error bookmarking:', error);
-    }
-  };
+  const readingTime = blog.readTime || `${Math.ceil(blog.content.split(/\s+/).length / 200)} min read`;
 
   return (
     <>
-      <Head>
-        {/* Primary Meta Tags */}
-        <title>{`${blog.title} | Your Blog Name`}</title>
-        <meta name="title" content={blog.title} />
-        <meta name="description" content={blog.excerpt} />
-        <meta name="keywords" content={blog.tags?.join(', ')} />
-        <meta name="author" content={blog.author || 'Your Name'} />
-        
-        {/* Canonical URL */}
-        <link rel="canonical" href={canonicalUrl} />
-        
-        {/* Open Graph / Facebook */}
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content={canonicalUrl} />
-        <meta property="og:title" content={blog.title} />
-        <meta property="og:description" content={blog.excerpt} />
-        <meta property="og:image" content={blog.coverImage || 'https://yourdomain.com/default-og-image.jpg'} />
-        <meta property="article:published_time" content={blog.date} />
-        <meta property="article:modified_time" content={blog.date} />
-        <meta property="article:author" content={blog.author || 'Your Name'} />
-        {blog.tags?.map(tag => (
-          <meta key={tag} property="article:tag" content={tag} />
-        ))}
-        
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:url" content={canonicalUrl} />
-        <meta name="twitter:title" content={blog.title} />
-        <meta name="twitter:description" content={blog.excerpt} />
-        <meta name="twitter:image" content={blog.coverImage || 'https://yourdomain.com/default-og-image.jpg'} />
-        
-        {/* Structured Data */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-        />
-      </Head>
-
       <ReadingProgress />
-      <ScrollToTop />
 
-      <div className="min-h-screen bg-gradient-to-b from-gray-50 via-white to-gray-50">
-        <div className="min-h-screen bg-white">
-          {/* Hero Section */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
-            className="relative w-full h-[40vh] sm:h-[50vh] min-h-[300px] sm:min-h-[400px] bg-gradient-to-br from-blue-50 to-indigo-100 overflow-hidden border-b border-gray-200"
-          >
-            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500 rounded-full filter blur-3xl opacity-20"></div>
-            <div className="absolute top-10 right-20 w-80 h-80 bg-green-400 rounded-full filter blur-3xl opacity-20"></div>
-            <div className="absolute bottom-5 left-10 w-72 h-72 bg-purple-400 rounded-full filter blur-3xl opacity-20"></div>
-
-            {/* Content Container */}
-            <div className="relative z-10 h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center">
-              <div className="max-w-3xl">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                  className="mb-4 sm:mb-6"
+      <div className="min-h-screen bg-white">
+        {/* Article */}
+        <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Article Header */}
+          <header className="py-12 border-b border-gray-200">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="space-y-6"
+            >
+              {/* Back to Blog Link */}
+              <div className="mb-6">
+                <Link 
+                  href="/blog" 
+                  className="text-sm text-gray-500 hover:text-gray-700 transition-colors font-mono"
                 >
-                  <Link
-                    href="/blog"
-                    className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors duration-200 group"
-                  >
-                    <ArrowLeft className="w-4 h-4 mr-2 transform group-hover:-translate-x-1 transition-transform" />
-                    <span>Back to Blog</span>
-                  </Link>
-                </motion.div>
+                  ../bl0g
+                </Link>
+              </div>
 
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.3 }}
-                  className="space-y-3 sm:space-y-4"
-                >
+              {/* Date & Share */}
+              <div className="flex justify-between items-center">
+                <div className="text-sm text-gray-500 font-medium tracking-wider uppercase">
+                  {new Date(blog.date).toLocaleDateString('en-US', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                  })}
+                </div>
+                <SocialShare title={blog.title} url={currentUrl} />
+              </div>
+
+              {/* Title */}
+              <h1 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-medium text-gray-900 leading-[1.1] tracking-[-0.02em]">
+                {blog.title}
+              </h1>
+
+              {/* Horizontal Line */}
+              <div className="w-16 h-px bg-gray-300"></div>
+
+              {/* Excerpt */}
+              {blog.excerpt && (
+                <p className="text-xl text-gray-600 font-light max-w-3xl leading-[1.6] tracking-[-0.01em]">
+                  {blog.excerpt}
+                </p>
+              )}
+
+              {/* Meta & Author */}
+              <div className="flex items-center justify-between pt-4">
+                <div className="flex items-center space-x-4 text-sm text-gray-500">
                   {blog.category && (
-                    <span className="inline-flex items-center px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full text-xs sm:text-sm font-medium bg-white text-gray-700 border border-gray-300">
+                    <span className="text-blue-600 font-semibold uppercase tracking-[0.1em] text-xs">
                       {blog.category}
                     </span>
                   )}
-                  <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
-                    {blog.title}
-                  </h1>
-                  {blog.excerpt && (
-                    <p className="text-lg sm:text-xl text-gray-600 max-w-2xl">
-                      {blog.excerpt}
-                    </p>
-                  )}
-                </motion.div>
+                  <div className="flex items-center space-x-2">
+                    <Clock className="w-4 h-4" />
+                    <span>{readingTime}</span>
+                  </div>
+                </div>
+                
+                <div className="flex items-center space-x-2 bg-gray-100 px-3 py-2 rounded-full">
+                  <Image
+                    src="/images/0xlf32.jpg"
+                    alt="Lali Akhil Raj"
+                    width={24}
+                    height={24}
+                    className="rounded-full"
+                  />
+                  <span className="text-sm text-gray-900 font-medium">Lali Akhil Raj</span>
+                </div>
               </div>
+
+            </motion.div>
+          </header>
+
+          {/* Featured Image */}
+          {blog.image && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="py-12"
+            >
+              <div className="relative h-96 md:h-[500px] overflow-hidden">
+                <Image
+                  src={blog.image}
+                  alt={blog.title}
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+            </motion.div>
+          )}
+
+          {/* Article Content */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="py-12"
+          >
+            <div className="prose prose-lg prose-gray max-w-none
+              prose-headings:font-playfair prose-headings:text-gray-900 prose-headings:font-medium prose-headings:tracking-[-0.01em] prose-headings:leading-[1.2]
+              prose-p:text-gray-700 prose-p:leading-[1.7] prose-p:text-lg prose-p:tracking-[-0.01em]
+              prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-a:transition-colors prose-a:duration-200
+              prose-strong:text-gray-900 prose-strong:font-medium
+              prose-blockquote:border-l-4 prose-blockquote:border-gray-300 prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:text-gray-600 prose-blockquote:leading-[1.6]
+              [&_code]:inline [&_code]:bg-gray-100 [&_code]:text-blue-600 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-sm [&_code]:font-mono
+              prose-pre:bg-gray-900 prose-pre:text-white prose-pre:rounded-lg prose-pre:p-4
+              prose-img:rounded-none prose-img:shadow-sm prose-img:mx-auto prose-img:block
+              prose-hr:border-gray-200 prose-hr:my-8
+              prose-ul:text-gray-700 prose-ol:text-gray-700 prose-ul:leading-[1.6] prose-ol:leading-[1.6]
+              prose-li:text-gray-700 prose-li:leading-[1.6]">
+              <MarkdownContent content={blog.content} />
             </div>
           </motion.div>
 
-          {/* Main Content */}
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-              {/* Related Posts as vertical list */}
-              <div className="lg:col-span-4 mt-10 lg:mt-0">
-                <TableOfContents headings={headings} />
-                <div className="bg-white border border-gray-200 rounded-xl p-6">
-                  <h2 className="text-xl font-bold text-gray-900 mb-4">Related Posts</h2>
-                  <ul className="divide-y divide-gray-200">
-                    {relatedPosts && relatedPosts.length > 0 ? (
-                      relatedPosts.map((post, idx) => (
-                        <li key={post.date} className="py-4 first:pt-0 last:pb-0">
-                          <a href={`/blog/${post.date}`} className="block text-lg font-medium text-gray-700 hover:text-gray-900 transition-colors">
-                            {post.title}
-                          </a>
-                          <div className="text-sm text-gray-600">
-                            {post.excerpt}
-                          </div>
-                          <div className="text-xs text-gray-500 mt-1">
-                            {new Date(post.date).toLocaleDateString()} &middot; {post.readTime || ''}
-                          </div>
-                        </li>
-                      ))
-                    ) : (
-                      <li className="text-gray-500 py-4">No related posts found.</li>
-                    )}
-                  </ul>
-                </div>
-              </div>
-              {/* Main Content */}
-              <div className="lg:col-span-8">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.4 }}
-                  className="bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-gray-200"
-                >
-                  {/* Reading Stats */}
-                  <div className="px-4 sm:px-6 md:px-8 lg:px-10 py-3 sm:py-4 bg-white border-b border-gray-200">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 text-sm text-gray-600">
-                      <div className="flex flex-wrap items-center gap-3 sm:gap-4">
-                        <div className="flex items-center">
-                          <Clock className="w-4 h-4 mr-1.5" />
-                          <span>{readingTime}</span>
-                        </div>
-                        <div className="flex items-center">
-                          <Calendar className="w-4 h-4 mr-1.5" />
-                          <time dateTime={blog.date}>
-                            {new Date(blog.date).toLocaleDateString('en-US', {
-                              year: 'numeric',
-                              month: 'long',
-                              day: 'numeric'
-                            })}
-                          </time>
-                        </div>
-                      </div>
-                      <motion.button
-                        onClick={handleBookmark}
-                        className={`flex items-center gap-1.5 transition-colors duration-200 ${
-                          isBookmarked 
-                            ? 'text-blue-600' 
-                            : 'text-gray-600 hover:text-gray-900'
-                        }`}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        <motion.div
-                          animate={{
-                            rotate: isBookmarked ? [0, -10, 10, -10, 0] : 0,
-                            scale: isBookmarked ? [1, 1.2, 1] : 1
-                          }}
-                          transition={{ duration: 0.4 }}
-                        >
-                          <Bookmark className={`w-4 h-4 ${isBookmarked ? 'fill-current' : ''}`} />
-                        </motion.div>
-                        <span>{isBookmarked ? 'Saved!' : 'Save'}</span>
-                      </motion.button>
-                    </div>
-                  </div>
-
-                  {/* Content Section */}
-                  <div className="p-4 sm:p-6 md:p-8 lg:p-10 prose prose-lg max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl prose-pre:bg-gray-100 prose-pre:border prose-pre:border-gray-200 text-gray-700">
-                    <MarkdownContent content={blog.content} />
-                  </div>
-
-                  {/* Tags Section */}
-                  {blog.tags && blog.tags.length > 0 && (
-                    <div className="px-4 sm:px-6 md:px-8 lg:px-10 py-4 sm:py-6 border-t border-gray-200 bg-white">
-                      <div className="flex flex-wrap gap-2">
-                        {blog.tags.map((tag, index) => (
-                          <span
-                            key={`${tag}-${index}`}
-                            className="px-2.5 py-1 sm:px-3 sm:py-1.5 bg-gray-100 text-xs sm:text-sm font-medium text-gray-600 rounded-full border border-gray-300 hover:border-gray-400 hover:text-gray-900 transition-colors duration-200"
-                          >
-                            #{tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Enhanced Engagement Section */}
-                  <footer className="px-4 sm:px-6 md:px-8 lg:px-10 py-4 sm:py-6 border-t border-gray-200">
-                    <div className="flex flex-col sm:flex-row flex-wrap items-center justify-between gap-4">
-                      <div className="flex flex-wrap items-center gap-3 sm:gap-4">
-                        <motion.button
-                          onClick={handleBookmark}
-                          className={`flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full transition-all duration-300 ${
-                            isBookmarked
-                              ? 'bg-blue-100 text-blue-600'
-                              : 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900'
-                          }`}
-                          whileTap={{ scale: 0.95 }}
-                        >
-                          <motion.div
-                            animate={{
-                              rotate: isBookmarked ? [0, -10, 10, -10, 0] : 0,
-                              scale: isBookmarked ? [1, 1.2, 1] : 1
-                            }}
-                            transition={{ duration: 0.4 }}
-                          >
-                            <Bookmark className={`w-4 h-4 sm:w-5 sm:h-5 ${isBookmarked ? 'fill-current' : ''}`} />
-                          </motion.div>
-                          <span className="text-sm sm:text-base font-medium">{isBookmarked ? 'Saved!' : 'Save'}</span>
-                        </motion.button>
-                      </div>
-
-                      <div className="flex items-center gap-2">
-                        <ShareButton url={currentUrl} />
-                        <button
-                          onClick={() => window.print()}
-                          className="flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900 transition-all duration-300"
-                        >
-                          <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5" />
-                          <span className="text-sm sm:text-base font-medium">Print</span>
-                        </button>
-                      </div>
-                    </div>
-                  </footer>
-                </motion.div>
+          {/* Tags */}
+          {blog.tags && blog.tags.length > 0 && (
+            <div className="py-8 border-t border-gray-200">
+              <div className="flex flex-wrap gap-2">
+                {blog.tags.map((tag, index) => (
+                  <span 
+                    key={`${tag}-${index}`} 
+                    className="px-3 py-1 text-xs font-medium bg-gray-100 text-gray-600 uppercase tracking-wider"
+                  >
+                    {tag}
+                  </span>
+                ))}
               </div>
             </div>
+          )}
+
+          {/* Share Section */}
+          <div className="mt-12 pt-8 border-t border-gray-200">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Share this article</h3>
+                <p className="text-gray-600">Found this helpful? Share it with others.</p>
+              </div>
+              <SocialShare title={blog.title} url={currentUrl} />
+            </div>
           </div>
+
+          {/* Related Posts */}
+          <RelatedPosts posts={relatedPosts} />
+
+          {/* Navigation */}
+          <div className="my-10 py-12 border-t border-gray-200">
+            <div className="flex justify-between items-center">
+              <Link
+                href="/blog"
+                className="text-blue-600 hover:text-blue-700 font-mono transition-colors duration-200"
+              >
+                ../bl0g
+              </Link>
+              
+              <Link
+                href="/"
+                className="text-blue-600 hover:text-blue-700 font-mono transition-colors duration-200"
+              >
+                ../../h0me
+              </Link>
+            </div>
+          </div>
+
+          {/* Copyright Footer */}
+          <footer className="border-t border-gray-200 py-8">
+            <div className="text-center">
+              <p className="text-sm text-gray-500">
+                © {new Date().getFullYear()} LF32. All rights reserved.
+              </p>
+            </div>
+          </footer>
+        </article>
+
+        {/* Watermark */}
+        <div className="fixed bottom-4 right-4 z-50 opacity-20 pointer-events-none">
+          <span className="text-gray-400 text-sm font-mono tracking-wider">lf32</span>
         </div>
       </div>
     </>
   );
-} 
+}

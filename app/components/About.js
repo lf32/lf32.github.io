@@ -29,171 +29,170 @@ const achievements = [
 export default function About() {
   return (
     <div className="w-full py-20 relative">
-      {/* Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000" />
+      {/* Subtle background pattern */}
+      <div className="absolute inset-0 pointer-events-none opacity-5">
+        <div 
+          className="absolute inset-0" 
+          style={{
+            backgroundImage: `radial-gradient(circle at 1px 1px, #e5e7eb 1px, transparent 0)`,
+            backgroundSize: '40px 40px'
+          }} 
+        />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        {/* Clean Header */}
         <motion.div 
-          className="text-center mb-16"
+          className="mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <h2 className="text-4xl font-bold gradient-text mb-4">About Me_</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            A passionate software engineer and security researcher focused on creating secure and innovative solutions
-          </p>
+          <div className="mb-12">
+            <div className="flex items-center space-x-4">
+              <div className="w-8 h-px bg-gray-900"></div>
+              <span className="text-sm font-medium text-gray-900 tracking-wider uppercase">About</span>
+            </div>
+          </div>
+          <div className="text-center space-y-6">
+            <h2 className="font-playfair text-4xl md:text-5xl font-medium text-gray-900 tracking-tight">
+              Engineering Secure Solutions
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-light leading-relaxed">
+              <span className="font-mono text-sm text-gray-800">root@exploit:~# objdump -d /proc/self/exe | grep -A 5 main | awk {`{print $3}`}</span>
+            </p>
+          </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
           {/* Left Column - Image */}
           <motion.div 
-            className="space-y-8"
+            className="lg:col-span-5 space-y-8"
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            {/* Image Container */}
-            <div className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-blue-50 to-indigo-50">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-100/50 to-indigo-100/50 rounded-2xl transform rotate-3" />
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-100/50 to-indigo-100/50 rounded-2xl transform -rotate-3" />
-              <div className="relative w-full h-full">
+            {/* Professional Image */}
+            <div className="relative">
+              <div className="aspect-[4/5] rounded-sm overflow-hidden bg-gray-100">
                 <Image
                   src="/mebase.png"
-                  alt="About Me"
+                  alt="Lali Akhil Raj - LF32"
                   fill
-                  className="object-cover object-center"
+                  className="object-cover object-center grayscale hover:grayscale-0 transition-all duration-700"
                   priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent" />
+              </div>
+              {/* Simple caption */}
+              <div className="mt-4 text-center">
+                <p className="text-sm text-gray-500 font-light">
+                  Lali Akhil Raj, Software Engineer & Security Researcher
+                </p>
+              </div>
+            </div>
+
+            {/* Quick Stats */}
+            <div className="border-t border-gray-200 pt-8">
+              <div className="grid grid-cols-3 gap-6 text-center">
+                <div>
+                  <div className="text-2xl font-light text-gray-900">2+</div>
+                  <div className="text-xs text-gray-600 uppercase tracking-wide">Years</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-light text-gray-900">25+</div>
+                  <div className="text-xs text-gray-600 uppercase tracking-wide">Projects</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-light text-gray-900">20+</div>
+                  <div className="text-xs text-gray-600 uppercase tracking-wide">Security Reports</div>
+                </div>
               </div>
             </div>
           </motion.div>
 
           {/* Right Column - Content */}
           <motion.div 
-            className="space-y-8"
+            className="lg:col-span-7 space-y-12"
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           >
-            {/* Bio */}
-            <div className="space-y-4">
-              <h3 className="text-2xl font-semibold text-gray-900">Bio</h3>
-              <div className="space-y-4 text-gray-600">
+            {/* Background */}
+            <div className="space-y-6">
+              <h3 className="font-playfair text-2xl font-medium text-gray-900">Background</h3>
+              <div className="space-y-4 text-gray-700 leading-relaxed">
                 <p>
-                  I recently graduated from Indian Institute of Technology (BHU), Varanasi in Computer Science and Engineering. 
-                  My journey in technology has been driven by a passion for both development and security.
+                  Recent graduate from the Indian Institute of Technology (BHU), Varanasi, 
+                  with a degree in Computer Science and Engineering. My academic foundation 
+                  has been complemented by practical experience in both software development 
+                  and cybersecurity research.
                 </p>
                 <p>
-                  With a strong foundation in software engineering and a keen eye for security, I specialize in building 
-                  robust applications while ensuring they meet the highest security standards. My experience spans across 
-                  full-stack development, security research, and system architecture.
+                  I specialize in building secure, scalable applications while maintaining 
+                  a security-first mindset. My approach combines modern development practices 
+                  with rigorous security testing and vulnerability assessment.
                 </p>
               </div>
             </div>
 
-            {/* Achievements */}
-            <div className="space-y-4">
-              <h3 className="text-2xl font-semibold text-gray-900">Key Achievements</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+            {/* Recognition */}
+            <div className="space-y-6">
+              <h3 className="font-playfair text-2xl font-medium text-gray-900">Recognition</h3>
+              <div className="space-y-4">
                 {achievements.map((achievement, index) => (
                   <motion.div
                     key={achievement.title}
-                    className="glass rounded-xl p-4"
-                    initial={{ opacity: 0, y: 20 }}
+                    className="flex items-start space-x-4 py-4 border-b border-gray-100 last:border-b-0"
+                    initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
                   >
-                    <div className="flex items-start space-x-3">
-                      <div className={`p-2 bg-${achievement.color.split('-')[1]}-50 rounded-lg`}>
-                        <achievement.icon className={`w-5 h-5 ${achievement.color}`} />
-                      </div>
-                      <div>
-                        <p className="font-medium text-gray-900">{achievement.title}</p>
-                        <p className="text-sm text-gray-600">{achievement.platform}</p>
-                      </div>
+                    <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0">
+                      <achievement.icon className="w-5 h-5 text-gray-600" />
+                    </div>
+                    <div className="space-y-1">
+                      <h4 className="font-medium text-gray-900">{achievement.title}</h4>
+                      <p className="text-sm text-gray-600">{achievement.platform}</p>
                     </div>
                   </motion.div>
                 ))}
               </div>
             </div>
 
-            {/* Contact Card - Moved here */}
+            {/* Contact */}
             <motion.div
-              className="glass rounded-2xl p-6 space-y-6"
+              className="pt-8 border-t border-gray-200"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.2 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <div className="flex items-center space-x-3">
-                <div className="p-2 bg-blue-50 rounded-lg">
-                  <MapPin className="w-5 h-5 text-blue-600" />
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500">Location</p>
-                  <p className="text-gray-900">Hyderabad, India</p>
+              <div className="space-y-4">
+                <h4 className="text-lg font-medium text-gray-900">Let's Collaborate</h4>
+                <p className="text-gray-600">
+                  Interested in discussing security research, development projects, or potential collaborations?
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                  <Link
+                    href="#contact"
+                    className="inline-flex items-center px-6 py-3 bg-gray-900 text-white font-medium hover:bg-gray-800 transition-colors duration-200"
+                  >
+                    Get In Touch
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Link>
+                  <Link
+                    href="/blog"
+                    className="inline-flex items-center px-6 py-3 border border-gray-300 text-gray-700 font-medium hover:bg-gray-50 transition-colors duration-200"
+                  >
+                    Read My Work
+                  </Link>
                 </div>
               </div>
-              <div className="flex items-center space-x-3">
-                <div className="p-2 bg-blue-50 rounded-lg">
-                  <Mail className="w-5 h-5 text-blue-600" />
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500">Email</p>
-                  <a href="mailto:lf32.dev@gmail.com" className="text-gray-900 hover:text-blue-600 transition-colors">
-                    lf32.dev@gmail.com
-                  </a>
-                </div>
-              </div>
-              <div className="flex space-x-4 pt-4">
-                <Link 
-                  href="https://linkedin.com/in/lf32-dev/" 
-                  target="_blank" 
-                  className="p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all"
-                >
-                  <Linkedin className="w-5 h-5" />
-                </Link>
-                <Link 
-                  href="https://github.com/lf32" 
-                  target="_blank" 
-                  className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-all"
-                >
-                  <Github className="w-5 h-5" />
-                </Link>
-                <Link 
-                  href="https://hackerone.com/lf32?type=user" 
-                  target="_blank" 
-                  className="p-2 text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-lg transition-all"
-                >
-                  <Shield className="w-5 h-5" />
-                </Link>
-              </div>
-            </motion.div>
-
-            {/* CTA */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.3 }}
-            >
-              <Link
-                href="#contact"
-                className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group"
-              >
-                <span className="relative z-10 font-semibold">Let's Work Together</span>
-                <ArrowRight className="relative z-10 w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" />
-              </Link>
             </motion.div>
           </motion.div>
         </div>
