@@ -86,14 +86,13 @@ export default function ProfileSidebar() {
             <div className="space-y-1">
               <h4 className="text-xl font-light text-gray-900">LF32</h4>
               <p className="text-sm text-gray-600 font-light">Lali Akhil Raj</p>
-              <p className="text-sm text-gray-700 font-medium">Engineering Solutions</p>
+              <p className="text-sm text-gray-700 font-medium">Quantitative Finance</p>
             </div>
           </div>
 
           {/* Bio */}
           <p className="text-sm text-gray-600 font-light leading-relaxed">
-            Passionate about building secure applications and researching vulnerabilities. 
-            Sharing insights on software development and cybersecurity.
+            Passionate about Tech and Research.
           </p>
 
           {/* Location & Contact */}
