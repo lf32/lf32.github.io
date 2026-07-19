@@ -56,7 +56,8 @@ const nextConfig = {
       'www.bleepstatic.com',          // Bleeping Computer
       'bleepstatic.com',              // Bleeping Computer (without www)
       'm.media-amazon.com',            // Amazon Media
-      'pbs.twimg.com'
+      'pbs.twimg.com',
+      'nx.dev',                       // Nx blog images
     ],
     // Optional: Configure image sizes for better performance
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],

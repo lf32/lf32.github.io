@@ -115,6 +115,11 @@ export default function PageContent() {
       exit="exit"
       variants={pageVariants}
     >
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-0.5 bg-amber-600 origin-left z-[60] pointer-events-none"
+        style={{ scaleX: scrollYProgress }}
+      />
+
       {/* Subtle background pattern */}
       <motion.div 
         className="fixed inset-0 pointer-events-none z-0"
@@ -123,7 +128,7 @@ export default function PageContent() {
         <div 
           className="absolute inset-0" 
           style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, #f3f4f6 1px, transparent 0)`,
+            backgroundImage: `radial-gradient(circle at 1px 1px, #d97706 1px, transparent 0)`,
             backgroundSize: '30px 30px'
           }} 
         />

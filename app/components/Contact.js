@@ -150,7 +150,7 @@ export default function Contact() {
               </p>
               <a
                 href="mailto:lf32.dev@gmail.com?subject=Supply Chain Security Discussion"
-                className="inline-flex items-center px-8 py-3 bg-gray-900 text-white font-medium hover:bg-gray-800 transition-colors duration-200"
+                className="inline-flex items-center px-8 py-3 bg-amber-600 text-white font-medium hover:bg-amber-700 transition-colors duration-200"
               >
                 Start a Conversation
                 <ArrowRight className="w-4 h-4 ml-2" />

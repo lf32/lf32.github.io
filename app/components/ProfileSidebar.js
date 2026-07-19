@@ -84,15 +84,14 @@ export default function ProfileSidebar() {
               />
             </div>
             <div className="space-y-1">
-              <h4 className="text-xl font-light text-gray-900">LF32</h4>
-              <p className="text-sm text-gray-600 font-light">Lali Akhil Raj</p>
-              <p className="text-sm text-gray-700 font-medium">Quantitative Finance</p>
+              <h4 className="text-xl font-medium text-gray-900">Lali Akhil Raj</h4>
+              <p className="text-sm text-gray-700 font-medium">Legionnaire</p>
             </div>
           </div>
 
           {/* Bio */}
           <p className="text-sm text-gray-600 font-light leading-relaxed">
-            Passionate about Tech and Research.
+            Passionate about AAI.
           </p>
 
           {/* Location & Contact */}
@@ -132,7 +131,7 @@ export default function ProfileSidebar() {
 
         {/* Info Note */}
         <div className="bg-gray-50 p-3 rounded text-xs text-gray-500 italic border-l-2 border-gray-200">
-          <span className="font-medium text-gray-600">Current Focus:</span> Software supply chain security, malicious package detection, and zero-trust solutions for open source dependencies.
+          <span className="font-medium text-gray-600">Current Focus:</span> AAI, AI-powered security, and AI-powered risk assessment.
         </div>
       </motion.div>
 
@@ -195,7 +194,7 @@ export default function ProfileSidebar() {
       >
         <Link
           href="#contact"
-          className="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors duration-200"
+          className="inline-flex items-center text-sm font-medium text-amber-600 hover:text-amber-700 transition-colors duration-200"
         >
           Get In Touch
           <ArrowRight className="w-4 h-4 ml-1" />

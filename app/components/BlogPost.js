@@ -33,7 +33,7 @@ const ReadingProgress = () => {
   return (
     <div className="fixed top-0 left-0 w-full h-0.5 bg-gray-100 z-50">
       <motion.div
-        className="h-full bg-gray-900"
+        className="h-full bg-amber-600"
         style={{ width: `${progress}%` }}
         transition={{ type: "spring", stiffness: 100, damping: 30 }}
       />

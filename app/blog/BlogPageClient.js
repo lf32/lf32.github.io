@@ -34,7 +34,7 @@ export default function BlogPageClient({ blogs }) {
                   day: 'numeric' 
                 })}
               </div>
-              <h1 className="font-playfair text-5xl md:text-6xl lg:text-7xl font-medium text-gray-900 leading-[0.9] tracking-tight">
+              <h1 className="font-playfair text-5xl md:text-6xl lg:text-7xl font-medium text-amber-600 leading-[0.9] tracking-tight">
                 Latest Insights
               </h1>
               <div className="w-16 h-px bg-gray-300"></div>

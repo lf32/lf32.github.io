@@ -95,11 +95,11 @@ export default function NewsStyleBlog() {
               day: 'numeric' 
             })}
           </div>
-          <h1 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-medium text-gray-900 leading-tight tracking-tight">
+          <h1 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-medium text-amber-600 leading-tight tracking-tight">
             Latest Insights
           </h1>
           <p className="text-lg text-gray-600 mt-3 font-light">
-            <span className="font-mono text-sm text-green-700">lf32@security:~$ dd if=/dev/kmem skip=$((0xffff8100)) | strings | grep -E "^[A-F0-9]{32}$"</span>
+            <span className="font-mono text-sm text-green-700">lf32@Internet~$ dd if=/dev/kmem skip=$((0xffff8100)) | strings | grep -E "^[A-F0-9]{32}$"</span>
           </p>
         </div>
       </motion.div>

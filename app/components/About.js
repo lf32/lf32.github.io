@@ -57,7 +57,7 @@ export default function About() {
           </div>
           <div className="text-center space-y-6">
             <h2 className="font-playfair text-4xl md:text-5xl font-medium text-gray-900 tracking-tight">
-              Engineering Secure Solutions
+              Building Better AI
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto font-light leading-relaxed">
               <span className="font-mono text-sm text-gray-800">root@exploit:~# objdump -d /proc/self/exe | grep -A 5 main | awk {`{print $3}`}</span>
@@ -180,7 +180,7 @@ export default function About() {
                 <div className="flex flex-col sm:flex-row gap-4 pt-4">
                   <Link
                     href="#contact"
-                    className="inline-flex items-center px-6 py-3 bg-gray-900 text-white font-medium hover:bg-gray-800 transition-colors duration-200"
+                    className="inline-flex items-center px-6 py-3 bg-amber-600 text-white font-medium hover:bg-amber-700 transition-colors duration-200"
                   >
                     Get In Touch
                     <ArrowRight className="w-4 h-4 ml-2" />

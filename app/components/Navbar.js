@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Github, Linkedin, Shield } from 'lucide-react';
 
@@ -101,13 +102,21 @@ export default function Navbar() {
           >
             <Link 
               href="#top" 
-              className="text-2xl font-light text-gray-900 tracking-tight"
+              className="flex items-center gap-2 text-2xl font-light text-gray-900 tracking-tight"
               onClick={(e) => {
                 e.preventDefault();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
             >
-                LF32
+              <Image
+                src="/images/Leaves.png"
+                alt=""
+                width={28}
+                height={28}
+                className="h-7 w-7 object-contain"
+                aria-hidden
+              />
+              LF32
             </Link>
           </motion.div>
 
@@ -150,7 +159,7 @@ export default function Navbar() {
             </Link>
             <Link
               href="#contact"
-              className="px-4 py-2 bg-gray-900 text-white text-sm font-medium hover:bg-gray-800 transition-colors duration-200"
+              className="px-4 py-2 bg-amber-600 text-white text-sm font-medium hover:bg-amber-700 transition-colors duration-200"
             >
               Contact
             </Link>
@@ -242,7 +251,7 @@ export default function Navbar() {
                     <Link
                       href="#contact"
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="block w-full text-center py-3 bg-gray-900 text-white font-medium hover:bg-gray-800 transition-colors"
+                      className="block w-full text-center py-3 bg-amber-600 text-white font-medium hover:bg-amber-700 transition-colors"
                     >
                       Get In Touch
                     </Link>
