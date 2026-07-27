@@ -109,7 +109,7 @@ export default function Navbar() {
               }}
             >
               <Image
-                src="/images/images.jpeg"
+                src="/images/images.jpg"
                 alt=""
                 width={28}
                 height={28}
