@@ -108,14 +108,6 @@ export default function Navbar() {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
             >
-              <Image
-                src="/images/images.jpg"
-                alt=""
-                width={28}
-                height={28}
-                className="h-7 w-7 object-contain"
-                aria-hidden
-              />
               LF32
             </Link>
           </motion.div>
