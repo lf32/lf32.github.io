@@ -30,7 +30,17 @@ export default function Navbar() {
         return;
       }
 
-      const sections = ['about', 'experience', 'projects', 'contact'];
+      const sections = [
+        'about',
+        'skills',
+        'experience',
+        'projects',
+        'writing',
+        'elsewhere',
+        'faq',
+        'lab',
+        'contact',
+      ];
       const currentSection = sections.find((section) => {
         const element = document.getElementById(section);
         if (element) {
@@ -60,7 +70,7 @@ export default function Navbar() {
     : [
         { href: '#top', label: 'Home', id: 'top' },
         { href: '#about', label: 'About', id: 'about' },
-        { href: '#experience', label: 'Experience', id: 'experience' },
+        { href: '#writing', label: 'Writing', id: 'writing' },
         { href: '#projects', label: 'Projects', id: 'projects' },
         { href: '/blog', label: 'Blog', id: 'blog' },
       ];

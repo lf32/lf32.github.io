@@ -286,25 +286,6 @@ export default function BlogPageClient({ blogs }) {
               </motion.section>
             )}
 
-            {/* Subscribe CTA */}
-            <motion.section
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.25 }}
-              className="glass-card p-8 sm:p-12 text-center max-w-2xl mx-auto"
-            >
-              <h3 className="headline text-2xl sm:text-3xl mb-3">Stay in the loop</h3>
-              <p className="text-[var(--ramp-muted)] leading-relaxed mb-6 max-w-md mx-auto">
-                Get notified when new notes drop on security research, systems, and engineering.
-              </p>
-              <Link
-                href="mailto:lf32.dev@gmail.com?subject=Blog updates"
-                className="btn-lime"
-              >
-                Subscribe via email
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </motion.section>
           </div>
         )}
       </main>

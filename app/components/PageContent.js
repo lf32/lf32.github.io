@@ -18,13 +18,19 @@ import Experience from './Experience';
 import Projects from './Projects';
 import Contact from './Contact';
 import Navbar from './Navbar';
+import HomeBlogPreview from './HomeBlogPreview';
+import Skills from './Skills';
+import Now from './Now';
+import Elsewhere from './Elsewhere';
+import FAQ from './FAQ';
+import FunZone from './FunZone';
 
 const sectionVariants = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { type: 'spring', stiffness: 80, damping: 20, mass: 1 },
+    transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
   },
 };
 
@@ -62,50 +68,45 @@ const featureCards = [
   },
 ];
 
+function Section({ id, children, className = '' }) {
+  return (
+    <motion.section
+      id={id}
+      className={`section ${className}`}
+      variants={sectionVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: '-60px' }}
+    >
+      {children}
+    </motion.section>
+  );
+}
+
 export default function PageContent() {
   const { scrollYProgress } = useScroll();
 
   useEffect(() => {
-    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-      anchor.addEventListener('click', function (e) {
-        const href = this.getAttribute('href');
-        if (!href || href === '#') return;
-        const target = document.querySelector(href);
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
-    });
+    const handler = (e) => {
+      const anchor = e.currentTarget;
+      const href = anchor.getAttribute('href');
+      if (!href || !href.startsWith('#') || href === '#') return;
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    };
+
+    const anchors = document.querySelectorAll('a[href^="#"]');
+    anchors.forEach((a) => a.addEventListener('click', handler));
+    return () => anchors.forEach((a) => a.removeEventListener('click', handler));
   }, []);
 
   return (
-    <main className="relative min-h-screen overflow-x-hidden">
-      {/* Ambient cream + orbs */}
-      <div className="ambient-bg" aria-hidden="true">
-        <div
-          className="orb"
-          style={{
-            width: 420,
-            height: 420,
-            top: '40%',
-            right: '5%',
-            background: 'radial-gradient(circle, rgba(255,200,160,0.35) 0%, transparent 70%)',
-          }}
-        />
-        <div
-          className="orb"
-          style={{
-            width: 360,
-            height: 360,
-            top: '70%',
-            left: '30%',
-            background: 'radial-gradient(circle, rgba(210,243,76,0.25) 0%, transparent 70%)',
-          }}
-        />
-      </div>
+    <main className="page-shell">
+      <div className="ambient-bg" aria-hidden="true" />
 
-      {/* Scroll progress */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-[3px] progress-lime origin-left z-[60] pointer-events-none"
         style={{ scaleX: scrollYProgress }}
@@ -113,16 +114,15 @@ export default function PageContent() {
 
       <Navbar />
 
-      {/* ── Hero ─────────────────────────────────────────────── */}
-      <section id="top" className="relative z-10 pt-32 sm:pt-36 pb-16 sm:pb-24">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-            {/* Copy */}
-            <div className="lg:col-span-7 space-y-8">
+      {/* Hero */}
+      <section id="top" className="relative z-10 pt-28 sm:pt-32 pb-14 sm:pb-20">
+        <div className="container-page">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+            <div className="lg:col-span-7 space-y-6 sm:space-y-7">
               <motion.div
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.4 }}
                 className="inline-flex items-center gap-2 glass rounded-full px-3.5 py-1.5 text-sm font-medium text-[var(--ramp-ink-soft)]"
               >
                 <Sparkles className="w-3.5 h-3.5 text-[var(--ramp-lime-deep)]" />
@@ -130,40 +130,39 @@ export default function PageContent() {
               </motion.div>
 
               <motion.h1
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.05 }}
-                className="headline text-[2.75rem] sm:text-5xl md:text-6xl lg:text-[4.25rem]"
+                transition={{ duration: 0.5, delay: 0.05 }}
+                className="headline text-4xl sm:text-5xl md:text-6xl lg:text-[3.75rem]"
               >
                 Build secure systems.
                 <br />
                 <span className="relative inline-block">
                   Ship with clarity.
                   <span
-                    className="absolute -bottom-1 left-0 right-0 h-3 -z-10 opacity-80"
+                    className="absolute left-0 right-0 bottom-1 h-2.5 -z-10 rounded-sm"
                     style={{
                       background:
-                        'linear-gradient(90deg, var(--ramp-lime) 0%, rgba(210,243,76,0.2) 100%)',
-                      borderRadius: 4,
+                        'linear-gradient(90deg, var(--ramp-lime) 0%, rgba(210,243,76,0.25) 100%)',
                     }}
                   />
                 </span>
               </motion.h1>
 
               <motion.p
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.55, delay: 0.12 }}
-                className="text-lg sm:text-xl text-[var(--ramp-muted)] max-w-xl leading-relaxed font-normal"
+                transition={{ duration: 0.45, delay: 0.1 }}
+                className="text-base sm:text-lg text-[var(--ramp-muted)] max-w-xl leading-relaxed"
               >
                 I&apos;m Lali Akhil Raj — building resilient software and researching
                 vulnerabilities across web, supply chain, and systems.
               </motion.p>
 
               <motion.div
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.18 }}
+                transition={{ duration: 0.4, delay: 0.15 }}
                 className="flex flex-wrap items-center gap-3"
               >
                 <Link href="#contact" className="btn-lime">
@@ -175,22 +174,18 @@ export default function PageContent() {
                 </Link>
               </motion.div>
 
-              {/* Mini stats strip */}
               <motion.div
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.25 }}
-                className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4"
+                transition={{ duration: 0.4, delay: 0.2 }}
+                className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1"
               >
                 {stats.map((s) => (
-                  <div
-                    key={s.label}
-                    className="glass rounded-2xl px-4 py-3.5 text-center sm:text-left"
-                  >
-                    <div className="text-xl font-semibold tracking-tight text-[var(--ramp-ink)]">
+                  <div key={s.label} className="glass rounded-2xl px-3.5 py-3">
+                    <div className="text-lg sm:text-xl font-semibold tracking-tight text-[var(--ramp-ink)]">
                       {s.value}
                     </div>
-                    <div className="text-xs text-[var(--ramp-muted)] mt-0.5 font-medium">
+                    <div className="text-[11px] text-[var(--ramp-muted)] mt-0.5 font-medium leading-snug">
                       {s.label}
                     </div>
                   </div>
@@ -198,66 +193,55 @@ export default function PageContent() {
               </motion.div>
             </div>
 
-            {/* Floating glass visual stack */}
-            <div className="lg:col-span-5 relative h-[420px] sm:h-[480px] lg:h-[520px]">
-              {/* Main profile card */}
+            {/* Profile visual — contained, no overflow chaos */}
+            <div className="lg:col-span-5">
               <motion.div
-                initial={{ opacity: 0, y: 30, scale: 0.96 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute inset-x-4 sm:inset-x-8 top-6 glass-strong rounded-[1.75rem] p-5 sm:p-6 animate-float-slow shadow-xl shadow-black/[0.06]"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.55, delay: 0.15 }}
+                className="relative max-w-md mx-auto lg:max-w-none"
               >
-                <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-[var(--ramp-cream-deep)]">
-                  <Image
-                    src="/mebase.png"
-                    alt="Lali Akhil Raj"
-                    fill
-                    className="object-cover object-center"
-                    priority
-                    sizes="(max-width: 1024px) 80vw, 360px"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-5">
-                    <p className="text-white font-semibold text-lg tracking-tight">
-                      Lali Akhil Raj
-                    </p>
-                    <p className="text-white/75 text-sm">LF32 · India</p>
+                <div className="glass-strong rounded-[1.5rem] p-3 sm:p-4">
+                  <div className="relative aspect-[4/5] rounded-[1.1rem] overflow-hidden bg-[var(--ramp-cream-deep)]">
+                    <Image
+                      src="/mebase.png"
+                      alt="Lali Akhil Raj"
+                      fill
+                      className="object-cover object-center"
+                      priority
+                      sizes="(max-width: 1024px) 90vw, 380px"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-5">
+                      <p className="text-white font-semibold text-lg tracking-tight">
+                        Lali Akhil Raj
+                      </p>
+                      <p className="text-white/75 text-sm">LF32 · India</p>
+                    </div>
                   </div>
                 </div>
-              </motion.div>
 
-              {/* Floating status chip */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 0.45 }}
-                className="absolute top-2 right-0 sm:right-2 glass-strong rounded-2xl px-4 py-3 shadow-lg animate-float z-10"
-              >
-                <div className="flex items-center gap-2.5">
-                  <div className="w-9 h-9 rounded-xl bg-[var(--ramp-lime)] flex items-center justify-center">
-                    <Lock className="w-4 h-4 text-[var(--ramp-ink)]" />
-                  </div>
-                  <div>
-                    <p className="text-xs font-semibold text-[var(--ramp-ink)]">Security-first</p>
-                    <p className="text-[11px] text-[var(--ramp-muted)]">Design → ship</p>
+                <div className="absolute -top-2 -right-1 sm:right-2 glass-strong rounded-2xl px-3.5 py-2.5 shadow-md z-10">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-xl bg-[var(--ramp-lime)] flex items-center justify-center">
+                      <Lock className="w-3.5 h-3.5 text-[var(--ramp-ink)]" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-[var(--ramp-ink)]">Security-first</p>
+                      <p className="text-[10px] text-[var(--ramp-muted)]">Design → ship</p>
+                    </div>
                   </div>
                 </div>
-              </motion.div>
 
-              {/* Floating achievement chip */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 0.55 }}
-                className="absolute bottom-8 left-0 sm:left-2 glass-dark rounded-2xl px-4 py-3 shadow-xl animate-float-delayed z-10"
-              >
-                <div className="flex items-center gap-2.5">
-                  <div className="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center">
-                    <Github className="w-4 h-4 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-xs font-semibold text-white">Open source</p>
-                    <p className="text-[11px] text-white/60">Kernel · GSoC · tooling</p>
+                <div className="absolute -bottom-2 left-2 glass-dark rounded-2xl px-3.5 py-2.5 shadow-lg z-10">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center">
+                      <Github className="w-3.5 h-3.5 text-white" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-white">Open source</p>
+                      <p className="text-[10px] text-white/60">Kernel · GSoC · tooling</p>
+                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -266,19 +250,19 @@ export default function PageContent() {
         </div>
       </section>
 
-      {/* ── Trust marquee ────────────────────────────────────── */}
-      <section className="relative z-10 py-8 border-y border-black/[0.05]">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 mb-5">
-          <p className="text-center text-xs font-semibold uppercase tracking-[0.14em] text-[var(--ramp-muted)]">
+      {/* Trust */}
+      <section className="relative z-10 py-6 border-y border-black/[0.06]">
+        <div className="container-page mb-4">
+          <p className="text-center text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--ramp-muted)]">
             Collaborated with & recognized by
           </p>
         </div>
         <div className="overflow-hidden">
-          <div className="flex animate-marquee w-max gap-3 px-4">
+          <div className="flex animate-marquee w-max gap-2.5 px-4">
             {[...trustLogos, ...trustLogos].map((name, i) => (
               <div
                 key={`${name}-${i}`}
-                className="glass rounded-full px-6 py-2.5 text-sm font-semibold text-[var(--ramp-ink-soft)] whitespace-nowrap"
+                className="glass rounded-full px-5 py-2 text-sm font-semibold text-[var(--ramp-ink-soft)] whitespace-nowrap"
               >
                 {name}
               </div>
@@ -287,121 +271,117 @@ export default function PageContent() {
         </div>
       </section>
 
-      {/* ── Feature cards ────────────────────────────────────── */}
-      <section className="relative z-10 py-20 sm:py-24">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl mb-12">
-            <span className="section-label mb-4">What I do</span>
-            <h2 className="headline text-3xl sm:text-4xl md:text-5xl mt-4">
+      {/* Features */}
+      <section className="section">
+        <div className="container-page">
+          <div className="section-header">
+            <span className="section-label">What I do</span>
+            <h2 className="headline text-3xl sm:text-4xl mt-3">
               Research. Build. Harden.
             </h2>
-            <p className="mt-4 text-[var(--ramp-muted)] text-lg leading-relaxed">
+            <p className="mt-3 text-[var(--ramp-muted)] text-base sm:text-lg leading-relaxed">
               From kernel internals to production apps — a full-stack security mindset.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {featureCards.map((card, i) => (
               <motion.div
                 key={card.title}
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-60px' }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="glass-card p-7 sm:p-8"
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.4, delay: i * 0.06 }}
+                className="glass-card p-6 sm:p-7"
               >
-                <div className="w-11 h-11 rounded-2xl bg-[var(--ramp-lime)] flex items-center justify-center mb-5">
+                <div className="w-10 h-10 rounded-xl bg-[var(--ramp-lime)] flex items-center justify-center mb-4">
                   <card.icon className="w-5 h-5 text-[var(--ramp-ink)]" />
                 </div>
-                <h3 className="text-lg font-semibold tracking-tight text-[var(--ramp-ink)] mb-2">
+                <h3 className="text-base font-semibold tracking-tight text-[var(--ramp-ink)] mb-1.5">
                   {card.title}
                 </h3>
-                <p className="text-sm text-[var(--ramp-muted)] leading-relaxed">
-                  {card.desc}
-                </p>
+                <p className="text-sm text-[var(--ramp-muted)] leading-relaxed">{card.desc}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── About ────────────────────────────────────────────── */}
-      <motion.section
-        id="about"
-        className="relative z-10 py-8 sm:py-12"
-        variants={sectionVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: '-80px' }}
-      >
+      <Section id="now">
+        <Now />
+      </Section>
+
+      <Section id="about">
         <About />
-      </motion.section>
+      </Section>
 
-      {/* ── Experience ───────────────────────────────────────── */}
-      <motion.section
-        id="experience"
-        className="relative z-10 py-8 sm:py-12"
-        variants={sectionVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: '-80px' }}
-      >
+      <Section id="skills">
+        <Skills />
+      </Section>
+
+      <Section id="experience">
         <Experience />
-      </motion.section>
+      </Section>
 
-      {/* ── Projects ─────────────────────────────────────────── */}
-      <motion.section
-        id="projects"
-        className="relative z-10 py-8 sm:py-12"
-        variants={sectionVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: '-80px' }}
-      >
+      <Section id="projects">
         <Projects />
-      </motion.section>
+      </Section>
 
-      {/* ── Contact ──────────────────────────────────────────── */}
-      <motion.section
-        id="contact"
-        className="relative z-10 py-8 sm:py-12"
-        variants={sectionVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: '-80px' }}
-      >
+      <Section id="writing">
+        <HomeBlogPreview />
+      </Section>
+
+      <Section id="elsewhere">
+        <Elsewhere />
+      </Section>
+
+      <Section id="faq">
+        <FAQ />
+      </Section>
+
+      <Section id="lab">
+        <FunZone />
+      </Section>
+
+      <Section id="contact">
         <Contact />
-      </motion.section>
+      </Section>
 
-      {/* ── Footer ───────────────────────────────────────────── */}
-      <footer className="relative z-10 border-t border-black/[0.06] py-10 mt-8">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-2">
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--ramp-ink)] text-[var(--ramp-lime)] text-[10px] font-bold">
-                LF
-              </span>
-              <span className="text-sm font-semibold text-[var(--ramp-ink)]">LF32</span>
-            </div>
-            <p className="text-sm text-[var(--ramp-muted)]">
-              © {new Date().getFullYear()} Lali Akhil Raj. All rights reserved.
-            </p>
-            <div className="flex items-center gap-4">
-              <a
-                href="https://github.com/lf32"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[var(--ramp-muted)] hover:text-[var(--ramp-ink)] transition-colors"
-              >
-                <Github className="w-4 h-4" />
-              </a>
-              <Link
-                href="/blog"
-                className="text-sm font-medium text-[var(--ramp-muted)] hover:text-[var(--ramp-ink)] transition-colors"
-              >
-                Blog
-              </Link>
-            </div>
+      <footer className="relative z-10 border-t border-black/[0.06] py-8 mt-2">
+        <div className="container-page flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-2">
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--ramp-ink)] text-[var(--ramp-lime)] text-[10px] font-bold">
+              LF
+            </span>
+            <span className="text-sm font-semibold text-[var(--ramp-ink)]">LF32</span>
+          </div>
+          <p className="text-sm text-[var(--ramp-muted)]">
+            © {new Date().getFullYear()} Lali Akhil Raj. All rights reserved.
+          </p>
+          <div className="flex items-center gap-4">
+            <a
+              href="https://github.com/lf32"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[var(--ramp-muted)] hover:text-[var(--ramp-ink)] transition-colors"
+            >
+              <Github className="w-4 h-4" />
+            </a>
+            <Link
+              href="/blog"
+              className="text-sm font-medium text-[var(--ramp-muted)] hover:text-[var(--ramp-ink)] transition-colors"
+            >
+              Blog
+            </Link>
+            <a
+              href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-medium text-[var(--ramp-muted)] hover:text-[var(--ramp-ink)] transition-colors"
+              title="Important legal document"
+            >
+              Terms
+            </a>
           </div>
         </div>
       </footer>
