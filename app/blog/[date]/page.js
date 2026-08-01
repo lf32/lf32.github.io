@@ -102,9 +102,5 @@ export default async function BlogPage({ params }) {
     .filter(b => b.date !== blog.date)
     .slice(0, 3);
 
-  return (
-    <div className="min-h-screen bg-white pb-20">
-      <BlogPost blog={blog} relatedPosts={relatedPosts} />
-    </div>
-  );
+  return <BlogPost blog={blog} relatedPosts={relatedPosts} />;
 } 

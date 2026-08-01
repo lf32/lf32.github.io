@@ -3,226 +3,158 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Shield, Mail, MapPin, ArrowRight } from 'lucide-react';
+import { Github, Shield, ArrowRight } from 'lucide-react';
 
 const achievements = [
   {
-    title: "Top 10% Security Researcher",
-    platform: "HackerOne",
+    title: 'Top 10% Security Researcher',
+    platform: 'HackerOne',
     icon: Shield,
-    color: "text-green-600"
   },
   {
-    title: "Google Summer of Code",
-    platform: "NexB",
+    title: 'Google Summer of Code',
+    platform: 'NexB',
     icon: Github,
-    color: "text-blue-600"
   },
   {
-    title: "Linux Kernel Developer",
-    platform: "The Linux Foundation",
+    title: 'Linux Kernel Developer',
+    platform: 'The Linux Foundation',
     icon: Shield,
-    color: "text-purple-600"
-  }
+  },
 ];
 
 export default function About() {
   return (
-    <div className="w-full py-20 relative">
-      {/* Subtle background pattern */}
-      <div className="absolute inset-0 pointer-events-none opacity-5">
-        <div 
-          className="absolute inset-0" 
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, #e5e7eb 1px, transparent 0)`,
-            backgroundSize: '40px 40px'
-          }} 
-        />
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        {/* Clean Header */}
-        <motion.div 
-          className="mb-16"
+    <div className="w-full py-12 sm:py-16 relative">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <motion.div
+          className="mb-12 sm:mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.6 }}
         >
-          <div className="mb-12">
-            <div className="flex items-center space-x-4">
-              <div className="w-8 h-px bg-gray-900"></div>
-              <span className="text-sm font-medium text-gray-900 tracking-wider uppercase">About</span>
-            </div>
-          </div>
-          <div className="text-center space-y-6">
-            <h2 className="font-playfair text-4xl md:text-5xl font-medium text-gray-900 tracking-tight">
-              Building Better AI
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto font-light leading-relaxed">
-              <span className="font-mono text-sm text-gray-800">root@exploit:~# objdump -d /proc/self/exe | grep -A 5 main | awk {`{print $3}`}</span>
-            </p>
-          </div>
+          <span className="section-label">About</span>
+          <h2 className="headline text-3xl sm:text-4xl md:text-5xl mt-4 max-w-2xl">
+            Building better, safer software
+          </h2>
+          <p className="mt-4 text-[var(--ramp-muted)] text-lg max-w-2xl leading-relaxed">
+            IIT (BHU) graduate blending modern engineering with rigorous security research.
+          </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
-          {/* Left Column - Image */}
-          <motion.div 
-            className="lg:col-span-5 space-y-8"
-            initial={{ opacity: 0, x: -20 }}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
+          {/* Image + stats */}
+          <motion.div
+            className="lg:col-span-5 space-y-5"
+            initial={{ opacity: 0, x: -16 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            transition={{ duration: 0.6 }}
           >
-            {/* Professional Image */}
-            <div className="relative">
-              <div className="aspect-[4/5] rounded-sm overflow-hidden bg-gray-100">
+            <div className="glass-card overflow-hidden p-2">
+              <div className="relative aspect-[4/5] rounded-[1rem] overflow-hidden bg-[var(--ramp-cream-deep)]">
                 <Image
                   src="/mebase.png"
                   alt="Lali Akhil Raj - LF32"
                   fill
-                  className="object-cover object-center grayscale hover:grayscale-0 transition-all duration-700"
-                  priority
+                  className="object-cover object-center"
+                  sizes="(max-width: 1024px) 100vw, 40vw"
                 />
-              </div>
-              {/* Simple caption */}
-              <div className="mt-4 text-center">
-                <p className="text-sm text-gray-500 font-light">
-                  Lali Akhil Raj, Software Engineer & Security Researcher
-                </p>
               </div>
             </div>
 
-            {/* Quick Stats */}
-            <div className="border-t border-gray-200 pt-8">
-              <div className="grid grid-cols-3 gap-6 text-center">
-                <div>
-                  <div className="text-2xl font-light text-gray-900">2+</div>
-                  <div className="text-xs text-gray-600 uppercase tracking-wide">Years</div>
+            <div className="grid grid-cols-3 gap-3">
+              {[
+                { v: '2+', l: 'Years' },
+                { v: '25+', l: 'Projects' },
+                { v: '20+', l: 'Reports' },
+              ].map((s) => (
+                <div key={s.l} className="glass rounded-2xl px-3 py-4 text-center">
+                  <div className="text-xl font-semibold tracking-tight text-[var(--ramp-ink)]">
+                    {s.v}
+                  </div>
+                  <div className="text-[11px] text-[var(--ramp-muted)] font-medium mt-0.5 uppercase tracking-wide">
+                    {s.l}
+                  </div>
                 </div>
-                <div>
-                  <div className="text-2xl font-light text-gray-900">25+</div>
-                  <div className="text-xs text-gray-600 uppercase tracking-wide">Projects</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-light text-gray-900">20+</div>
-                  <div className="text-xs text-gray-600 uppercase tracking-wide">Security Reports</div>
-                </div>
-              </div>
+              ))}
             </div>
           </motion.div>
 
-          {/* Right Column - Content */}
-          <motion.div 
-            className="lg:col-span-7 space-y-12"
-            initial={{ opacity: 0, x: 20 }}
+          {/* Content */}
+          <motion.div
+            className="lg:col-span-7 space-y-5"
+            initial={{ opacity: 0, x: 16 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            transition={{ duration: 0.6, delay: 0.1 }}
           >
-            {/* Background */}
-            <div className="space-y-6">
-              <h3 className="font-playfair text-2xl font-medium text-gray-900">Background</h3>
-              <div className="space-y-4 text-gray-700 leading-relaxed">
-                <p>
-                  Recent graduate from the Indian Institute of Technology (BHU), Varanasi, 
-                  with a degree in Computer Science and Engineering. My academic foundation 
-                  has been complemented by practical experience in both software development 
-                  and cybersecurity research.
-                </p>
-                <p>
-                  I specialize in building secure, scalable applications while maintaining 
-                  a security-first mindset. My approach combines modern development practices 
-                  with rigorous security testing and vulnerability assessment.
-                </p>
-              </div>
+            <div className="glass-card p-7 sm:p-8 space-y-4">
+              <h3 className="text-xl font-semibold tracking-tight text-[var(--ramp-ink)]">
+                Background
+              </h3>
+              <p className="text-[var(--ramp-ink-soft)] leading-relaxed">
+                Recent graduate from the Indian Institute of Technology (BHU), Varanasi,
+                with a degree in Computer Science and Engineering. My academic foundation
+                is complemented by hands-on experience in software development and
+                cybersecurity research.
+              </p>
+              <p className="text-[var(--ramp-ink-soft)] leading-relaxed">
+                I specialize in building secure, scalable applications with a security-first
+                mindset — combining modern development practices with rigorous testing and
+                vulnerability assessment.
+              </p>
             </div>
 
-
-            {/* Recognition */}
-            <div className="space-y-6">
-              <h3 className="font-playfair text-2xl font-medium text-gray-900">Recognition</h3>
-              <div className="space-y-4">
-                {achievements.map((achievement, index) => (
+            <div className="glass-card p-7 sm:p-8">
+              <h3 className="text-xl font-semibold tracking-tight text-[var(--ramp-ink)] mb-5">
+                Recognition
+              </h3>
+              <div className="space-y-3">
+                {achievements.map((a, index) => (
                   <motion.div
-                    key={achievement.title}
-                    className="flex items-start space-x-4 py-4 border-b border-gray-100 last:border-b-0"
-                    initial={{ opacity: 0, y: 10 }}
+                    key={a.title}
+                    className="flex items-center gap-4 p-3 rounded-2xl bg-black/[0.03] border border-black/[0.04]"
+                    initial={{ opacity: 0, y: 8 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    transition={{ duration: 0.4, delay: index * 0.08 }}
                   >
-                    <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0">
-                      <achievement.icon className="w-5 h-5 text-gray-600" />
+                    <div className="w-11 h-11 rounded-xl bg-[var(--ramp-lime)] flex items-center justify-center flex-shrink-0">
+                      <a.icon className="w-5 h-5 text-[var(--ramp-ink)]" />
                     </div>
-                    <div className="space-y-1">
-                      <h4 className="font-medium text-gray-900">{achievement.title}</h4>
-                      <p className="text-sm text-gray-600">{achievement.platform}</p>
+                    <div>
+                      <h4 className="font-semibold text-[var(--ramp-ink)] text-sm sm:text-base">
+                        {a.title}
+                      </h4>
+                      <p className="text-sm text-[var(--ramp-muted)]">{a.platform}</p>
                     </div>
                   </motion.div>
                 ))}
               </div>
             </div>
 
-            {/* Contact */}
-            <motion.div
-              className="pt-8 border-t border-gray-200"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              <div className="space-y-4">
-                <h4 className="text-lg font-medium text-gray-900">Let's Collaborate</h4>
-                <p className="text-gray-600">
-                  Interested in discussing security research, development projects, or potential collaborations?
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                  <Link
-                    href="#contact"
-                    className="inline-flex items-center px-6 py-3 bg-amber-600 text-white font-medium hover:bg-amber-700 transition-colors duration-200"
-                  >
-                    Get In Touch
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Link>
-                  <Link
-                    href="/blog"
-                    className="inline-flex items-center px-6 py-3 border border-gray-300 text-gray-700 font-medium hover:bg-gray-50 transition-colors duration-200"
-                  >
-                    Read My Work
-                  </Link>
-                </div>
+            <div className="glass-card p-7 sm:p-8">
+              <h4 className="text-lg font-semibold text-[var(--ramp-ink)] mb-2">
+                Let&apos;s collaborate
+              </h4>
+              <p className="text-[var(--ramp-muted)] mb-5 text-sm sm:text-base">
+                Interested in security research, product work, or open-source collaboration?
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Link href="#contact" className="btn-lime">
+                  Get in touch
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link href="/blog" className="btn-ghost">
+                  Read my work
+                </Link>
               </div>
-            </motion.div>
+            </div>
           </motion.div>
         </div>
       </div>
-
-      <style jsx>{`
-        .glass {
-          background: rgba(255, 255, 255, 0.7);
-          backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
-        .gradient-text {
-          background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-        }
-        @keyframes blob {
-          0% { transform: translate(0px, 0px) scale(1); }
-          33% { transform: translate(30px, -50px) scale(1.1); }
-          66% { transform: translate(-20px, 20px) scale(0.9); }
-          100% { transform: translate(0px, 0px) scale(1); }
-        }
-        .animate-blob {
-          animation: blob 7s infinite;
-        }
-        .animation-delay-2000 {
-          animation-delay: 2s;
-        }
-      `}</style>
     </div>
   );
-} 
+}

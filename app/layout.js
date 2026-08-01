@@ -1,10 +1,11 @@
 import './globals.css';
-import { Playfair_Display } from 'next/font/google';
+import { Inter } from 'next/font/google';
 
-const playfair = Playfair_Display({ 
-  subsets: ['latin'], 
-  weight: ['400', '500', '600', '700', '800', '900'],
-  variable: '--font-playfair'
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-inter',
+  display: 'swap',
 });
 
 const siteUrl = 'https://lf32.vercel.app';
@@ -55,7 +56,6 @@ export const metadata = {
   },
   verification: {
     google: 'your-google-site-verification',
-    // Add other verification tokens as needed
   }
 };
 
@@ -63,12 +63,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="scroll-smooth">
       <head>
-        <meta name="theme-color" content="#ffffff" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+        <meta name="theme-color" content="#f4f1ea" />
       </head>
-      <body className={`antialiased ${playfair.variable}`}>
+      <body className={`antialiased ${inter.variable} font-sans`}>
         <div className="min-h-screen">
           {children}
         </div>

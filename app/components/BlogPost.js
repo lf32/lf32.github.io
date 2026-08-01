@@ -1,20 +1,20 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import MarkdownContent from './MarkdownContent';
+import Navbar from './Navbar';
 import Link from 'next/link';
 import Image from 'next/image';
-import { 
-  ArrowLeft, 
-  Clock, 
-  Calendar, 
-  Share2,
-  ArrowRight
+import {
+  ArrowLeft,
+  Clock,
+  Calendar,
+  ArrowRight,
+  Link2,
+  Check,
 } from 'lucide-react';
-import { useEffect, useState, useRef } from 'react';
-import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
-// Reading Progress Component
 const ReadingProgress = () => {
   const [progress, setProgress] = useState(0);
 
@@ -22,27 +22,26 @@ const ReadingProgress = () => {
     const updateProgress = () => {
       const element = document.documentElement;
       const totalHeight = element.scrollHeight - element.clientHeight;
-      const progress = (element.scrollTop / totalHeight) * 100;
-      setProgress(progress);
+      if (totalHeight <= 0) return;
+      setProgress((element.scrollTop / totalHeight) * 100);
     };
 
-    window.addEventListener('scroll', updateProgress);
+    window.addEventListener('scroll', updateProgress, { passive: true });
     return () => window.removeEventListener('scroll', updateProgress);
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 w-full h-0.5 bg-gray-100 z-50">
+    <div className="fixed top-0 left-0 w-full h-[3px] bg-black/[0.04] z-[60] pointer-events-none">
       <motion.div
-        className="h-full bg-amber-600"
+        className="h-full progress-lime"
         style={{ width: `${progress}%` }}
-        transition={{ type: "spring", stiffness: 100, damping: 30 }}
+        transition={{ type: 'spring', stiffness: 120, damping: 30 }}
       />
     </div>
   );
 };
 
-// Social Share Component
-const SocialShare = ({ title, url, className = "" }) => {
+const SocialShare = ({ url, className = '' }) => {
   const [copied, setCopied] = useState(false);
 
   const copyLink = async () => {
@@ -56,92 +55,103 @@ const SocialShare = ({ title, url, className = "" }) => {
   };
 
   return (
-    <div className={className}>
-      <button
-        onClick={copyLink}
-        className="text-sm text-gray-600 hover:text-gray-900 transition-colors duration-200 font-medium"
-      >
-        {copied ? 'Link Copied!' : 'Share Link'}
-      </button>
-    </div>
+    <button
+      type="button"
+      onClick={copyLink}
+      className={`inline-flex items-center gap-2 text-sm font-medium transition-colors ${
+        copied
+          ? 'text-[var(--ramp-ink)]'
+          : 'text-[var(--ramp-muted)] hover:text-[var(--ramp-ink)]'
+      } ${className}`}
+    >
+      {copied ? (
+        <>
+          <Check className="w-4 h-4 text-[var(--ramp-lime-deep)]" />
+          Copied
+        </>
+      ) : (
+        <>
+          <Link2 className="w-4 h-4" />
+          Copy link
+        </>
+      )}
+    </button>
   );
 };
 
-// Related Posts Component
 const RelatedPosts = ({ posts }) => {
   if (!posts || posts.length === 0) return null;
 
   return (
-    <div className="mt-20">
-      <div className="pt-12">
-        <h3 className="text-2xl font-medium text-gray-900 mb-8">Related Articles</h3>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {posts.slice(0, 2).map((post) => (
-            <Link 
-              key={post.date} 
-              href={`/blog/${post.date}`}
-              className="group block"
-            >
-              <article className="space-y-6">
-                {/* Image */}
-                <div className="relative h-48 overflow-hidden bg-gray-100">
-                  {post.image ? (
-                    <Image 
-                      src={post.image} 
-                      alt={post.title} 
-                      fill 
-                      className="object-cover transition-transform duration-500 group-hover:scale-105" 
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                      <div className="text-3xl text-gray-300 font-light">
-                        {post.category?.charAt(0) || 'B'}
-                      </div>
-                    </div>
-                  )}
-                  <div className="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors duration-500"></div>
-                </div>
+    <div className="mt-16 sm:mt-20">
+      <div className="mb-8">
+        <span className="section-label">Keep reading</span>
+        <h3 className="headline text-2xl sm:text-3xl mt-3">Related articles</h3>
+      </div>
 
-                {/* Content */}
-                <div className="space-y-4">
-                  {/* Category */}
-                  {post.category && (
-                    <div className="text-xs text-blue-600 font-semibold uppercase tracking-wider">
-                      {post.category}
-                    </div>
-                  )}
-                  
-                  {/* Title */}
-                  <h4 className="font-playfair text-xl font-medium text-gray-900 leading-[1.3] tracking-[-0.01em] group-hover:text-gray-700 transition-colors duration-300">
-                    {post.title}
-                  </h4>
-                  
-                  {/* Excerpt */}
-                  {post.excerpt && (
-                    <p className="text-sm text-gray-600 leading-[1.6] tracking-[-0.005em] line-clamp-2">
-                      {post.excerpt}
-                    </p>
-                  )}
-                  
-                  {/* Meta */}
-                  <div className="flex items-center space-x-4 text-xs text-gray-500 pt-2">
-                    <time dateTime={post.date} className="flex items-center space-x-1">
-                      <Calendar className="w-3 h-3" />
-                      <span>{new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
-                    </time>
-                    {post.readTime && (
-                      <div className="flex items-center space-x-1">
-                        <Clock className="w-3 h-3" />
-                        <span>{post.readTime}</span>
-                      </div>
-                    )}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {posts.slice(0, 2).map((post) => (
+          <Link
+            key={post.date}
+            href={`/blog/${post.date}`}
+            className="group block h-full"
+          >
+            <article className="glass-card h-full overflow-hidden p-0 flex flex-col">
+              <div className="relative h-44 bg-[var(--ramp-cream-deep)] overflow-hidden">
+                {post.image ? (
+                  <Image
+                    src={post.image}
+                    alt={post.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-black/[0.03] to-[var(--ramp-lime)]/20">
+                    <span className="text-4xl font-bold text-[var(--ramp-ink)]/10">
+                      {post.category?.charAt(0) || 'B'}
+                    </span>
                   </div>
+                )}
+              </div>
+
+              <div className="p-5 sm:p-6 flex flex-col flex-grow space-y-3">
+                {post.category && (
+                  <span className="inline-flex self-start px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[var(--ramp-lime)]/40 text-[var(--ramp-ink)]">
+                    {post.category}
+                  </span>
+                )}
+
+                <h4 className="text-lg font-semibold tracking-tight text-[var(--ramp-ink)] leading-snug group-hover:opacity-75 transition-opacity line-clamp-2">
+                  {post.title}
+                </h4>
+
+                {post.excerpt && (
+                  <p className="text-sm text-[var(--ramp-muted)] leading-relaxed line-clamp-2 flex-grow">
+                    {post.excerpt}
+                  </p>
+                )}
+
+                <div className="flex items-center gap-3 text-xs text-[var(--ramp-muted)] pt-2 border-t border-black/[0.05]">
+                  <time dateTime={post.date} className="inline-flex items-center gap-1">
+                    <Calendar className="w-3 h-3" />
+                    {new Date(post.date).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric',
+                    })}
+                  </time>
+                  {post.readTime && (
+                    <span className="inline-flex items-center gap-1">
+                      <Clock className="w-3 h-3" />
+                      {post.readTime}
+                    </span>
+                  )}
                 </div>
-              </article>
-            </Link>
-          ))}
-        </div>
+              </div>
+            </article>
+          </Link>
+        ))}
       </div>
     </div>
   );
@@ -149,7 +159,6 @@ const RelatedPosts = ({ posts }) => {
 
 export default function BlogPost({ blog, relatedPosts = [] }) {
   const [currentUrl, setCurrentUrl] = useState('');
-  const pathname = usePathname();
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -157,196 +166,205 @@ export default function BlogPost({ blog, relatedPosts = [] }) {
     }
   }, []);
 
-  const readingTime = blog.readTime || `${Math.ceil(blog.content.split(/\s+/).length / 200)} min read`;
+  const readingTime =
+    blog.readTime ||
+    `${Math.ceil((blog.content || '').split(/\s+/).filter(Boolean).length / 200)} min read`;
+
+  const formattedDate = new Date(blog.date).toLocaleDateString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
 
   return (
     <>
       <ReadingProgress />
 
-      <div className="min-h-screen bg-white">
-        {/* Article */}
-        <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Article Header */}
-          <header className="py-12 border-b border-gray-200">
+      <div className="relative min-h-screen overflow-x-hidden">
+        <div className="ambient-bg" aria-hidden="true">
+          <div
+            className="orb"
+            style={{
+              width: 400,
+              height: 400,
+              top: '8%',
+              right: '-5%',
+              background: 'radial-gradient(circle, rgba(210,243,76,0.28) 0%, transparent 70%)',
+            }}
+          />
+          <div
+            className="orb"
+            style={{
+              width: 340,
+              height: 340,
+              bottom: '20%',
+              left: '-8%',
+              background: 'radial-gradient(circle, rgba(180,200,255,0.25) 0%, transparent 70%)',
+            }}
+          />
+        </div>
+
+        <Navbar />
+
+        <article className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-32 pb-16">
+          {/* Header */}
+          <header className="mb-10 sm:mb-12">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.55 }}
               className="space-y-6"
             >
-              {/* Back to Blog Link */}
-              <div className="mb-6">
-                <Link 
-                  href="/blog" 
-                  className="text-sm text-gray-500 hover:text-gray-700 transition-colors font-mono"
-                >
-                  ../bl0g
-                </Link>
-              </div>
+              <Link
+                href="/blog"
+                className="inline-flex items-center gap-2 text-sm font-medium text-[var(--ramp-muted)] hover:text-[var(--ramp-ink)] transition-colors"
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                All articles
+              </Link>
 
-              {/* Date & Share */}
-              <div className="flex justify-between items-center">
-                <div className="text-sm text-gray-500 font-medium tracking-wider uppercase">
-                  {new Date(blog.date).toLocaleDateString('en-US', { 
-                    weekday: 'long', 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric' 
-                  })}
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div className="flex flex-wrap items-center gap-3 text-sm text-[var(--ramp-muted)]">
+                  {blog.category && (
+                    <span className="inline-flex px-3 py-1 rounded-full text-xs font-semibold bg-[var(--ramp-lime)]/50 text-[var(--ramp-ink)]">
+                      {blog.category}
+                    </span>
+                  )}
+                  <time dateTime={blog.date} className="inline-flex items-center gap-1.5 font-medium">
+                    <Calendar className="w-3.5 h-3.5" />
+                    {formattedDate}
+                  </time>
+                  <span className="inline-flex items-center gap-1.5">
+                    <Clock className="w-3.5 h-3.5" />
+                    {readingTime}
+                  </span>
                 </div>
-                <SocialShare title={blog.title} url={currentUrl} />
+                <SocialShare url={currentUrl} />
               </div>
 
-              {/* Title */}
-              <h1 className="font-playfair text-4xl md:text-5xl lg:text-6xl font-medium text-gray-900 leading-[1.1] tracking-[-0.02em]">
+              <h1 className="headline text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] leading-[1.08]">
                 {blog.title}
               </h1>
 
-              {/* Horizontal Line */}
-              <div className="w-16 h-px bg-gray-300"></div>
-
-              {/* Excerpt */}
               {blog.excerpt && (
-                <p className="text-xl text-gray-600 font-light max-w-3xl leading-[1.6] tracking-[-0.01em]">
+                <p className="text-lg sm:text-xl text-[var(--ramp-muted)] leading-relaxed max-w-2xl">
                   {blog.excerpt}
                 </p>
               )}
 
-              {/* Meta & Author */}
-              <div className="flex items-center justify-between pt-4">
-                <div className="flex items-center space-x-4 text-sm text-gray-500">
-                  {blog.category && (
-                    <span className="text-blue-600 font-semibold uppercase tracking-[0.1em] text-xs">
-                      {blog.category}
-                    </span>
-                  )}
-                  <div className="flex items-center space-x-2">
-                    <Clock className="w-4 h-4" />
-                    <span>{readingTime}</span>
-                  </div>
-                </div>
-                
-                <div className="flex items-center space-x-2 bg-gray-100 px-3 py-2 rounded-full">
+              <div className="flex items-center gap-3 pt-1">
+                <div className="glass rounded-full pl-1.5 pr-4 py-1.5 flex items-center gap-2.5">
                   <Image
                     src="/images/0xlf32.jpg"
                     alt="Lali Akhil Raj"
-                    width={24}
-                    height={24}
-                    className="rounded-full"
+                    width={32}
+                    height={32}
+                    className="rounded-full object-cover"
                   />
-                  <span className="text-sm text-gray-900 font-medium">Lali Akhil Raj</span>
+                  <div className="leading-tight">
+                    <p className="text-sm font-semibold text-[var(--ramp-ink)]">
+                      Lali Akhil Raj
+                    </p>
+                    <p className="text-[11px] text-[var(--ramp-muted)]">LF32</p>
+                  </div>
                 </div>
               </div>
-
             </motion.div>
           </header>
 
-          {/* Featured Image */}
+          {/* Featured image */}
           {blog.image && (
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="py-12"
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="mb-10 sm:mb-12"
             >
-              <div className="relative h-96 md:h-[500px] overflow-hidden">
-                <Image
-                  src={blog.image}
-                  alt={blog.title}
-                  fill
-                  className="object-cover"
-                  priority
-                />
+              <div className="glass-card overflow-hidden p-1.5 sm:p-2">
+                <div className="relative h-64 sm:h-80 md:h-[420px] rounded-[1rem] overflow-hidden bg-[var(--ramp-cream-deep)]">
+                  <Image
+                    src={blog.image}
+                    alt={blog.title}
+                    fill
+                    className="object-cover"
+                    priority
+                    sizes="(max-width: 768px) 100vw, 768px"
+                  />
+                </div>
               </div>
             </motion.div>
           )}
 
-          {/* Article Content */}
+          {/* Content */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="py-12"
+            transition={{ duration: 0.55, delay: 0.15 }}
+            className="glass-strong rounded-[1.5rem] p-6 sm:p-9 md:p-11"
           >
-            <div className="prose prose-lg prose-gray max-w-none
-              prose-headings:font-playfair prose-headings:text-gray-900 prose-headings:font-medium prose-headings:tracking-[-0.01em] prose-headings:leading-[1.2]
-              prose-p:text-gray-700 prose-p:leading-[1.7] prose-p:text-lg prose-p:tracking-[-0.01em]
-              prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-a:transition-colors prose-a:duration-200
-              prose-strong:text-gray-900 prose-strong:font-medium
-              prose-blockquote:border-l-4 prose-blockquote:border-gray-300 prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:text-gray-600 prose-blockquote:leading-[1.6]
-              [&_code]:inline [&_code]:bg-gray-100 [&_code]:text-blue-600 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-sm [&_code]:font-mono
-              prose-pre:bg-gray-900 prose-pre:text-white prose-pre:rounded-lg prose-pre:p-4
-              prose-img:rounded-none prose-img:shadow-sm prose-img:mx-auto prose-img:block
-              prose-hr:border-gray-200 prose-hr:my-8
-              prose-ul:text-gray-700 prose-ol:text-gray-700 prose-ul:leading-[1.6] prose-ol:leading-[1.6]
-              prose-li:text-gray-700 prose-li:leading-[1.6]">
+            <div className="blog-content prose-ramp max-w-none">
               <MarkdownContent content={blog.content} />
             </div>
           </motion.div>
 
           {/* Tags */}
           {blog.tags && blog.tags.length > 0 && (
-            <div className="py-8 border-t border-gray-200">
-              <div className="flex flex-wrap gap-2">
-                {blog.tags.map((tag, index) => (
-                  <span 
-                    key={`${tag}-${index}`} 
-                    className="px-3 py-1 text-xs font-medium bg-gray-100 text-gray-600 uppercase tracking-wider"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
+            <div className="mt-8 flex flex-wrap gap-2">
+              {blog.tags.map((tag, index) => (
+                <span
+                  key={`${tag}-${index}`}
+                  className="px-3 py-1.5 text-xs font-semibold rounded-full bg-black/[0.04] border border-black/[0.05] text-[var(--ramp-ink-soft)]"
+                >
+                  {tag}
+                </span>
+              ))}
             </div>
           )}
 
-          {/* Share Section */}
-          <div className="mt-12 pt-8 border-t border-gray-200">
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="text-lg font-medium text-gray-900 mb-2">Share this article</h3>
-                <p className="text-gray-600">Found this helpful? Share it with others.</p>
-              </div>
-              <SocialShare title={blog.title} url={currentUrl} />
-            </div>
-          </div>
-
-          {/* Related Posts */}
-          <RelatedPosts posts={relatedPosts} />
-
-          {/* Navigation */}
-          <div className="my-10 py-12 border-t border-gray-200">
-            <div className="flex justify-between items-center">
-              <Link
-                href="/blog"
-                className="text-blue-600 hover:text-blue-700 font-mono transition-colors duration-200"
-              >
-                ../bl0g
-              </Link>
-              
-              <Link
-                href="/"
-                className="text-blue-600 hover:text-blue-700 font-mono transition-colors duration-200"
-              >
-                ../../h0me
-              </Link>
-            </div>
-          </div>
-
-          {/* Copyright Footer */}
-          <footer className="border-t border-gray-200 py-8">
-            <div className="text-center">
-              <p className="text-sm text-gray-500">
-                © {new Date().getFullYear()} LF32. All rights reserved.
+          {/* Share */}
+          <div className="mt-10 glass-card p-6 sm:p-7 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <h3 className="text-base font-semibold text-[var(--ramp-ink)] mb-1">
+                Share this article
+              </h3>
+              <p className="text-sm text-[var(--ramp-muted)]">
+                Found this useful? Pass it along.
               </p>
             </div>
-          </footer>
+            <SocialShare url={currentUrl} className="btn-ghost !py-2.5 !px-4" />
+          </div>
+
+          <RelatedPosts posts={relatedPosts} />
+
+          {/* Nav */}
+          <div className="mt-12 sm:mt-16 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+            <Link href="/blog" className="btn-ghost justify-center sm:justify-start">
+              <ArrowLeft className="w-4 h-4" />
+              All articles
+            </Link>
+            <Link href="/" className="btn-lime justify-center sm:justify-start">
+              Back home
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
         </article>
 
-        {/* Watermark */}
-        <div className="fixed bottom-4 right-4 z-50 opacity-20 pointer-events-none">
-          <span className="text-gray-400 text-sm font-mono tracking-wider">lf32</span>
-        </div>
+        <footer className="relative z-10 border-t border-black/[0.06] py-10">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="flex items-center gap-2">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--ramp-ink)] text-[var(--ramp-lime)] text-[10px] font-bold">
+                  LF
+                </span>
+                <span className="text-sm font-semibold text-[var(--ramp-ink)]">LF32</span>
+              </div>
+              <p className="text-sm text-[var(--ramp-muted)]">
+                © {new Date().getFullYear()} Lali Akhil Raj. All rights reserved.
+              </p>
+            </div>
+          </div>
+        </footer>
       </div>
     </>
   );

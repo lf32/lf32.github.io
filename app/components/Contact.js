@@ -5,158 +5,133 @@ import { Mail, MapPin, Github, Linkedin, Shield, ArrowRight } from 'lucide-react
 
 export default function Contact() {
   return (
-    <div className="w-full py-20 relative">
-      {/* Subtle background pattern */}
-      <div className="absolute inset-0 pointer-events-none opacity-3">
-        <div 
-          className="absolute inset-0" 
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, #e5e7eb 1px, transparent 0)`,
-            backgroundSize: '40px 40px'
-          }} 
-        />
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        {/* Clean Header */}
-        <div className="mb-16">
-          <div className="mb-12">
-            <div className="flex items-center space-x-4">
-              <div className="w-8 h-px bg-gray-900"></div>
-              <span className="text-sm font-medium text-gray-900 tracking-wider uppercase">Contact</span>
-            </div>
+    <div className="w-full py-12 sm:py-16 relative">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="mb-12 sm:mb-16 max-w-2xl mx-auto text-center">
+          <div className="flex justify-center">
+            <span className="section-label">Contact</span>
           </div>
-          <div className="text-center space-y-6">
-            <h2 className="font-playfair text-3xl md:text-4xl font-medium text-gray-900 tracking-tight">
-              Get In Touch
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto font-light">
-              <span className="font-mono text-sm text-blue-700">researcher@lab:~$ LD_PRELOAD=./hook.so gdb --batch --ex run --ex bt --args ./collaborate.elf</span>
-            </p>
-          </div>
+          <h2 className="headline text-3xl sm:text-4xl md:text-5xl mt-4">
+            Get in touch
+          </h2>
+          <p className="mt-4 text-[var(--ramp-muted)] text-lg leading-relaxed">
+            Open to collaboration, consulting, and security research discussions.
+          </p>
         </div>
 
-        <div className="max-w-4xl mx-auto">
-          <div className="space-y-12">
-            {/* Contact Information */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-center space-y-8"
-            >
-              <div className="space-y-6">
-                <div className="flex items-center justify-center space-x-4">
-                  <Mail className="w-5 h-5 text-gray-600" />
-                  <a 
-                    href="mailto:lf32.dev@gmail.com" 
-                    className="text-lg text-gray-900 hover:text-blue-600 transition-colors duration-200"
-                  >
-                    lf32.dev@gmail.com
-                  </a>
-                </div>
-                <div className="flex items-center justify-center space-x-4">
-                  <MapPin className="w-5 h-5 text-gray-600" />
-                  <span className="text-gray-700 font-mono">0x496E6469612C20417369612C20456172746820</span>
-                </div>
-              </div>
-
-              {/* PGP Section */}
-              <div className="pt-8 border-t border-gray-200">
-                <h3 className="font-playfair text-lg font-medium text-gray-900 mb-4">Secure Communication</h3>
-                <div className="space-y-4">
-                  <div className="bg-gray-50 p-4 rounded font-mono text-sm text-gray-700">
-                    <div className="text-center space-y-2">
-                      <div className="text-xs text-gray-500 uppercase tracking-wide">PGP Key Fingerprint</div>
-                      <div className="break-all">1F55 7E5D F7BC BA93 FD0C 71F8 5054 D404 6EF3 7944</div>
-                    </div>
-                  </div>
-                  <div className="flex justify-center space-x-6 text-sm">
-                    <a
-                      href="https://keys.openpgp.org/vks/v1/by-fingerprint/1F557E5DF7BCBA93FD0C71F85054D4046EF37944"
-                      className="text-blue-600 hover:text-blue-700 transition-colors duration-200"
-                    >
-                      Download Public Key
-                    </a>
-                    <a
-                      href="https://keys.openpgp.org/search?q=1F557E5DF7BCBA93FD0C71F85054D4046EF37944"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-700 transition-colors duration-200"
-                    >
-                      Keyserver Lookup
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Professional Links */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="pt-8 border-t border-gray-200"
-            >
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-                <a
-                  href="https://github.com/lf32"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex flex-col items-center space-y-3 p-6 hover:bg-gray-50 transition-colors duration-200"
-                >
-                  <Github className="w-8 h-8 text-gray-600" />
-                  <div>
-                    <div className="font-medium text-gray-900">GitHub</div>
-                    <div className="text-sm text-gray-600">Open Source Projects</div>
-                  </div>
-                </a>
-                <a
-                  href="https://linkedin.com/in/lali-akhil-raj/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex flex-col items-center space-y-3 p-6 hover:bg-gray-50 transition-colors duration-200"
-                >
-                  <Linkedin className="w-8 h-8 text-gray-600" />
-                  <div>
-                    <div className="font-medium text-gray-900">LinkedIn</div>
-                    <div className="text-sm text-gray-600">Professional Network</div>
-                  </div>
-                </a>
-                <a
-                  href="https://hackerone.com/lf32?type=user"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex flex-col items-center space-y-3 p-6 hover:bg-gray-50 transition-colors duration-200"
-                >
-                  <Shield className="w-8 h-8 text-gray-600" />
-                  <div>
-                    <div className="font-medium text-gray-900">HackerOne</div>
-                    <div className="text-sm text-gray-600">Security Research</div>
-                  </div>
-                </a>
-              </div>
-            </motion.div>
-
-            {/* CTA */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-center pt-8 border-t border-gray-200"
-            >
-              <p className="text-gray-600 mb-6">
-                Open to collaboration, consulting opportunities, and security research discussions.
-              </p>
+        <div className="max-w-3xl mx-auto space-y-5">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="glass-card p-7 sm:p-10 text-center space-y-6"
+          >
+            <div className="space-y-4">
               <a
-                href="mailto:lf32.dev@gmail.com?subject=Supply Chain Security Discussion"
-                className="inline-flex items-center px-8 py-3 bg-amber-600 text-white font-medium hover:bg-amber-700 transition-colors duration-200"
+                href="mailto:lf32.dev@gmail.com"
+                className="inline-flex items-center gap-3 text-lg sm:text-xl font-semibold text-[var(--ramp-ink)] hover:opacity-70 transition-opacity"
               >
-                Start a Conversation
-                <ArrowRight className="w-4 h-4 ml-2" />
+                <span className="w-10 h-10 rounded-full bg-[var(--ramp-lime)] flex items-center justify-center">
+                  <Mail className="w-4 h-4 text-[var(--ramp-ink)]" />
+                </span>
+                lf32.dev@gmail.com
               </a>
-            </motion.div>
-          </div>
+              <div className="flex items-center justify-center gap-2 text-sm text-[var(--ramp-muted)]">
+                <MapPin className="w-4 h-4" />
+                India
+              </div>
+            </div>
+
+            <div className="pt-6 border-t border-black/[0.06]">
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-[var(--ramp-muted)] mb-3">
+                Secure communication
+              </h3>
+              <div className="glass rounded-2xl p-4 font-mono text-xs sm:text-sm text-[var(--ramp-ink-soft)]">
+                <div className="text-[10px] uppercase tracking-wide text-[var(--ramp-muted)] mb-2 font-sans font-semibold">
+                  PGP fingerprint
+                </div>
+                <div className="break-all leading-relaxed">
+                  1F55 7E5D F7BC BA93 FD0C 71F8 5054 D404 6EF3 7944
+                </div>
+              </div>
+              <div className="flex flex-wrap justify-center gap-4 mt-4 text-sm">
+                <a
+                  href="https://keys.openpgp.org/vks/v1/by-fingerprint/1F557E5DF7BCBA93FD0C71F85054D4046EF37944"
+                  className="font-medium text-[var(--ramp-ink)] underline underline-offset-4 decoration-[var(--ramp-lime)] hover:opacity-70 transition-opacity"
+                >
+                  Download public key
+                </a>
+                <a
+                  href="https://keys.openpgp.org/search?q=1F557E5DF7BCBA93FD0C71F85054D4046EF37944"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium text-[var(--ramp-muted)] hover:text-[var(--ramp-ink)] transition-colors"
+                >
+                  Keyserver lookup
+                </a>
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="grid grid-cols-1 sm:grid-cols-3 gap-3"
+          >
+            {[
+              {
+                href: 'https://github.com/lf32',
+                icon: Github,
+                title: 'GitHub',
+                sub: 'Open source',
+              },
+              {
+                href: 'https://linkedin.com/in/lali-akhil-raj/',
+                icon: Linkedin,
+                title: 'LinkedIn',
+                sub: 'Network',
+              },
+              {
+                href: 'https://hackerone.com/lf32?type=user',
+                icon: Shield,
+                title: 'HackerOne',
+                sub: 'Research',
+              },
+            ].map((link) => (
+              <a
+                key={link.title}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="glass-card p-5 flex flex-col items-center text-center gap-2"
+              >
+                <div className="w-10 h-10 rounded-xl bg-black/[0.04] flex items-center justify-center">
+                  <link.icon className="w-5 h-5 text-[var(--ramp-ink-soft)]" />
+                </div>
+                <div className="font-semibold text-[var(--ramp-ink)] text-sm">{link.title}</div>
+                <div className="text-xs text-[var(--ramp-muted)]">{link.sub}</div>
+              </a>
+            ))}
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="text-center pt-4"
+          >
+            <a
+              href="mailto:lf32.dev@gmail.com?subject=Collaboration"
+              className="btn-lime text-base px-8 py-3.5"
+            >
+              Start a conversation
+              <ArrowRight className="w-4 h-4" />
+            </a>
+          </motion.div>
         </div>
       </div>
     </div>

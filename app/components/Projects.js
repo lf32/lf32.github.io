@@ -1,176 +1,135 @@
 'use client';
 
-import { useState } from 'react';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { 
-  Github, 
-  ExternalLink, 
-  Star, 
-  ArrowRight
-} from 'lucide-react';
+import { Github, ExternalLink, ArrowRight } from 'lucide-react';
 
 const projects = [
   {
-    title: "Secure Code Review Platform",
-    description: "A collaborative platform for secure code reviews with automated vulnerability detection and real-time collaboration features for development teams.",
-    image: "https://images.unsplash.com/photo-1567583789793-87f44f80ab61",
-    tags: ["React", "Node.js", "Docker", "Security"],
-    github: "https://github.com/lf32/code-review-platform",
-    demo: "https://demo.code-review.com",
-    featured: true,
-    year: "2023"
+    title: 'Secure Code Review Platform',
+    description:
+      'A collaborative platform for secure code reviews with automated vulnerability detection and real-time collaboration for development teams.',
+    tags: ['React', 'Node.js', 'Docker', 'Security'],
+    github: 'https://github.com/lf32/code-review-platform',
+    demo: 'https://demo.code-review.com',
+    year: '2023',
   },
   {
-    title: "Threat Intelligence Dashboard",
-    description: "Real-time threat intelligence dashboard that aggregates security data from multiple sources with automated monitoring and alert systems.",
-    image: "https://images.unsplash.com/photo-1567583789793-87f44f80ab61",
-    tags: ["Python", "React", "Elasticsearch", "Security"],
-    github: "https://github.com/lf32/threat-dashboard",
-    demo: "https://demo.threat-dashboard.com",
-    featured: true,
-    year: "2023"
+    title: 'Threat Intelligence Dashboard',
+    description:
+      'Real-time threat intelligence dashboard aggregating security data from multiple sources with automated monitoring and alerts.',
+    tags: ['Python', 'React', 'Elasticsearch', 'Security'],
+    github: 'https://github.com/lf32/threat-dashboard',
+    demo: 'https://demo.threat-dashboard.com',
+    year: '2023',
   },
   {
-    title: "Automated Penetration Testing Tool",
-    description: "Comprehensive automated penetration testing framework that integrates multiple security tools for vulnerability assessment and reporting.",
-    image: "https://images.unsplash.com/photo-1567583789793-87f44f80ab61",
-    tags: ["Python", "Security", "Automation", "Docker"],
-    github: "https://github.com/lf32/auto-pentest",
+    title: 'Automated Penetration Testing Tool',
+    description:
+      'Automated penetration testing framework integrating multiple security tools for vulnerability assessment and reporting.',
+    tags: ['Python', 'Security', 'Automation', 'Docker'],
+    github: 'https://github.com/lf32/auto-pentest',
     demo: null,
-    featured: false,
-    year: "2022"
+    year: '2022',
   },
   {
-    title: "Supply Chain Security Scanner",
-    description: "Advanced tool for analyzing software dependencies and detecting supply chain vulnerabilities in open source packages.",
-    image: "https://images.unsplash.com/photo-1567583789793-87f44f80ab61",
-    tags: ["Go", "Security", "CLI", "SBOM"],
-    github: "https://github.com/lf32/supply-chain-scanner",
+    title: 'Supply Chain Security Scanner',
+    description:
+      'Tool for analyzing software dependencies and detecting supply chain vulnerabilities in open source packages.',
+    tags: ['Go', 'Security', 'CLI', 'SBOM'],
+    github: 'https://github.com/lf32/supply-chain-scanner',
     demo: null,
-    featured: false,
-    year: "2022"
-  }
+    year: '2022',
+  },
 ];
 
 export default function Projects() {
   return (
-    <div className="w-full py-20 relative">
-      {/* Subtle background pattern */}
-      <div className="absolute inset-0 pointer-events-none opacity-3">
-        <div 
-          className="absolute inset-0" 
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, #e5e7eb 1px, transparent 0)`,
-            backgroundSize: '40px 40px'
-          }} 
-        />
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        {/* Clean Header */}
-        <div className="mb-16">
-          <div className="mb-12">
-            <div className="flex items-center space-x-4">
-              <div className="w-8 h-px bg-gray-900"></div>
-              <span className="text-sm font-medium text-gray-900 tracking-wider uppercase">Projects</span>
-            </div>
-          </div>
-          <div className="text-center space-y-6">
-            <h2 className="font-playfair text-3xl md:text-4xl font-medium text-gray-900 tracking-tight">
-              Selected Work
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto font-light">
-              <span className="font-mono text-sm text-red-700">exploit@pwn:~$ mmap(NULL, 0x1000, PROT_READ|PROT_WRITE, MAP_ANONYMOUS|MAP_PRIVATE, -1, 0)</span>
-            </p>
-          </div>
+    <div className="w-full py-12 sm:py-16 relative">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="mb-12 sm:mb-16 max-w-2xl">
+          <span className="section-label">Projects</span>
+          <h2 className="headline text-3xl sm:text-4xl md:text-5xl mt-4">
+            Selected work
+          </h2>
+          <p className="mt-4 text-[var(--ramp-muted)] text-lg leading-relaxed">
+            Security platforms, intelligence tooling, and open-source scanners.
+          </p>
         </div>
 
-        {/* Projects Grid */}
-        <div className="max-w-4xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {projects.map((project, index) => (
-              <motion.article
-                key={project.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="group space-y-4"
-              >
-                {/* Title and Year */}
-                <div className="flex items-baseline space-x-3">
-                  <h3 className="font-playfair text-lg font-medium text-gray-900 group-hover:text-gray-700 transition-colors duration-300">
-                    {project.title}
-                  </h3>
-                  <span className="text-sm text-gray-500 font-medium">
-                    {project.year}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {projects.map((project, index) => (
+            <motion.article
+              key={project.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.5, delay: index * 0.06 }}
+              className="glass-card p-6 sm:p-7 flex flex-col h-full group"
+            >
+              <div className="flex items-start justify-between gap-3 mb-3">
+                <h3 className="text-lg font-semibold tracking-tight text-[var(--ramp-ink)] group-hover:opacity-80 transition-opacity">
+                  {project.title}
+                </h3>
+                <span className="text-xs font-semibold text-[var(--ramp-muted)] bg-black/[0.04] px-2.5 py-1 rounded-full flex-shrink-0">
+                  {project.year}
+                </span>
+              </div>
+
+              <p className="text-sm text-[var(--ramp-ink-soft)] leading-relaxed flex-grow mb-5">
+                {project.description}
+              </p>
+
+              <div className="flex flex-wrap gap-2 mb-5">
+                {project.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-xs font-medium text-[var(--ramp-ink-soft)] bg-black/[0.04] border border-black/[0.04] px-2.5 py-1 rounded-full"
+                  >
+                    {tag}
                   </span>
-                </div>
+                ))}
+              </div>
 
-                {/* Description */}
-                <p className="text-gray-700 leading-relaxed font-light text-sm">
-                  {project.description}
-                </p>
-
-                {/* Technologies */}
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-xs text-gray-600 bg-gray-100 px-2 py-1 font-medium"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Links */}
-                <div className="flex items-center space-x-4 text-sm">
+              <div className="flex items-center gap-4 text-sm pt-1 border-t border-black/[0.05]">
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 font-medium text-[var(--ramp-ink-soft)] hover:text-[var(--ramp-ink)] transition-colors pt-4"
+                >
+                  <Github className="w-4 h-4" />
+                  Code
+                </a>
+                {project.demo && (
                   <a
-                    href={project.github}
+                    href={project.demo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors duration-200"
+                    className="inline-flex items-center gap-1.5 font-medium text-[var(--ramp-ink-soft)] hover:text-[var(--ramp-ink)] transition-colors pt-4"
                   >
-                    <Github className="w-4 h-4 mr-1" />
-                    Code
+                    <ExternalLink className="w-4 h-4" />
+                    Demo
                   </a>
-                  {project.demo && (
-                    <a
-                      href={project.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center text-blue-600 hover:text-blue-700 transition-colors duration-200"
-                    >
-                      <ExternalLink className="w-4 h-4 mr-1" />
-                      Demo
-                    </a>
-                  )}
-                </div>
-              </motion.article>
-            ))}
-          </div>
+                )}
+              </div>
+            </motion.article>
+          ))}
         </div>
 
-        {/* Bottom section */}
-        <div className="mt-12 pt-8 border-t border-gray-200 text-center">
-          <div className="space-y-3">
-            <h3 className="text-lg font-medium text-gray-900">More on GitHub</h3>
-            <p className="text-sm text-gray-600 max-w-lg mx-auto">
-              Additional projects and contributions can be found on my GitHub profile.
-            </p>
-            <div className="flex justify-center pt-4">
-              <a
-                href="https://github.com/lf32"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors duration-200"
-              >
-                Visit GitHub Profile
-                <ArrowRight className="w-4 h-4 ml-1" />
-              </a>
-            </div>
-          </div>
+        <div className="mt-12 text-center glass rounded-3xl px-6 py-8 max-w-xl mx-auto">
+          <h3 className="text-lg font-semibold text-[var(--ramp-ink)]">More on GitHub</h3>
+          <p className="text-sm text-[var(--ramp-muted)] mt-2 mb-4 max-w-md mx-auto">
+            Additional projects and contributions on my GitHub profile.
+          </p>
+          <a
+            href="https://github.com/lf32"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center text-sm font-semibold text-[var(--ramp-ink)] hover:opacity-70 transition-opacity"
+          >
+            Visit GitHub
+            <ArrowRight className="w-4 h-4 ml-1" />
+          </a>
         </div>
       </div>
     </div>
