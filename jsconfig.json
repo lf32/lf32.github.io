@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "jsx": "preserve", // or "react-jsx" for React 17+
+    "allowJs": true,
+    "esModuleInterop": true,
+    "paths": {
+      "@/*": ["./*"]
+    }
+  }
+}
