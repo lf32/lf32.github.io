@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 450" width="480" height="450" role="img">
+  <title>The fixed brain was a mistake. The old story ended because measurements contradicted it.</title>
+  <rect width="480" height="450" fill="#f6f5f2"/>
+  <rect x="0" y="0" width="480" height="6" fill="#9a3412"/>
+  <text x="28" y="36" font-family="Helvetica, Arial, sans-serif" font-size="22" font-weight="600" fill="#1e2124" text-anchor="start">The fixed brain was a mistake</text>
+  
+  <line x1="52" y1="86" x2="52" y2="346" stroke="#d9d6d0" stroke-width="2"/>
+<circle cx="52" cy="86" r="6" fill="#1e2124"/>
+<text x="72" y="80" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1e2124" text-anchor="start">1890  ·  William James</text>
+<text x="72" y="100" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#5c6166" text-anchor="start">Habit can carve organic matter. He had no scanner.</text>
+<circle cx="52" cy="138" r="6" fill="#1e2124"/>
+<text x="72" y="132" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1e2124" text-anchor="start">Cajal  ·  Fixed adult paths</text>
+<text x="72" y="152" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#5c6166" text-anchor="start">The line that medicine treated as law for decades.</text>
+<circle cx="52" cy="190" r="6" fill="#1e2124"/>
+<text x="72" y="184" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1e2124" text-anchor="start">1948  ·  Jerzy Konorski</text>
+<text x="72" y="204" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#5c6166" text-anchor="start">Gives the property its modern name: neural plasticity.</text>
+<circle cx="52" cy="242" r="6" fill="#1e2124"/>
+<text x="72" y="236" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1e2124" text-anchor="start">1949  ·  Donald Hebb</text>
+<text x="72" y="256" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#5c6166" text-anchor="start">Cells that help fire each other become more efficient.</text>
+<circle cx="52" cy="294" r="6" fill="#1e2124"/>
+<text x="72" y="288" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1e2124" text-anchor="start">Late 1900s  ·  The pictures arrive</text>
+<text x="72" y="308" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#5c6166" text-anchor="start">Living brains, compared, are changing.</text>
+<circle cx="52" cy="346" r="6" fill="#9a3412"/>
+<text x="72" y="340" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1e2124" text-anchor="start">Now  ·  Slower, not zero</text>
+<text x="72" y="360" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#5c6166" text-anchor="start">Strongest in childhood. Still available after that.</text>
+  <line x1="28" y1="410" x2="452" y2="410" stroke="#d9d6d0" stroke-width="1"/>
+  <text x="28" y="428" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#5c6166" text-anchor="start">The old story ended because measurements contradicted it.</text>
+</svg>

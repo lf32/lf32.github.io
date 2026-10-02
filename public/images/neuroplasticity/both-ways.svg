@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 420" width="480" height="420" role="img">
+  <title>The rule does not take sides. Avoidance is practice. The tissue only records the repetition.</title>
+  <rect width="480" height="420" fill="#f6f5f2"/>
+  <rect x="0" y="0" width="480" height="6" fill="#9a3412"/>
+  <text x="28" y="36" font-family="Helvetica, Arial, sans-serif" font-size="22" font-weight="600" fill="#1e2124" text-anchor="start">The rule does not take sides</text>
+  
+  <circle cx="240" cy="110" r="26" fill="#ffffff" stroke="#1e2124" stroke-width="2"/>
+<text x="240" y="106" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#1e2124" text-anchor="middle">same</text>
+<text x="240" y="122" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#1e2124" text-anchor="middle">rule</text>
+<path d="M220 128 C 160 160, 120 180, 100 200" fill="none" stroke="#1f4d3a" stroke-width="2.4"/>
+<path d="M260 128 C 320 160, 360 180, 380 200" fill="none" stroke="#9a3412" stroke-width="2.4"/>
+<rect x="28" y="208" width="200" height="150" rx="8" fill="#ffffff" stroke="#d9d6d0" stroke-width="1"/>
+<text x="44" y="236" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1f4d3a" text-anchor="start">Builds a skill</text>
+<text x="44" y="264" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="400" fill="#1e2124" text-anchor="start">The weak subject.</text>
+<text x="44" y="288" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="400" fill="#1e2124" text-anchor="start">The uncomfortable rep.</text>
+<text x="44" y="312" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="400" fill="#1e2124" text-anchor="start">A calmer response.</text>
+<rect x="252" y="208" width="200" height="150" rx="8" fill="#ffffff" stroke="#d9d6d0" stroke-width="1"/>
+<text x="268" y="236" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#9a3412" text-anchor="start">Builds a habit</text>
+<text x="268" y="264" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="400" fill="#1e2124" text-anchor="start">The dodge.</text>
+<text x="268" y="288" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="400" fill="#1e2124" text-anchor="start">The phone reach.</text>
+<text x="268" y="312" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="400" fill="#1e2124" text-anchor="start">The spiral.</text>
+  <line x1="28" y1="380" x2="452" y2="380" stroke="#d9d6d0" stroke-width="1"/>
+  <text x="28" y="398" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#5c6166" text-anchor="start">Avoidance is practice. The tissue only records the repetition.</text>
+</svg>

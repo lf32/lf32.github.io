@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 440" width="480" height="440" role="img">
+  <title>You are already practicing. Ordinary life is the tool. It points where the repetitions point.</title>
+  <rect width="480" height="440" fill="#f6f5f2"/>
+  <rect x="0" y="0" width="480" height="6" fill="#9a3412"/>
+  <text x="28" y="36" font-family="Helvetica, Arial, sans-serif" font-size="22" font-weight="600" fill="#1e2124" text-anchor="start">You are already practicing</text>
+  
+  <text x="28" y="78" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="400" fill="#5c6166" text-anchor="start">These are already the session.</text>
+<rect x="28" y="100" width="424" height="44" rx="8" fill="#ffffff" stroke="#d9d6d0" stroke-width="1"/>
+<rect x="28" y="100" width="6" height="44" fill="#9a3412"/>
+<text x="48" y="128" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="400" fill="#1e2124" text-anchor="start">The class you attend half-present</text>
+<rect x="28" y="154" width="424" height="44" rx="8" fill="#ffffff" stroke="#d9d6d0" stroke-width="1"/>
+<rect x="28" y="154" width="6" height="44" fill="#9a3412"/>
+<text x="48" y="182" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="400" fill="#1e2124" text-anchor="start">The sentence after a bad grade</text>
+<rect x="28" y="208" width="424" height="44" rx="8" fill="#ffffff" stroke="#d9d6d0" stroke-width="1"/>
+<rect x="28" y="208" width="6" height="44" fill="#9a3412"/>
+<text x="48" y="236" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="400" fill="#1e2124" text-anchor="start">The last hour before sleep</text>
+<rect x="28" y="262" width="424" height="44" rx="8" fill="#ffffff" stroke="#d9d6d0" stroke-width="1"/>
+<rect x="28" y="262" width="6" height="44" fill="#9a3412"/>
+<text x="48" y="290" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="400" fill="#1e2124" text-anchor="start">What you do when work gets uncomfortable</text>
+<text x="28" y="344" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#9a3412" text-anchor="start">Four processes run on whatever you repeat.</text>
+  <line x1="28" y1="400" x2="452" y2="400" stroke="#d9d6d0" stroke-width="1"/>
+  <text x="28" y="418" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#5c6166" text-anchor="start">Ordinary life is the tool. It points where the repetitions point.</text>
+</svg>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 500" width="480" height="500" role="img">
+  <title>Why your age changes the stakes. Habits rehearsed now help decide which roads get paved.</title>
+  <rect width="480" height="500" fill="#f6f5f2"/>
+  <rect x="0" y="0" width="480" height="6" fill="#9a3412"/>
+  <text x="28" y="36" font-family="Helvetica, Arial, sans-serif" font-size="22" font-weight="600" fill="#1e2124" text-anchor="start">Why your age changes the stakes</text>
+  
+  <rect x="28" y="72" width="424" height="168" rx="8" fill="#ffffff" stroke="#d9d6d0" stroke-width="1"/>
+<text x="44" y="96" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1e2124" text-anchor="start">Clock 1  ·  Pruning</text>
+<text x="250" y="96" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#5c6166" text-anchor="start">Schematic, not a data plot.</text>
+<line x1="56" y1="186" x2="420" y2="186" stroke="#d9d6d0"/>
+<path d="M64 180 C 120 176, 150 130, 200 122 C 260 112, 280 150, 340 166 C 380 176, 400 180, 420 182" fill="none" stroke="#9a3412" stroke-width="2.6" stroke-linecap="round"/>
+<circle cx="200" cy="122" r="4" fill="#9a3412"/>
+<text x="64" y="206" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#1e2124" text-anchor="start">Early life overbuilds synapses. Quiet ones are cut.</text>
+<text x="64" y="226" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#1e2124" text-anchor="start">Traffic decides which synapses stay.</text>
+<rect x="28" y="256" width="424" height="176" rx="8" fill="#ffffff" stroke="#d9d6d0" stroke-width="1"/>
+<text x="44" y="280" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1e2124" text-anchor="start">Clock 2  ·  The front of the brain</text>
+<text x="44" y="312" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="400" fill="#1e2124" text-anchor="start">Reward and social systems</text>
+<rect x="44" y="322" width="300" height="16" rx="4" fill="#9a3412"/>
+<text x="354" y="335" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#9a3412" text-anchor="start">already loud</text>
+<text x="44" y="362" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="400" fill="#1e2124" text-anchor="start">Prefrontal insulation</text>
+<text x="230" y="362" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#5c6166" text-anchor="start">still being paved</text>
+<rect x="44" y="376" width="360" height="16" rx="4" fill="#d9d6d0"/>
+<rect x="44" y="376" width="190" height="16" rx="4" fill="#1f4d3a"/>
+<text x="44" y="412" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#5c6166" text-anchor="start">Myelin in that region continues into the twenties.</text>
+  <line x1="28" y1="460" x2="452" y2="460" stroke="#d9d6d0" stroke-width="1"/>
+  <text x="28" y="478" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#5c6166" text-anchor="start">Habits rehearsed now help decide which roads get paved.</text>
+</svg>

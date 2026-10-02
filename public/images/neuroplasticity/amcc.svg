@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 460" width="480" height="460" role="img">
+  <title>Where effort gets spent. Anterior midcingulate cortex. A hub, not a muscle you can see.</title>
+  <rect width="480" height="460" fill="#f6f5f2"/>
+  <rect x="0" y="0" width="480" height="6" fill="#9a3412"/>
+  <text x="28" y="36" font-family="Helvetica, Arial, sans-serif" font-size="22" font-weight="600" fill="#1e2124" text-anchor="start">Where effort gets spent</text>
+  
+  <rect x="28" y="72" width="424" height="230" rx="8" fill="#ffffff" stroke="#d9d6d0" stroke-width="1"/>
+<path d="M118 230 C 108 160, 140 92, 220 86 C 310 78, 372 120, 386 176 C 396 214, 360 248, 318 256 C 300 286, 250 280, 236 252 C 190 262, 150 250, 132 230 Z" fill="#ffffff" stroke="#1e2124" stroke-width="2"/>
+<path d="M168 188 C 200 168, 280 166, 330 188 C 300 200, 230 202, 176 196 Z" fill="#f6f5f2" stroke="#1e2124" stroke-width="1.6"/>
+<path d="M160 150 C 200 128, 280 126, 340 148" fill="none" stroke="#c4b8a5" stroke-width="10" stroke-linecap="round"/>
+<path d="M188 140 C 214 130, 246 128, 268 136" fill="none" stroke="#9a3412" stroke-width="10" stroke-linecap="round"/>
+<circle cx="230" cy="132" r="5" fill="#9a3412"/>
+<text x="168" y="108" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#9a3412" text-anchor="start">aMCC</text>
+<text x="70" y="250" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#5c6166" text-anchor="start">front</text>
+<text x="360" y="250" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#5c6166" text-anchor="start">back</text>
+<text x="200" y="214" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#5c6166" text-anchor="start">corpus callosum</text>
+<text x="44" y="286" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#5c6166" text-anchor="start">Inner face of one hemisphere. Simplified.</text>
+<circle cx="40" cy="324" r="8" fill="#9a3412"/>
+<text x="40" y="328" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#fff" text-anchor="middle">1</text>
+<text x="58" y="328" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="400" fill="#1e2124" text-anchor="start">Weighs effort, pain, errors, and the goal.</text>
+<circle cx="40" cy="356" r="8" fill="#9a3412"/>
+<text x="40" y="360" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#fff" text-anchor="middle">2</text>
+<text x="58" y="360" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="400" fill="#1e2124" text-anchor="start">Asks whether a hard action is worth the cost.</text>
+<circle cx="40" cy="388" r="8" fill="#9a3412"/>
+<text x="40" y="392" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#fff" text-anchor="middle">3</text>
+<text x="58" y="392" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="400" fill="#1e2124" text-anchor="start">Stimulation has produced a will to push through.</text>
+  <line x1="28" y1="420" x2="452" y2="420" stroke="#d9d6d0" stroke-width="1"/>
+  <text x="28" y="438" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#5c6166" text-anchor="start">Anterior midcingulate cortex. A hub, not a muscle you can see.</text>
+</svg>

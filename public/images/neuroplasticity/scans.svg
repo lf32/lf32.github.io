@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 580" width="480" height="580" role="img">
+  <title>What the scans showed. A plateau is sometimes the moment practice stopped.</title>
+  <rect width="480" height="580" fill="#f6f5f2"/>
+  <rect x="0" y="0" width="480" height="6" fill="#9a3412"/>
+  <text x="28" y="36" font-family="Helvetica, Arial, sans-serif" font-size="22" font-weight="600" fill="#1e2124" text-anchor="start">What the scans showed</text>
+  
+  <rect x="28" y="72" width="424" height="168" rx="8" fill="#ffffff" stroke="#d9d6d0" stroke-width="1"/>
+<text x="44" y="96" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1e2124" text-anchor="start">London taxi drivers</text>
+<text x="44" y="116" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#5c6166" text-anchor="start">Maguire and colleagues, 2000. Schematic, not to scale.</text>
+<text x="44" y="146" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#5c6166" text-anchor="start">Back of the hippocampus</text>
+<rect x="210" y="134" width="150" height="14" rx="3" fill="#9a3412"/>
+<text x="368" y="146" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#9a3412" text-anchor="start">larger</text>
+<text x="44" y="176" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#5c6166" text-anchor="start">Front of the hippocampus</text>
+<rect x="210" y="164" width="78" height="14" rx="3" fill="#1e2124" opacity="0.35"/>
+<text x="296" y="176" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#5c6166" text-anchor="start">relatively smaller</text>
+<text x="44" y="210" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#1e2124" text-anchor="start">More years driving, bigger difference at the back.</text>
+<text x="44" y="228" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#5c6166" text-anchor="start">Tissue was reallocated, not added as a bonus lobe.</text>
+<rect x="28" y="252" width="424" height="128" rx="8" fill="#ffffff" stroke="#d9d6d0" stroke-width="1"/>
+<text x="44" y="276" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1e2124" text-anchor="start">String players</text>
+<text x="44" y="296" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#5c6166" text-anchor="start">Elbert and colleagues, 1995.</text>
+<text x="44" y="322" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#1e2124" text-anchor="start">Left hand, the fingering hand</text>
+<circle cx="300" cy="316" r="8.0" fill="#f6e7e2" stroke="#9a3412" stroke-width="1.6"/>
+<circle cx="326" cy="316" r="9.0" fill="#f6e7e2" stroke="#9a3412" stroke-width="1.6"/>
+<circle cx="352" cy="316" r="10.0" fill="#f6e7e2" stroke="#9a3412" stroke-width="1.6"/>
+<circle cx="378" cy="316" r="8.5" fill="#f6e7e2" stroke="#9a3412" stroke-width="1.6"/>
+<text x="44" y="344" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#5c6166" text-anchor="start">That finger map takes more sensory cortex.</text>
+<text x="44" y="362" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#5c6166" text-anchor="start">A young start shifts it more.</text>
+<rect x="28" y="396" width="424" height="118" rx="8" fill="#ffffff" stroke="#d9d6d0" stroke-width="1"/>
+<text x="44" y="420" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#1e2124" text-anchor="start">After a stroke</text>
+<text x="44" y="440" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#5c6166" text-anchor="start">Constraint-induced therapy, from the work of Edward Taub.</text>
+<rect x="44" y="456" width="70" height="16" rx="8" fill="#1e2124" opacity="0.25"/>
+<text x="124" y="469" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#5c6166" text-anchor="start">good arm held still</text>
+<rect x="44" y="480" width="110" height="16" rx="8" fill="#9a3412"/>
+<text x="164" y="493" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#9a3412" text-anchor="start">weak arm does the reps</text>
+  <line x1="28" y1="540" x2="452" y2="540" stroke="#d9d6d0" stroke-width="1"/>
+  <text x="28" y="558" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#5c6166" text-anchor="start">A plateau is sometimes the moment practice stopped.</text>
+</svg>
