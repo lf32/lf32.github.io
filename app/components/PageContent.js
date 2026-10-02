@@ -35,7 +35,7 @@ const topics = [
   { label: 'Now', href: '#now' },
 ];
 
-const HERO_LINES = ['Build secure systems.', 'Ship with clarity.'];
+const HERO_LINES = ["I'm Lali Akhil Raj.", 'I read, then I build.'];
 
 function HeroHeadline() {
   return (
