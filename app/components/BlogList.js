@@ -33,7 +33,7 @@ export default function BlogList({ blogs, viewMode = 'grid' }) {
           <Link href={`/blog/${blog.date}`} className="block h-full">
             {viewMode === 'grid' ? (
               <div className="glass-card h-full overflow-hidden p-0 flex flex-col">
-                <div className="relative h-40 bg-[var(--ramp-cream-deep)] overflow-hidden">
+                <div className="relative h-40 bg-[var(--pt-surface)] overflow-hidden">
                   {blog.image ? (
                     <>
                       <Image
@@ -46,15 +46,15 @@ export default function BlogList({ blogs, viewMode = 'grid' }) {
                       />
                     </>
                   ) : (
-                    <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-black/[0.03] to-[var(--ramp-lime)]/20">
-                      <span className="text-4xl font-bold text-[var(--ramp-ink)]/10">
+                    <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-white/[0.04] to-[var(--pt-gold)]/20">
+                      <span className="text-4xl font-bold text-[var(--pt-ink)]/10">
                         {blog.category?.charAt(0) || 'B'}
                       </span>
                     </div>
                   )}
                   {blog.category && (
                     <div className="absolute top-3 left-3">
-                      <span className="inline-flex px-2.5 py-1 rounded-full text-[11px] font-semibold bg-white/80 backdrop-blur-md text-[var(--ramp-ink)] border border-white/60">
+                      <span className="inline-flex px-2.5 py-1 rounded-full text-[11px] font-semibold bg-black/75 text-white border border-white/20">
                         {blog.category}
                       </span>
                     </div>
@@ -70,10 +70,10 @@ export default function BlogList({ blogs, viewMode = 'grid' }) {
                 </div>
 
                 <div className="flex flex-col flex-grow p-5">
-                  <h2 className="text-lg font-semibold tracking-tight text-[var(--ramp-ink)] mb-2 line-clamp-2 group-hover:opacity-75 transition-opacity">
+                  <h2 className="text-lg font-semibold tracking-tight text-[var(--pt-ink)] mb-2 line-clamp-2 group-hover:opacity-75 transition-opacity">
                     {blog.title}
                   </h2>
-                  <p className="text-sm text-[var(--ramp-muted)] mb-3 line-clamp-2 flex-grow">
+                  <p className="text-sm text-[var(--pt-muted)] mb-3 line-clamp-2 flex-grow">
                     {blog.excerpt}
                   </p>
                   {blog.tags && blog.tags.length > 0 && (
@@ -81,24 +81,24 @@ export default function BlogList({ blogs, viewMode = 'grid' }) {
                       {blog.tags.slice(0, 2).map((tag) => (
                         <span
                           key={tag}
-                          className="inline-flex px-2 py-0.5 rounded-full text-[11px] font-medium bg-black/[0.04] text-[var(--ramp-ink-soft)]"
+                          className="inline-flex px-2 py-0.5 rounded-full text-[11px] font-medium bg-black/[0.04] text-[var(--pt-ink-soft)]"
                         >
                           {tag}
                         </span>
                       ))}
                       {blog.tags.length > 2 && (
-                        <span className="text-[11px] text-[var(--ramp-muted)]">
+                        <span className="text-[11px] text-[var(--pt-muted)]">
                           +{blog.tags.length - 2}
                         </span>
                       )}
                     </div>
                   )}
-                  <div className="flex items-center justify-between mt-auto pt-3 border-t border-black/[0.05] text-xs text-[var(--ramp-muted)]">
+                  <div className="flex items-center justify-between mt-auto pt-3 border-t border-black/[0.08] text-xs text-[var(--pt-muted)]">
                     <time dateTime={blog.date} className="inline-flex items-center gap-1">
                       <Calendar className="w-3 h-3" />
                       {blog.formattedDate}
                     </time>
-                    <span className="inline-flex items-center gap-1 font-semibold text-[var(--ramp-ink)]">
+                    <span className="inline-flex items-center gap-1 font-semibold text-[var(--pt-ink)]">
                       Read
                       <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
                     </span>
@@ -119,12 +119,12 @@ export default function BlogList({ blogs, viewMode = 'grid' }) {
                   </div>
                 )}
                 <div className="flex-grow min-w-0">
-                  <h2 className="text-base sm:text-lg font-semibold text-[var(--ramp-ink)] mb-1 group-hover:opacity-75 transition-opacity line-clamp-1">
+                  <h2 className="text-base sm:text-lg font-semibold text-[var(--pt-ink)] mb-1 group-hover:opacity-75 transition-opacity line-clamp-1">
                     {blog.title}
                   </h2>
-                  <div className="flex flex-wrap items-center gap-2 text-xs text-[var(--ramp-muted)] mb-1.5">
+                  <div className="flex flex-wrap items-center gap-2 text-xs text-[var(--pt-muted)] mb-1.5">
                     {blog.category && (
-                      <span className="font-semibold text-[var(--ramp-ink-soft)]">
+                      <span className="font-semibold text-[var(--pt-ink-soft)]">
                         {blog.category}
                       </span>
                     )}
@@ -136,11 +136,11 @@ export default function BlogList({ blogs, viewMode = 'grid' }) {
                       </span>
                     )}
                   </div>
-                  <p className="text-sm text-[var(--ramp-muted)] line-clamp-1">
+                  <p className="text-sm text-[var(--pt-muted)] line-clamp-1">
                     {blog.excerpt}
                   </p>
                 </div>
-                <div className="flex-shrink-0 hidden sm:flex items-center font-semibold text-sm text-[var(--ramp-ink)]">
+                <div className="flex-shrink-0 hidden sm:flex items-center font-semibold text-sm text-[var(--pt-ink)]">
                   Read
                   <ArrowRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-0.5" />
                 </div>

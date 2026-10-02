@@ -1,10 +1,10 @@
 import './globals.css';
-import { Inter } from 'next/font/google';
+import { Archivo } from 'next/font/google';
 
-const inter = Inter({
+const archivo = Archivo({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-inter',
+  weight: ['400', '500', '600'],
+  variable: '--font-archivo',
   display: 'swap',
 });
 
@@ -63,9 +63,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="scroll-smooth">
       <head>
-        <meta name="theme-color" content="#f4f1ea" />
+        <meta name="theme-color" content="#ffffff" />
       </head>
-      <body className={`antialiased ${inter.variable} font-sans`}>
+      <body className={`antialiased ${archivo.variable} font-sans`}>
         <div className="min-h-screen">
           {children}
         </div>

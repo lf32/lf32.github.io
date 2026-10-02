@@ -26,8 +26,8 @@ export default function Skills() {
     <div className="container-page">
       <div className="section-header">
         <span className="section-label">Stack</span>
-        <h2 className="headline text-3xl sm:text-4xl mt-3">Tools of the trade</h2>
-        <p className="mt-2 text-[var(--ramp-muted)] text-base">
+        <h2 className="headline mt-3">Tools of the trade</h2>
+        <p className="mt-2 text-[var(--pt-muted)] text-base">
           A working set — depth over logo bingo.
         </p>
       </div>
@@ -42,16 +42,15 @@ export default function Skills() {
             transition={{ duration: 0.35, delay: i * 0.05 }}
             className="glass-card p-5 sm:p-6"
           >
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-[var(--ramp-muted)] mb-3">
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-[var(--pt-muted)] mb-3">
               {group.title}
             </h3>
             <ul className="space-y-2">
               {group.items.map((item) => (
                 <li
                   key={item}
-                  className="flex items-center gap-2 text-sm font-medium text-[var(--ramp-ink-soft)]"
+                  className="flex items-center gap-2 text-sm font-medium text-[var(--pt-ink-soft)]"
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-[var(--ramp-lime)] shrink-0" />
                   {item}
                 </li>
               ))}

@@ -32,38 +32,33 @@ export default function Experience() {
     <div className="container-page">
       <div className="section-header">
         <span className="section-label">Experience</span>
-        <h2 className="headline text-3xl sm:text-4xl mt-3">Professional journey</h2>
-        <p className="mt-2 text-[var(--ramp-muted)] text-base">
+        <h2 className="headline mt-3">Professional journey</h2>
+        <p className="mt-2 text-[var(--pt-muted)] text-base">
           Defense research, kernel development, and open-source security tooling.
         </p>
       </div>
 
-      <div className="relative max-w-3xl">
-        <div className="absolute left-[1.05rem] top-4 bottom-4 w-px bg-gradient-to-b from-[var(--ramp-lime)] via-black/10 to-transparent hidden sm:block" />
-
-        <div className="space-y-3 sm:space-y-4">
-          {experiences.map((exp, index) => (
-            <div key={index} className="relative sm:pl-12">
-              <div className="absolute left-2.5 top-6 w-2.5 h-2.5 rounded-full bg-[var(--ramp-lime)] border-2 border-white shadow-sm hidden sm:block z-10" />
-
-              <article className="glass-card p-5 sm:p-6">
-                <div className="flex flex-wrap items-baseline justify-between gap-2 mb-1.5">
-                  <h3 className="text-base sm:text-lg font-semibold tracking-tight text-[var(--ramp-ink)]">
-                    {exp.title}
-                  </h3>
-                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[var(--ramp-lime)]/40 text-[var(--ramp-ink)]">
-                    {exp.period}
-                  </span>
-                </div>
-                <p className="text-sm font-medium text-[var(--ramp-ink-soft)]">{exp.company}</p>
-                <p className="text-xs text-[var(--ramp-muted)] mb-3">{exp.location}</p>
-                <p className="text-sm text-[var(--ramp-ink-soft)] leading-relaxed">
-                  {exp.description}
-                </p>
-              </article>
+      <div className="border-t border-black/10">
+        {experiences.map((exp, index) => (
+          <article key={`${exp.title}-${exp.company}`} className="grid grid-cols-1 gap-2 border-b border-black/10 py-6 sm:grid-cols-12 sm:gap-6 sm:py-8">
+            <p className="text-[13px] text-[var(--pt-muted)] sm:col-span-2">
+              /{String(index + 1).padStart(2, '0')}
+            </p>
+            <div className="sm:col-span-7">
+              <h3 className="text-[22px] font-normal tracking-[-0.02em] leading-tight text-[var(--pt-ink)] sm:text-[28px]">
+                {exp.title}
+              </h3>
+              <p className="mt-1 text-sm text-[var(--pt-ink-soft)]">{exp.company}</p>
+              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[var(--pt-muted)]">
+                {exp.description}
+              </p>
             </div>
-          ))}
-        </div>
+            <p className="text-sm text-[var(--pt-muted)] sm:col-span-3 sm:text-right">
+              {exp.period}
+              <span className="mt-1 block">{exp.location}</span>
+            </p>
+          </article>
+        ))}
       </div>
     </div>
   );

@@ -60,13 +60,13 @@ const SocialShare = ({ url, className = '' }) => {
       onClick={copyLink}
       className={`inline-flex items-center gap-2 text-sm font-medium transition-colors ${
         copied
-          ? 'text-[var(--ramp-ink)]'
-          : 'text-[var(--ramp-muted)] hover:text-[var(--ramp-ink)]'
+          ? 'text-[var(--pt-ink)]'
+          : 'text-[var(--pt-muted)] hover:text-[var(--pt-ink)]'
       } ${className}`}
     >
       {copied ? (
         <>
-          <Check className="w-4 h-4 text-[var(--ramp-lime-deep)]" />
+          <Check className="w-4 h-4 text-[var(--pt-gold-deep)]" />
           Copied
         </>
       ) : (
@@ -86,7 +86,7 @@ const RelatedPosts = ({ posts }) => {
     <div className="mt-16 sm:mt-20">
       <div className="mb-8">
         <span className="section-label">Keep reading</span>
-        <h3 className="headline text-2xl sm:text-3xl mt-3">Related articles</h3>
+        <h3 className="headline mt-3">Related articles</h3>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -97,7 +97,7 @@ const RelatedPosts = ({ posts }) => {
             className="group block h-full"
           >
             <article className="glass-card h-full overflow-hidden p-0 flex flex-col">
-              <div className="relative h-44 bg-[var(--ramp-cream-deep)] overflow-hidden">
+              <div className="relative h-44 bg-[var(--pt-surface)] overflow-hidden">
                 {post.image ? (
                   <Image
                     src={post.image}
@@ -107,8 +107,8 @@ const RelatedPosts = ({ posts }) => {
                     sizes="(max-width: 768px) 100vw, 50vw"
                   />
                 ) : (
-                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-black/[0.03] to-[var(--ramp-lime)]/20">
-                    <span className="text-4xl font-bold text-[var(--ramp-ink)]/10">
+                  <div className="absolute inset-0 flex items-center justify-center bg-[#e6e6e6]">
+                    <span className="text-4xl font-bold text-[var(--pt-ink)]/10">
                       {post.category?.charAt(0) || 'B'}
                     </span>
                   </div>
@@ -117,22 +117,22 @@ const RelatedPosts = ({ posts }) => {
 
               <div className="p-5 sm:p-6 flex flex-col flex-grow space-y-3">
                 {post.category && (
-                  <span className="inline-flex self-start px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[var(--ramp-lime)]/40 text-[var(--ramp-ink)]">
+                  <span className="text-[11px] font-medium uppercase tracking-[0.12em] text-[var(--pt-muted)]">
                     {post.category}
                   </span>
                 )}
 
-                <h4 className="text-lg font-semibold tracking-tight text-[var(--ramp-ink)] leading-snug group-hover:opacity-75 transition-opacity line-clamp-2">
+                <h4 className="text-lg font-normal tracking-[-0.02em] leading-snug text-[var(--pt-ink)] group-hover:opacity-75 transition-opacity line-clamp-2">
                   {post.title}
                 </h4>
 
                 {post.excerpt && (
-                  <p className="text-sm text-[var(--ramp-muted)] leading-relaxed line-clamp-2 flex-grow">
+                  <p className="text-sm text-[var(--pt-muted)] leading-relaxed line-clamp-2 flex-grow">
                     {post.excerpt}
                   </p>
                 )}
 
-                <div className="flex items-center gap-3 text-xs text-[var(--ramp-muted)] pt-2 border-t border-black/[0.05]">
+                <div className="flex items-center gap-3 text-xs text-[var(--pt-muted)] pt-2 border-t border-black/[0.08]">
                   <time dateTime={post.date} className="inline-flex items-center gap-1">
                     <Calendar className="w-3 h-3" />
                     {new Date(post.date).toLocaleDateString('en-US', {
@@ -182,28 +182,7 @@ export default function BlogPost({ blog, relatedPosts = [] }) {
       <ReadingProgress />
 
       <div className="relative min-h-screen overflow-x-hidden">
-        <div className="ambient-bg" aria-hidden="true">
-          <div
-            className="orb"
-            style={{
-              width: 400,
-              height: 400,
-              top: '8%',
-              right: '-5%',
-              background: 'radial-gradient(circle, rgba(210,243,76,0.28) 0%, transparent 70%)',
-            }}
-          />
-          <div
-            className="orb"
-            style={{
-              width: 340,
-              height: 340,
-              bottom: '20%',
-              left: '-8%',
-              background: 'radial-gradient(circle, rgba(180,200,255,0.25) 0%, transparent 70%)',
-            }}
-          />
-        </div>
+        <div className="ambient-bg" aria-hidden="true" />
 
         <Navbar />
 
@@ -218,16 +197,16 @@ export default function BlogPost({ blog, relatedPosts = [] }) {
             >
               <Link
                 href="/blog"
-                className="inline-flex items-center gap-2 text-sm font-medium text-[var(--ramp-muted)] hover:text-[var(--ramp-ink)] transition-colors"
+                className="inline-flex items-center gap-2 text-sm font-medium text-[var(--pt-muted)] hover:text-[var(--pt-ink)] transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 All articles
               </Link>
 
               <div className="flex flex-wrap items-center justify-between gap-3">
-                <div className="flex flex-wrap items-center gap-3 text-sm text-[var(--ramp-muted)]">
+                <div className="flex flex-wrap items-center gap-3 text-sm text-[var(--pt-muted)]">
                   {blog.category && (
-                    <span className="inline-flex px-3 py-1 rounded-full text-xs font-semibold bg-[var(--ramp-lime)]/50 text-[var(--ramp-ink)]">
+                    <span className="text-[11px] font-medium uppercase tracking-[0.12em] text-[var(--pt-muted)]">
                       {blog.category}
                     </span>
                   )}
@@ -243,30 +222,30 @@ export default function BlogPost({ blog, relatedPosts = [] }) {
                 <SocialShare url={currentUrl} />
               </div>
 
-              <h1 className="headline text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] leading-[1.08]">
+              <h1 className="headline-lg">
                 {blog.title}
               </h1>
 
               {blog.excerpt && (
-                <p className="text-lg sm:text-xl text-[var(--ramp-muted)] leading-relaxed max-w-2xl">
+                <p className="text-lg sm:text-xl text-[var(--pt-muted)] leading-relaxed max-w-2xl">
                   {blog.excerpt}
                 </p>
               )}
 
               <div className="flex items-center gap-3 pt-1">
-                <div className="glass rounded-full pl-1.5 pr-4 py-1.5 flex items-center gap-2.5">
+                <div className="flex items-center gap-2.5">
                   <Image
                     src="/images/0xlf32.jpg"
                     alt="Lali Akhil Raj"
                     width={32}
                     height={32}
-                    className="rounded-full object-cover"
+                    className="object-cover"
                   />
                   <div className="leading-tight">
-                    <p className="text-sm font-semibold text-[var(--ramp-ink)]">
+                    <p className="text-sm font-semibold text-[var(--pt-ink)]">
                       Lali Akhil Raj
                     </p>
-                    <p className="text-[11px] text-[var(--ramp-muted)]">LF32</p>
+                    <p className="text-[11px] text-[var(--pt-muted)]">LF32</p>
                   </div>
                 </div>
               </div>
@@ -282,7 +261,7 @@ export default function BlogPost({ blog, relatedPosts = [] }) {
               className="mb-10 sm:mb-12"
             >
               <div className="glass-card overflow-hidden p-1.5 sm:p-2">
-                <div className="relative h-64 sm:h-80 md:h-[420px] rounded-[1rem] overflow-hidden bg-[var(--ramp-cream-deep)]">
+                <div className="relative h-64 sm:h-80 md:h-[420px] rounded-[1rem] overflow-hidden bg-[var(--pt-surface)]">
                   <Image
                     src={blog.image}
                     alt={blog.title}
@@ -314,7 +293,7 @@ export default function BlogPost({ blog, relatedPosts = [] }) {
               {blog.tags.map((tag, index) => (
                 <span
                   key={`${tag}-${index}`}
-                  className="px-3 py-1.5 text-xs font-semibold rounded-full bg-black/[0.04] border border-black/[0.05] text-[var(--ramp-ink-soft)]"
+                  className="px-2 py-1 text-xs text-[var(--pt-muted)]"
                 >
                   {tag}
                 </span>
@@ -325,10 +304,10 @@ export default function BlogPost({ blog, relatedPosts = [] }) {
           {/* Share */}
           <div className="mt-10 glass-card p-6 sm:p-7 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <h3 className="text-base font-semibold text-[var(--ramp-ink)] mb-1">
+              <h3 className="mb-1 text-[22px] font-normal tracking-[-0.02em] text-[var(--pt-ink)]">
                 Share this article
               </h3>
-              <p className="text-sm text-[var(--ramp-muted)]">
+              <p className="text-sm text-[var(--pt-muted)]">
                 Found this useful? Pass it along.
               </p>
             </div>
@@ -350,16 +329,13 @@ export default function BlogPost({ blog, relatedPosts = [] }) {
           </div>
         </article>
 
-        <footer className="relative z-10 border-t border-black/[0.06] py-10">
+        <footer className="relative z-10 border-t border-black/[0.08] py-10">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="flex items-center gap-2">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--ramp-ink)] text-[var(--ramp-lime)] text-[10px] font-bold">
-                  LF
-                </span>
-                <span className="text-sm font-semibold text-[var(--ramp-ink)]">LF32</span>
+                <span className="text-sm font-medium tracking-[-0.02em] text-[var(--pt-ink)]">LF32</span>
               </div>
-              <p className="text-sm text-[var(--ramp-muted)]">
+              <p className="text-sm text-[var(--pt-muted)]">
                 © {new Date().getFullYear()} Lali Akhil Raj. All rights reserved.
               </p>
             </div>

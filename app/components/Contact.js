@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Github, Linkedin, Shield, ArrowRight } from 'lucide-react';
+import { MapPin, Github, Linkedin, Shield, ArrowRight } from 'lucide-react';
 
 export default function Contact() {
   return (
@@ -10,8 +10,8 @@ export default function Contact() {
         <div className="flex justify-center mb-1">
           <span className="section-label">Contact</span>
         </div>
-        <h2 className="headline text-3xl sm:text-4xl mt-3">Get in touch</h2>
-        <p className="mt-2 text-[var(--ramp-muted)] text-base">
+        <h2 className="headline mt-3">Get in touch</h2>
+        <p className="mt-2 text-[var(--pt-muted)] text-base">
           Open to collaboration, consulting, and security research discussions.
         </p>
       </div>
@@ -26,24 +26,21 @@ export default function Contact() {
         >
           <a
             href="mailto:lf32.dev@gmail.com"
-            className="inline-flex items-center gap-3 text-base sm:text-lg font-semibold text-[var(--ramp-ink)] hover:opacity-70 transition-opacity"
+            className="inline-flex items-center gap-3 text-base sm:text-lg font-semibold text-[var(--pt-ink)] hover:opacity-70 transition-opacity"
           >
-            <span className="w-9 h-9 rounded-full bg-[var(--ramp-lime)] flex items-center justify-center">
-              <Mail className="w-4 h-4 text-[var(--ramp-ink)]" />
-            </span>
             lf32.dev@gmail.com
           </a>
-          <div className="flex items-center justify-center gap-2 text-sm text-[var(--ramp-muted)]">
+          <div className="flex items-center justify-center gap-2 text-sm text-[var(--pt-muted)]">
             <MapPin className="w-4 h-4" />
             India
           </div>
 
-          <div className="pt-5 border-t border-black/[0.06]">
-            <h3 className="text-[11px] font-semibold uppercase tracking-wider text-[var(--ramp-muted)] mb-2">
+          <div className="pt-5 border-t border-black/[0.08]">
+            <h3 className="text-[11px] font-semibold uppercase tracking-wider text-[var(--pt-muted)] mb-2">
               Secure communication
             </h3>
-            <div className="glass rounded-xl p-3.5 font-mono text-[11px] sm:text-xs text-[var(--ramp-ink-soft)]">
-              <div className="text-[10px] uppercase tracking-wide text-[var(--ramp-muted)] mb-1.5 font-sans font-semibold">
+            <div className="border border-black/10 bg-white p-3.5 font-mono text-[11px] sm:text-xs text-[var(--pt-ink-soft)]">
+              <div className="text-[10px] uppercase tracking-wide text-[var(--pt-muted)] mb-1.5 font-sans font-semibold">
                 PGP fingerprint
               </div>
               <div className="break-all leading-relaxed">
@@ -53,7 +50,7 @@ export default function Contact() {
             <div className="flex flex-wrap justify-center gap-4 mt-3 text-sm">
               <a
                 href="https://keys.openpgp.org/vks/v1/by-fingerprint/1F557E5DF7BCBA93FD0C71F85054D4046EF37944"
-                className="font-medium text-[var(--ramp-ink)] underline underline-offset-4 decoration-[var(--ramp-lime)] hover:opacity-70"
+                className="font-medium text-[var(--pt-ink)] underline underline-offset-4 decoration-[var(--pt-gold)] hover:opacity-70"
               >
                 Download public key
               </a>
@@ -61,7 +58,7 @@ export default function Contact() {
                 href="https://keys.openpgp.org/search?q=1F557E5DF7BCBA93FD0C71F85054D4046EF37944"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-medium text-[var(--ramp-muted)] hover:text-[var(--ramp-ink)]"
+                className="font-medium text-[var(--pt-muted)] hover:text-[var(--pt-ink)]"
               >
                 Keyserver lookup
               </a>
@@ -92,11 +89,9 @@ export default function Contact() {
               rel="noopener noreferrer"
               className="glass-card p-4 flex flex-col items-center text-center gap-1.5"
             >
-              <div className="w-9 h-9 rounded-xl bg-black/[0.04] flex items-center justify-center">
-                <link.icon className="w-4 h-4 text-[var(--ramp-ink-soft)]" />
-              </div>
-              <div className="font-semibold text-[var(--ramp-ink)] text-sm">{link.title}</div>
-              <div className="text-[11px] text-[var(--ramp-muted)]">{link.sub}</div>
+              <link.icon className="w-4 h-4 text-[var(--pt-ink-soft)]" />
+              <div className="font-semibold text-[var(--pt-ink)] text-sm">{link.title}</div>
+              <div className="text-[11px] text-[var(--pt-muted)]">{link.sub}</div>
             </a>
           ))}
         </div>

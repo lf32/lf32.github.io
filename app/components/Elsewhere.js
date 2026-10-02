@@ -56,8 +56,8 @@ export default function Elsewhere() {
     <div className="container-page">
       <div className="section-header">
         <span className="section-label">Elsewhere</span>
-        <h2 className="headline text-3xl sm:text-4xl mt-3">Find me online</h2>
-        <p className="mt-2 text-[var(--ramp-muted)] text-base">
+        <h2 className="headline mt-3">Find me online</h2>
+        <p className="mt-2 text-[var(--pt-muted)] text-base">
           Profiles, keys, and places I actually show up.
         </p>
       </div>
@@ -78,17 +78,15 @@ export default function Elsewhere() {
                 : {})}
               className="glass-card p-4 sm:p-5 flex items-start gap-3.5 group h-full"
             >
-              <div className="w-10 h-10 rounded-xl bg-black/[0.04] flex items-center justify-center shrink-0 group-hover:bg-[var(--ramp-lime)]/45 transition-colors">
-                <link.icon className="w-4 h-4 text-[var(--ramp-ink-soft)]" />
-              </div>
+              <link.icon className="mt-0.5 w-4 h-4 shrink-0 text-[var(--pt-ink-soft)]" />
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-1.5">
-                  <span className="font-semibold text-[var(--ramp-ink)] text-sm">
+                  <span className="font-semibold text-[var(--pt-ink)] text-sm">
                     {link.name}
                   </span>
-                  <ExternalLink className="w-3 h-3 text-[var(--ramp-muted)] opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <ExternalLink className="w-3 h-3 text-[var(--pt-muted)] opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
-                <p className="text-xs text-[var(--ramp-muted)] mt-0.5">{link.desc}</p>
+                <p className="text-xs text-[var(--pt-muted)] mt-0.5">{link.desc}</p>
               </div>
             </a>
           </motion.div>
