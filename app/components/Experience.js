@@ -2,6 +2,14 @@
 
 const experiences = [
   {
+    title: 'Security Engineer',
+    company: 'Endor Labs',
+    location: 'India',
+    period: '2025',
+    description:
+      "Write Semgrep SAST rules for AppSec and CloudSec Platforms, Develop vulnerabilitiy database for JS, PY supply chain software security",
+  },
+  {
     title: 'Software Engineer Intern',
     company: 'Defence Research and Development Organisation | RCI',
     location: 'India',
